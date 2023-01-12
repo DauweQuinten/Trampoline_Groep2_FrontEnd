@@ -138,10 +138,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5979895493568420288}
     m_Modifications:
+    - target: {fileID: 274378629, guid: 5ff21bb013957784abc0cf1fc32e7149, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8b464e36ba6180c4d967f6701d29db45, type: 2}
     - target: {fileID: 542544630, guid: 5ff21bb013957784abc0cf1fc32e7149, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1f6f3f271c784d744bf1ff55c00b44ff, type: 2}
+    - target: {fileID: 1957588107, guid: 5ff21bb013957784abc0cf1fc32e7149, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8b464e36ba6180c4d967f6701d29db45, type: 2}
     - target: {fileID: 7990335821764333822, guid: 5ff21bb013957784abc0cf1fc32e7149, type: 3}
       propertyPath: m_Name
       value: River
