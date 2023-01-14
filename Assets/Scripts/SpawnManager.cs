@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     // Variables
     public GameObject[] obstaclePrefabs;
-    public float spawnRangeX = 10;
+    public float spawnRangeX = 4;
   
     private Vector3 spawnPos;
 
