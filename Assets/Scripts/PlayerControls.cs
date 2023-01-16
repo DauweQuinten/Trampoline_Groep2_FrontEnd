@@ -33,6 +33,15 @@ public class PlayerControls : MonoBehaviour
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             levelControllerScript.ScrollState = false;
+        }    
+    }
+
+    // On collision exit
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            levelControllerScript.ScrollState = true;
         }
     }
 }
