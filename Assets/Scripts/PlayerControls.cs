@@ -1,50 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WebSocketSharp;
+using Newtonsoft;
+using System.Net.Sockets;
 
 public class PlayerControls : MonoBehaviour
 {
-
+    // variables
+    private WebSocket ws;
     private LevelController levelControllerScript;
-
     private float speed;
     private float xBounds = 3.5f;
-
-    //public float horizontalInput;
+    private float maxForce = 10.0f;
+    private int playerIndex;
 
     // Start is called before the first frame update
     void Start()
     {
+        // setup sockets
+        SetupForceSocket();
+
         // start coroutines
         StartCoroutine(SlowDown());
 
+        // get level controller script
         levelControllerScript = GameObject.Find("LevelController").GetComponent<LevelController>();
     }
-
 
 
     // Update is called once per frame
     void Update()
     {
-        // Get input from players
+        // Get keyboard input from players (temporary input)
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            speed -= 1f;
+            speed -= 2f;
+            Debug.Log($"Current speed: {speed}");
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            speed += 1f;
+            speed += 2f;
+            Debug.Log($"Current speed: {speed}");
         }
 
 
-        //move the player left or right
-        //horizontalInput = Input.GetAxis("Horizontal");     
+        //move the player left or right based on speed
         transform.Translate(Vector3.right * Time.deltaTime * speed);    
 
-              
-        
-
-                   
+                               
         // position constraints
         if(transform.position.x > xBounds)
         {
@@ -56,6 +60,8 @@ public class PlayerControls : MonoBehaviour
             transform.position = new Vector3(-xBounds, transform.position.y, transform.position.z);
         }
     }
+
+
 
     // Coroutine to slow down the player
     IEnumerator SlowDown()
@@ -73,12 +79,55 @@ public class PlayerControls : MonoBehaviour
                 {
                     speed += 1;
                 }
+                Debug.Log($"Current speed: {speed}");
             }
         }
     }
 
+
+    // setup socket connection and add force
+    void SetupForceSocket()
+    {
+        // Setup new connection to socket
+        ws = new WebSocket("ws://172.30.248.72:3000");
+        ws.Connect();
+
+
+        // on message received
+        ws.OnMessage += (sender, e) =>
+        {
+            Debug.Log("Message received: " + e.Data);
+            var message = JsonUtility.FromJson<SocketMessage>(e.Data);
+
+            // Check if the message is a jump message
+            if (message.jump)
+            {
+                Debug.Log("Jump received");
+                JumpMessage jumpMessage = message.jump;
+
+               
+                // check which player has jumped
+                if (jumpMessage.Index == "p1")
+                {
+                    playerIndex = 1;
+                }
+                else if (jumpMessage.Index == "p2")
+                {
+                    playerIndex = -1;
+                }
+
+                float force = jumpMessage.Force;
+
+                // add the force 
+                speed += maxForce * force * playerIndex;
+                Debug.Log($"Current speed: {speed}");
+                
+            }        
+        };
+    }
     
-    // On collision
+
+   // On collision
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
