@@ -8,6 +8,8 @@ public class PlayerControls : MonoBehaviour
     private LevelController levelControllerScript;
 
     private float speed = 10f;
+    private float xBounds = 3.5f;
+
     public float horizontalInput;
 
     // Start is called before the first frame update
@@ -23,9 +25,22 @@ public class PlayerControls : MonoBehaviour
     {
         //move the player left or right
         horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
+        
+        transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);    
+        
+        
+        // position constraints
+        if(transform.position.x > xBounds)
+        {
+            transform.position = new Vector3(xBounds, transform.position.y, transform.position.z);
+        }
+        
+        if (transform.position.x < -xBounds)
+        {
+            transform.position = new Vector3(-xBounds, transform.position.y, transform.position.z);
+        }
     }
-
+    
 
     // On collision
     private void OnCollisionEnter(Collision collision)

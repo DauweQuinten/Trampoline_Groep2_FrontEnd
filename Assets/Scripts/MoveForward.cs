@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class MoveForward : MonoBehaviour
 {
-    public int speed = 10;
+    private float speed;
     private LevelController levelControllerScript;
 
     // On start
     void Start()
-    {
+    {     
         levelControllerScript = GameObject.Find("LevelController").GetComponent<LevelController>();
+        speed = levelControllerScript.scrollSpeed;
     }
 
 
