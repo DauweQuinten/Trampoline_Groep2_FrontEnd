@@ -53,12 +53,16 @@ public class PlayerControls : MonoBehaviour
         if(transform.position.x > xBounds)
         {
             transform.position = new Vector3(xBounds, transform.position.y, transform.position.z);
+            speed = 0;
+            Debug.Log($"Player hit left wall: speed is {speed}");
         }
         
         if (transform.position.x < -xBounds)
         {
             transform.position = new Vector3(-xBounds, transform.position.y, transform.position.z);
-        }
+            speed = 0;
+            Debug.Log($"Player hit right wall: speed is {speed}");
+        }     
     }
 
 
