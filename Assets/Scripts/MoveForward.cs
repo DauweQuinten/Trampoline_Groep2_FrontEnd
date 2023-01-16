@@ -20,7 +20,6 @@ public class MoveForward : MonoBehaviour
         if (levelControllerScript.ScrollState)
         {
             transform.Translate(Vector3.forward * Time.deltaTime * speed);           
-        }
-        
+        }     
     }
 }
