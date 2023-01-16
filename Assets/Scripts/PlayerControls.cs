@@ -7,14 +7,17 @@ public class PlayerControls : MonoBehaviour
 
     private LevelController levelControllerScript;
 
-    private float speed = 10f;
+    private float speed;
     private float xBounds = 3.5f;
 
-    public float horizontalInput;
+    //public float horizontalInput;
 
     // Start is called before the first frame update
     void Start()
     {
+        // start coroutines
+        StartCoroutine(SlowDown());
+
         levelControllerScript = GameObject.Find("LevelController").GetComponent<LevelController>();
     }
 
@@ -23,12 +26,25 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Get input from players
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            speed -= 1f;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            speed += 1f;
+        }
+
+
         //move the player left or right
-        horizontalInput = Input.GetAxis("Horizontal");
+        //horizontalInput = Input.GetAxis("Horizontal");     
+        transform.Translate(Vector3.right * Time.deltaTime * speed);    
+
+              
         
-        transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);    
-        
-        
+
+                   
         // position constraints
         if(transform.position.x > xBounds)
         {
@@ -40,8 +56,28 @@ public class PlayerControls : MonoBehaviour
             transform.position = new Vector3(-xBounds, transform.position.y, transform.position.z);
         }
     }
-    
 
+    // Coroutine to slow down the player
+    IEnumerator SlowDown()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.5f);
+            if (speed != 0)
+            {
+                if (speed > 0)
+                {
+                    speed -= 1;
+                }
+                else if (speed < 0)
+                {
+                    speed += 1;
+                }
+            }
+        }
+    }
+
+    
     // On collision
     private void OnCollisionEnter(Collision collision)
     {
