@@ -21,11 +21,15 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnRandonObstacle()
     {
-        while (levelControllerScript.ScrollState)
+        while (true)
         {
-            int obstacleIndex = Random.Range(0, obstaclePrefabs.Length);
-            spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), 0, -50);
-            Instantiate(obstaclePrefabs[obstacleIndex], spawnPos, obstaclePrefabs[obstacleIndex].transform.rotation);
+            if (levelControllerScript.ScrollState)
+            {
+                int obstacleIndex = Random.Range(0, obstaclePrefabs.Length);
+                spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), 0, -50);
+                Instantiate(obstaclePrefabs[obstacleIndex], spawnPos, obstaclePrefabs[obstacleIndex].transform.rotation);
+                
+            }
             yield return new WaitForSeconds(2);
         }
     }
