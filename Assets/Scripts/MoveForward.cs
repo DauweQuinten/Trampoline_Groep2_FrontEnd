@@ -4,12 +4,23 @@ using UnityEngine;
 
 public class MoveForward : MonoBehaviour
 {
-    public int speed = 10;
+    private float speed;
+    private LevelController levelControllerScript;
+
+    // On start
+    void Start()
+    {     
+        levelControllerScript = GameObject.Find("LevelController").GetComponent<LevelController>();
+        speed = levelControllerScript.scrollSpeed;
+    }
 
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        if (levelControllerScript.ScrollState)
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * speed);           
+        }     
     }
 }
