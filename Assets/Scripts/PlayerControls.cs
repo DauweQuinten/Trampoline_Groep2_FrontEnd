@@ -11,7 +11,6 @@ using Newtonsoft.Json.Utilities;
 public class PlayerControls : MonoBehaviour
 {
     // variables
-    private WebSocket ws;
     private LevelController levelControllerScript;
     //private float speed;
     private float xBounds = 3.5f;
