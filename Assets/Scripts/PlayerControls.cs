@@ -16,6 +16,8 @@ public class PlayerControls : MonoBehaviour
     private float xBounds = 3.5f;
     //private int playerIndex;
 
+    public bool hasCollided = false;
+
     // leeg scriptvariabele
     private WsHandler wsHandler;
 
@@ -108,6 +110,7 @@ public class PlayerControls : MonoBehaviour
             levelControllerScript.ScrollState = false;
             speed = 0;
             Debug.Log("BOEM");
+            hasCollided = true;
         }
     }
             
@@ -117,6 +120,7 @@ public class PlayerControls : MonoBehaviour
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             levelControllerScript.ScrollState = true;
+            hasCollided = false;
         }
     }
 }
