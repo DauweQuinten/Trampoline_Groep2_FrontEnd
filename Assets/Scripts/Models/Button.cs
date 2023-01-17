@@ -4,7 +4,7 @@ namespace Models
 {
     public class Button
     {
-        [JsonProperty("btnState")] public BtnState BtnState { get; set; }
+        [JsonProperty("btn")] public BtnState BtnState { get; set; }
     }
 
     public enum BtnState
