@@ -29,9 +29,7 @@ public class WsHandler : MonoBehaviour
     void SetupSocket()
     {
         // Setup new connection to socket
-        // ws = new WebSocket("ws://172.30.248.55:3000");
-
-        ws = new WebSocket("ws://127.0.0.1:3000");
+        ws = new WebSocket("ws://172.30.248.55:3000");
         ws.Connect();
         
         ws.OnOpen += (sender, e) =>
@@ -70,8 +68,20 @@ public class WsHandler : MonoBehaviour
             if (message.Button != null)
             {
                 Debug.Log("Button pressed");
-                var btnMessage = message.Button;
+                var btnMessage = message.Button.BtnState;
                 Debug.Log(btnMessage);
+                if (btnMessage == BtnState.BOTH)
+                {
+                    Debug.Log("Both buttons pressed");
+                }
+                else if (btnMessage == BtnState.LEFT)
+                {
+                    Debug.Log("Left button pressed");
+                }
+                else if (btnMessage == BtnState.RIGHT)
+                {
+                    Debug.Log("Right button pressed");
+                }
             }
 
             // if message.inactive -> haai komt vooruit
