@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using Models;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -29,7 +30,7 @@ public class WsHandler : MonoBehaviour
     void SetupSocket()
     {
         // Setup new connection to socket
-        ws = new WebSocket("ws://172.30.248.55:3000");
+        ws = new WebSocket(General.SocketUrl);
         ws.Connect();
         
         ws.OnOpen += (sender, e) =>
