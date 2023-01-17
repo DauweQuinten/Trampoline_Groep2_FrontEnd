@@ -39,7 +39,7 @@ public class PlayerControls : MonoBehaviour
         wsHandler = GameObject.Find("SocketController").GetComponent<WsHandler>();
 
         //variabele uit socket script gelijk stellen aan lokale variabele
-        speed = wsHandler.socketSpeed;
+        // speed = wsHandler.socketSpeed;
     }
 
 
