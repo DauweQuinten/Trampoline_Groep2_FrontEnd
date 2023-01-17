@@ -12,9 +12,11 @@ public class PlayerControls : MonoBehaviour
     private LevelController levelControllerScript;
     private float speed;
     private float xBounds = 3.5f;
-    private float maxForce = 10.0f;
     private int playerIndex;
 
+    public float maxForce = 10.0f;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -33,20 +35,20 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         // Get keyboard input from players (temporary input)
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            speed -= 2f;
-            Debug.Log($"Current speed: {speed}");
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            speed += 2f;
-            Debug.Log($"Current speed: {speed}");
-        }
+        //if (Input.GetKeyDown(KeyCode.LeftArrow))
+        //{
+        //    speed -= 2f;
+        //    Debug.Log($"Current speed: {speed}");
+        //}
+        //else if (Input.GetKeyDown(KeyCode.RightArrow))
+        //{
+        //    speed += 2f;
+        //    Debug.Log($"Current speed: {speed}");
+        //}
 
 
         //move the player left or right based on speed
-        transform.Translate(Vector3.right * Time.deltaTime * speed);    
+        // transform.Translate(Vector3.right * Time.deltaTime * speed);    
 
                                
         // position constraints
@@ -93,7 +95,7 @@ public class PlayerControls : MonoBehaviour
     void SetupForceSocket()
     {
         // Setup new connection to socket
-        ws = new WebSocket("ws://172.30.248.72:3000");
+        ws = new WebSocket("ws://172.30.248.55:3000");
         ws.Connect();
 
 
@@ -129,17 +131,19 @@ public class PlayerControls : MonoBehaviour
             }        
         };
     }
-    
 
-   // On collision
+
+    // On collision
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             levelControllerScript.ScrollState = false;
-        }    
+            speed = 0;
+            Debug.Log("BOEM");
+        }
     }
-
+            
     // On collision exit
     private void OnCollisionExit(Collision collision)
     {
@@ -149,3 +153,4 @@ public class PlayerControls : MonoBehaviour
         }
     }
 }
+        

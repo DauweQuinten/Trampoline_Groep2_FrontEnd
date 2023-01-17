@@ -6,5 +6,5 @@ public class SocketMessage : MonoBehaviour
 {
     public JumpMessage jump { get; set; }
 
-	// public string btn { get; set; }
+	public ButtonMessage button { get; set; }
 }
