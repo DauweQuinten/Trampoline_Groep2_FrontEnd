@@ -28,15 +28,27 @@ public class SharkController : MonoBehaviour
             {
                 transform.Translate(Vector3.back * Time.deltaTime * sharkSpeed);            
             }              
+        }else
+        {
+            Debug.Log("Das pech, player weg");
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "Player")
+    //    {
+    //        Debug.Log("Blub");
+    //        Destroy(collision.gameObject);
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             Debug.Log("Blub");
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
         }
     }
 }
