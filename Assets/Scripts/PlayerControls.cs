@@ -12,19 +12,17 @@ public class PlayerControls : MonoBehaviour
 {
     // variables
     private LevelController levelControllerScript;
-    //private float speed;
     private float xBounds = 3.5f;
-    //private int playerIndex;
 
     public bool hasCollided = false;
     public bool hittedWall = false;
+    public bool keyboardEnabled;
     
 
     // leeg scriptvariabele
     private WsHandler wsHandler;
 
     private float speed;
-
     public float maxForce = 10.0f;
 
     
@@ -49,15 +47,20 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         // Get keyboard input from players (temporary input)
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            speed -= 2f;
-            Debug.Log($"current speed: {speed}");
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            speed += 2f;
-            Debug.Log($"current speed: {speed}");
+
+
+        if (keyboardEnabled)
+        {          
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                speed -= 2f;
+                Debug.Log($"current speed: {speed}");
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                speed += 2f;
+                Debug.Log($"current speed: {speed}");
+            }
         }
 
 

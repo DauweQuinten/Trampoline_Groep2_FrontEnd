@@ -33,6 +33,6 @@ public class MoveForward : MonoBehaviour
             speed = levelControllerScript.scrollSpeed;
         }
         
-        Debug.Log(speed);
+        // Debug.Log(speed);
     }
 }
