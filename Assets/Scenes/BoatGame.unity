@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028381, g: 0.22571406, b: 0.30692294, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028307, g: 0.22571306, b: 0.30692142, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -158,6 +158,7 @@ Transform:
   - {fileID: 2141083675}
   - {fileID: 1663379200}
   - {fileID: 5253205895813803043}
+  - {fileID: 7006590518481785587}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -235,10 +236,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1203989080}
     m_Modifications:
-    - target: {fileID: 952467603, guid: 234920ad4d44a2947aa663eaeeba2ee5, type: 3}
-      propertyPath: m_Constraints
-      value: 124
-      objectReference: {fileID: 0}
     - target: {fileID: 2066705657006196270, guid: 234920ad4d44a2947aa663eaeeba2ee5, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -536,6 +533,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6144303494431887688, guid: 3b896d0b8908b6f4abee8840361d8cec, type: 3}
   m_PrefabInstance: {fileID: 6334791033184543336}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7006590518481785586
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1203989080}
+    m_Modifications:
+    - target: {fileID: 1703752938648254439, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703752938648254439, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703752938648254439, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703752938648254439, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703752938648254439, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703752938648254439, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703752938648254439, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703752938648254439, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703752938648254439, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703752938648254439, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703752938648254439, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031613527866851682, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+      propertyPath: m_Name
+      value: Shark
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+--- !u!4 &7006590518481785587 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1703752938648254439, guid: a599c53d86ac2499a91bcd370d9cd2c2, type: 3}
+  m_PrefabInstance: {fileID: 7006590518481785586}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8001572130021439617
 PrefabInstance:
