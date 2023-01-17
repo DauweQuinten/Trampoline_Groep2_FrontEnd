@@ -7,11 +7,13 @@ public class SharkController : MonoBehaviour
 {
     private GameObject playerOjbect;
     private bool playerhasCollided;
-    private float sharkSpeed = 1.0f;
+    private readonly float sharkSpeed = 1.0f;
+    private PlayerControls _playerControls;
 
     // Start is called before the first frame update
     void Start()
     {
+        _playerControls = playerOjbect.GetComponent<PlayerControls>();
         playerOjbect = GameObject.Find("Boat");
     }
     
@@ -21,12 +23,15 @@ public class SharkController : MonoBehaviour
 
         if (playerOjbect)
         {
-            transform.position = new Vector3(playerOjbect.transform.position.x, this.transform.position.y, this.transform.position.z);
-            playerhasCollided = playerOjbect.GetComponent<PlayerControls>().hasCollided;
+            var transform1 = transform;
+            var position = transform1.position;
+            position = new Vector3(playerOjbect.transform.position.x, position.y, position.z);
+            transform1.position = position;
+            playerhasCollided = _playerControls.hasCollided;
 
             if (playerhasCollided)
             {
-                transform.Translate(Vector3.back * Time.deltaTime * sharkSpeed);            
+                transform.Translate(Vector3.back * (Time.deltaTime * sharkSpeed));            
             }              
         }else
         {
@@ -45,7 +50,7 @@ public class SharkController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Blub");
             Destroy(other.gameObject);
