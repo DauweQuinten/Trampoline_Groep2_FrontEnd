@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Models;
+using Newtonsoft.Json;
 using UnityEngine;
 using WebSocketSharp;
 
@@ -14,6 +16,7 @@ public class WsHandler : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("script started");
         //reference naar de maxForce uit de PlayerControls
         playerControls = GameObject.Find("Boat").GetComponent<PlayerControls>();
         playermaxForce = playerControls.maxForce;
@@ -26,9 +29,15 @@ public class WsHandler : MonoBehaviour
     void SetupSocket()
     {
         // Setup new connection to socket
-        ws = new WebSocket("ws://172.30.248.55:3000");
-        ws.Connect();
+        // ws = new WebSocket("ws://172.30.248.55:3000");
 
+        ws = new WebSocket("ws://127.0.0.1:3000");
+        ws.Connect();
+        
+        ws.OnOpen += (sender, e) =>
+        {
+            Debug.Log("Socket Open!");
+        };
 
         // on message received
         ws.OnMessage += (sender, e) =>
@@ -36,38 +45,32 @@ public class WsHandler : MonoBehaviour
             Debug.Log("Message received: " + e.Data);
 
             // parse message
-            SocketMessage message = Newtonsoft.Json.JsonConvert.DeserializeObject<SocketMessage>(e.Data);
-
-            Debug.Log(message);
-
+            var message = JsonConvert.DeserializeObject<SocketOnMessage>(e.Data);
             // Check if the message is a jump message
-            if (message.Jump)
+            if (message.Jump != null)
             {
                 Debug.Log("Jump received");
-                JumpMessage jumpMessage = message.Jump;
+                var jumpMessage = message.Jump;
 
-
-                // check which player has jumped
-                if (jumpMessage.Index == "p1")
+                playerIndex = jumpMessage.Player switch
                 {
-                    playerIndex = 1;
-                }
-                else if (jumpMessage.Index == "p2")
-                {
-                    playerIndex = -1;
-                }
+                    // check which player has jumped
+                    0 => 1,
+                    1 => -1,
+                    _ => playerIndex
+                };
 
-                float force = jumpMessage.Force;
+                var force = jumpMessage.Force;
 
                 // add the force 
                 socketSpeed += playermaxForce * force * playerIndex;
                 Debug.Log($"Current speed: {socketSpeed}");
 
             }
-            if (message.button != null)
+            if (message.Button != null)
             {
                 Debug.Log("Button pressed");
-                ButtonMessage btnMessage = message.button;
+                var btnMessage = message.Button;
                 Debug.Log(btnMessage);
             }
 
