@@ -13,9 +13,14 @@ public class PlayerControls : MonoBehaviour
     // variables
     private WebSocket ws;
     private LevelController levelControllerScript;
-    private float speed;
+    //private float speed;
     private float xBounds = 3.5f;
-    private int playerIndex;
+    //private int playerIndex;
+
+    // leeg scriptvariabele
+    private WsHandler wsHandler;
+
+    private float speed;
 
     public float maxForce = 10.0f;
 
@@ -23,14 +28,17 @@ public class PlayerControls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // setup sockets
-        // SetupForceSocket();
-
         // start coroutines
         StartCoroutine(SlowDown());
 
         // get level controller script
         levelControllerScript = GameObject.Find("LevelController").GetComponent<LevelController>();
+
+        //vraag script op adhv leeg object in de scene en dat steek je in je scripthandler variable
+        wsHandler = GameObject.Find("SocketController").GetComponent<WsHandler>();
+
+        //variabele uit socket script gelijk stellen aan lokale variabele
+        speed = wsHandler.socketSpeed;
     }
 
 
@@ -92,59 +100,6 @@ public class PlayerControls : MonoBehaviour
             }
         }
     }
-
-
-    // setup socket connection and add force
-    void SetupForceSocket()
-    {
-        // Setup new connection to socket
-        ws = new WebSocket("ws://172.30.248.55:3000");
-        ws.Connect();
-
-
-        // on message received
-        ws.OnMessage += (sender, e) =>
-        {
-            Debug.Log("Message received: " + e.Data);
-
-            // parse message
-            SocketMessage message = Newtonsoft.Json.JsonConvert.DeserializeObject<SocketMessage>(e.Data);
-
-            Debug.Log(message);
-            
-            // Check if the message is a jump message
-            if (message.Jump)
-            {
-                Debug.Log("Jump received");
-                JumpMessage jumpMessage = message.Jump;
-
-               
-                // check which player has jumped
-                if (jumpMessage.Index == "p1")
-                {
-                    playerIndex = 1;
-                }
-                else if (jumpMessage.Index == "p2")
-                {
-                    playerIndex = -1;
-                }
-
-                float force = jumpMessage.Force;
-
-                // add the force 
-                speed += maxForce * force * playerIndex;
-                Debug.Log($"Current speed: {speed}");
-                
-            }
-            if (message.button != null)
-            {
-                Debug.Log("Button pressed");
-                ButtonMessage btnMessage = message.button;
-                Debug.Log(btnMessage);
-            }
-        };
-    }
-
 
     // On collision
     private void OnCollisionEnter(Collision collision)
