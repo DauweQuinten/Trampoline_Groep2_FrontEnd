@@ -23,7 +23,7 @@ public class WsHandler : MonoBehaviour
         playermaxForce = playerControls.maxForce;
         
         // setup sockets
-        SetupSocket();
+        // SetupSocket();
     }
 
 

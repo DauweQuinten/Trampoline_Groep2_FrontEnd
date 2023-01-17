@@ -17,6 +17,8 @@ public class PlayerControls : MonoBehaviour
     //private int playerIndex;
 
     public bool hasCollided = false;
+    public bool hittedWall = false;
+    
 
     // leeg scriptvariabele
     private WsHandler wsHandler;
@@ -67,15 +69,17 @@ public class PlayerControls : MonoBehaviour
         if (transform.position.x > xBounds)
         {
             transform.position = new Vector3(xBounds, transform.position.y, transform.position.z);
-            speed = 0;
+            speed = -speed/4;
             Debug.Log($"Player hit left wall: speed is {speed}");
+            hittedWall = true;
         }
         
         if (transform.position.x < -xBounds)
         {
             transform.position = new Vector3(-xBounds, transform.position.y, transform.position.z);
-            speed = 0;
+            speed = -speed/4;
             Debug.Log($"Player hit right wall: speed is {speed}");
+            hittedWall = true;
         }     
     }
 

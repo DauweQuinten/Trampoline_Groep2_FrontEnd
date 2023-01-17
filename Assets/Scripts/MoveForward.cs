@@ -6,12 +6,13 @@ public class MoveForward : MonoBehaviour
 {
     private float speed;
     private LevelController levelControllerScript;
+    private SharkController sharkControllerScript;
 
     // On start
     void Start()
     {     
         levelControllerScript = GameObject.Find("LevelController").GetComponent<LevelController>();
-        speed = levelControllerScript.scrollSpeed;
+        sharkControllerScript = GameObject.Find("Shark").GetComponent<SharkController>();
     }
 
 
@@ -20,7 +21,18 @@ public class MoveForward : MonoBehaviour
     {
         if (levelControllerScript.ScrollState)
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed);           
-        }     
+            transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        }
+    
+        if (sharkControllerScript.isMoving)
+        {
+            speed = levelControllerScript.scrollSpeed / 2;
+        }
+        else
+        {    
+            speed = levelControllerScript.scrollSpeed;
+        }
+        
+        Debug.Log(speed);
     }
 }
