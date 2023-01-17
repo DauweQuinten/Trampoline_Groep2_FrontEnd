@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,5 +16,13 @@ public class SocketMessage : MonoBehaviour
 	}
 
 
-	public ButtonMessage button { get; set; }
+    public ButtonMessage button { get; set; }
+
+    //private ButtonMessage button;
+
+    //public ButtonMessage Button
+    //{
+    //    get { return button; }
+    //    set { button = value; }
+    //}
 }

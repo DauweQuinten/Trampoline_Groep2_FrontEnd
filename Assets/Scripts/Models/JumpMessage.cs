@@ -4,7 +4,25 @@ using UnityEngine;
 
 public class JumpMessage : MonoBehaviour
 {
-    public string Index { get; set; }
+    private string index;
+    
+    public string Index
+    {
+        get { return index; }
+        set { index = value; }
+    }
 
-    public float Force { get; set; }
+   
+    private float force;
+    
+    public float Force
+    {
+        get { return force; }
+        set { force = value; }
+    }
+
+
+    // public string Index { get; set; }
+
+    // public float Force { get; set; }
 }

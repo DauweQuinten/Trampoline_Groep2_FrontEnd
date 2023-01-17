@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebSocketSharp;
-using Newtonsoft;
 using System.Net.Sockets;
+using System;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Utilities;
+
 
 public class PlayerControls : MonoBehaviour
 {
@@ -21,7 +24,7 @@ public class PlayerControls : MonoBehaviour
     void Start()
     {
         // setup sockets
-        SetupForceSocket();
+        // SetupForceSocket();
 
         // start coroutines
         StartCoroutine(SlowDown());
@@ -35,24 +38,24 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         // Get keyboard input from players (temporary input)
-        //if (Input.GetKeyDown(KeyCode.LeftArrow))
-        //{
-        //    speed -= 2f;
-        //    Debug.Log($"Current speed: {speed}");
-        //}
-        //else if (Input.GetKeyDown(KeyCode.RightArrow))
-        //{
-        //    speed += 2f;
-        //    Debug.Log($"Current speed: {speed}");
-        //}
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            speed -= 2f;
+            Debug.Log($"current speed: {speed}");
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            speed += 2f;
+            Debug.Log($"current speed: {speed}");
+        }
 
 
         //move the player left or right based on speed
-        // transform.Translate(Vector3.right * Time.deltaTime * speed);    
+        transform.Translate(Vector3.right * Time.deltaTime * speed);    
 
-                               
+        
         // position constraints
-        if(transform.position.x > xBounds)
+        if (transform.position.x > xBounds)
         {
             transform.position = new Vector3(xBounds, transform.position.y, transform.position.z);
             speed = 0;
@@ -103,13 +106,17 @@ public class PlayerControls : MonoBehaviour
         ws.OnMessage += (sender, e) =>
         {
             Debug.Log("Message received: " + e.Data);
-            var message = JsonUtility.FromJson<SocketMessage>(e.Data);
 
+            // parse message
+            SocketMessage message = Newtonsoft.Json.JsonConvert.DeserializeObject<SocketMessage>(e.Data);
+
+            Debug.Log(message);
+            
             // Check if the message is a jump message
-            if (message.jump)
+            if (message.Jump)
             {
                 Debug.Log("Jump received");
-                JumpMessage jumpMessage = message.jump;
+                JumpMessage jumpMessage = message.Jump;
 
                
                 // check which player has jumped
@@ -128,7 +135,13 @@ public class PlayerControls : MonoBehaviour
                 speed += maxForce * force * playerIndex;
                 Debug.Log($"Current speed: {speed}");
                 
-            }        
+            }
+            if (message.button != null)
+            {
+                Debug.Log("Button pressed");
+                ButtonMessage btnMessage = message.button;
+                Debug.Log(btnMessage);
+            }
         };
     }
 
