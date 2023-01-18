@@ -17,6 +17,7 @@ public class PlayerControls : MonoBehaviour
     public bool hasCollided = false;
     public bool hittedWall = false;
     public bool keyboardEnabled;
+    public bool isBackwards;
     
 
     // leeg scriptvariabele
@@ -24,8 +25,8 @@ public class PlayerControls : MonoBehaviour
 
     private float speed;
     public float maxForce = 10.0f;
-
     
+
     // Start is called before the first frame update
     void Start()
     {
@@ -109,26 +110,25 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+
+    IEnumerator ToggleBackwardsMovementAfterSeconds(float seconds)
+    {
+        isBackwards = true;
+        yield return new WaitForSeconds(seconds);
+        isBackwards = false;
+    }
+
+
+
+
     // On collision
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            levelControllerScript.ScrollState = false;
-            speed = 0;
             Debug.Log("BOEM");
-            hasCollided = true;
+            StartCoroutine(ToggleBackwardsMovementAfterSeconds(0.5f));
         }
-    }
-            
-    // On collision exit
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Obstacle"))
-        {
-            levelControllerScript.ScrollState = true;
-            hasCollided = false;
-        }
-    }
+    }       
 }
         

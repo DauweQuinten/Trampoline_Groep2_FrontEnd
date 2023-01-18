@@ -5,5 +5,6 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
     public float scrollSpeed = 10f;
-    public bool ScrollState = true;    
+    public bool ScrollState = true;
+    public bool gameOver = false;
 }
