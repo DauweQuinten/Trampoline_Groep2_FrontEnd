@@ -19,11 +19,11 @@ public class PlayerControls : MonoBehaviour
     public bool keyboardEnabled;
     public bool isBackwards;
     
-
+    
     // leeg scriptvariabele
     private WsHandler wsHandler;
 
-    private float speed;
+    private int speed;
     public float maxForce = 10.0f;
     
 
@@ -54,12 +54,12 @@ public class PlayerControls : MonoBehaviour
         {          
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                speed -= 2f;
+                speed -= 2;
                 Debug.Log($"current speed: {speed}");
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                speed += 2f;
+                speed += 2;
                 Debug.Log($"current speed: {speed}");
             }
         }
