@@ -35,7 +35,7 @@ public class SharkController : MonoBehaviour
             }              
         }else
         {
-            Debug.Log("Das pech, player weg");
+            // Debug.Log("Das pech, player weg");
         }
     }
 
