@@ -12,20 +12,21 @@ public class PlayerControls : MonoBehaviour
 {
     // variables
     private LevelController levelControllerScript;
-    //private float speed;
     private float xBounds = 3.5f;
-    //private int playerIndex;
 
     public bool hasCollided = false;
+    public bool hittedWall = false;
+    public bool keyboardEnabled;
+    public bool isBackwards;
+    
 
     // leeg scriptvariabele
     private WsHandler wsHandler;
 
     private float speed;
-
     public float maxForce = 10.0f;
-
     
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,15 +48,20 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         // Get keyboard input from players (temporary input)
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            speed -= 2f;
-            Debug.Log($"current speed: {speed}");
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            speed += 2f;
-            Debug.Log($"current speed: {speed}");
+
+
+        if (keyboardEnabled)
+        {          
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                speed -= 2f;
+                Debug.Log($"current speed: {speed}");
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                speed += 2f;
+                Debug.Log($"current speed: {speed}");
+            }
         }
 
 
@@ -67,15 +73,17 @@ public class PlayerControls : MonoBehaviour
         if (transform.position.x > xBounds)
         {
             transform.position = new Vector3(xBounds, transform.position.y, transform.position.z);
-            speed = 0;
+            speed = -speed/4;
             Debug.Log($"Player hit left wall: speed is {speed}");
+            hittedWall = true;
         }
         
         if (transform.position.x < -xBounds)
         {
             transform.position = new Vector3(-xBounds, transform.position.y, transform.position.z);
-            speed = 0;
+            speed = -speed/4;
             Debug.Log($"Player hit right wall: speed is {speed}");
+            hittedWall = true;
         }     
     }
 
@@ -102,26 +110,25 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+
+    IEnumerator ToggleBackwardsMovementAfterSeconds(float seconds)
+    {
+        isBackwards = true;
+        yield return new WaitForSeconds(seconds);
+        isBackwards = false;
+    }
+
+
+
+
     // On collision
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            levelControllerScript.ScrollState = false;
-            speed = 0;
             Debug.Log("BOEM");
-            hasCollided = true;
+            StartCoroutine(ToggleBackwardsMovementAfterSeconds(0.5f));
         }
-    }
-            
-    // On collision exit
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Obstacle"))
-        {
-            levelControllerScript.ScrollState = true;
-            hasCollided = false;
-        }
-    }
+    }       
 }
         
