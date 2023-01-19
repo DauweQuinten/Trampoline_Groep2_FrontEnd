@@ -19,7 +19,6 @@ public class MyTestEvent : UnityEvent<Color>
 }
 
 
-// Attribute to make the class showable in the inspector
 [System.Serializable]
 public class MyJumpEvent : UnityEvent<float, int>
 {
@@ -34,12 +33,21 @@ public class SocketEvents : MonoBehaviour
     #region Variables
 
     // Unity events
-    public UnityEvent OnJump;
+    public MyJumpEvent onJump;
     public MyTestEvent btnPressedLeft;
     public UnityEvent btnPressedRight;
     public UnityEvent btnPressedBoth;
 
+    // event states
     private bool leftPressed = false;
+    private bool rightPressed = false;
+    private bool bothPressed = false;
+    private bool playerJumped = false;
+
+    // other variables
+    private float jumpForce;
+    private int player;
+    
     
     // websocket
     private WebSocket ws;
@@ -50,11 +58,11 @@ public class SocketEvents : MonoBehaviour
     {                  
         #region initialize events
         
-        if (OnJump == null)
+        if (onJump == null)
         {
-            OnJump = new UnityEvent();
+            onJump = new MyJumpEvent();
         }
-
+      
         if (btnPressedLeft == null)
         {
             btnPressedLeft = new MyTestEvent();
@@ -98,17 +106,12 @@ public class SocketEvents : MonoBehaviour
                 Debug.Log("Jump received");
                 
                 var jumpMessage = message.Jump;
+                playerJumped = true;
 
-                // check which player has jumped
-                if (jumpMessage.Player == 0)
-                {
-                    // player 1 has jumped
-                }
-                else if (jumpMessage.Player == 1)
-                {
-                    // player 2 has jumped
-                }
+                jumpForce = jumpMessage.Force;
+                player = jumpMessage.Player;              
             }
+            
             else if (message.Button != null)
             {            
                 var btnMessage = message.Button;
@@ -118,33 +121,50 @@ public class SocketEvents : MonoBehaviour
 
                 if (btnState == BtnState.BOTH)
                 {
-                    Debug.Log("Both buttons pressed");
-                    btnPressedBoth.Invoke();
+                    bothPressed = true;
                 }
                 else if (btnState == BtnState.LEFT)
-                {
-                    Debug.Log("Left button pressed");                
+                {                
                     leftPressed = true;
                 }
                 else if (btnState == BtnState.RIGHT)
                 {
-                    Debug.Log("Right button pressed");           
-                    btnPressedRight.Invoke();
+                    rightPressed = true;
                 }
             }
         };
-
+        
         #endregion
     }
-
+    
     private void Update()
     {
+        #region invoke events 
+
         if (leftPressed)
         {
-            Debug.Log("Invoke event");
             btnPressedLeft.Invoke(Color.red);
             leftPressed = false;
         }
+        if (rightPressed)
+        {
+            btnPressedRight.Invoke();
+            rightPressed = false;
+        }
+        if (bothPressed)
+        {
+            btnPressedBoth.Invoke();
+            bothPressed = false;
+        }
+        if (playerJumped)
+        {
+            Debug.Log("Player has jumped");
+            onJump.Invoke(jumpForce, player);
+            playerJumped = false;          
+        }
+        
+        
+        #endregion
     }
 
     private void OnDestroy()
