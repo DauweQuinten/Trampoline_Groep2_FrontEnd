@@ -1,0 +1,24 @@
+.outline-text {
+    -unity-text-outline-color: rgb(19, 10, 1);
+    -unity-font: url('project://database/Assets/Editor/resources/Fonts%20&%20Materials/MouseMemoirs-Regular.ttf?fileID=12800000&guid=7e75f74396c653544a29de5a17f26147&type=3#MouseMemoirs-Regular');
+    -unity-text-outline-width: 12px;
+    font-size: 152px;
+    -unity-font-definition: none;
+    -unity-font-style: bold;
+    color: rgb(240, 223, 202);
+    text-shadow: 4px 6px 4px rgba(15, 40, 13, 0.25);
+    -unity-text-align: upper-center;
+}
+
+.outline-text-md {
+    font-size: 112px;
+    -unity-text-outline-width: 8px;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.6);
+    align-items: center;
+    justify-content: center;
+}
