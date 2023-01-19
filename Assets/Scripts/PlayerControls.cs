@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Utilities;
-
+using Unity.VisualScripting;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -24,7 +24,7 @@ public class PlayerControls : MonoBehaviour
     private WsHandler wsHandler;
 
     private int speed;
-    public float maxForce = 10.0f;
+    public float maxForce = 8.0f;
     
 
     // Start is called before the first frame update
@@ -131,12 +131,27 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-
     // Change color
     public void ChangeColor(Color newColor)
     {
         Debug.Log("Color should change");
         GetComponent<Renderer>().material.color = newColor;
+    }
+
+
+    public void Paddle(float force, int player)
+    {
+        switch (player)
+        {
+            case 1:
+                Debug.Log("Player 1 jumped with force: " + force);
+                speed += Mathf.FloorToInt(maxForce * force);
+                break;
+            case 2:
+                Debug.Log("Player 2 jumped with force: " + force);
+                speed -= Mathf.FloorToInt(maxForce * force);
+                break;
+        }
     }
 }
         
