@@ -129,6 +129,14 @@ public class PlayerControls : MonoBehaviour
             Debug.Log("BOEM");
             StartCoroutine(ToggleBackwardsMovementAfterSeconds(0.5f));
         }
-    }       
+    }
+
+
+    // Change color
+    public void ChangeColor(Color newColor)
+    {
+        Debug.Log("Color should change");
+        GetComponent<Renderer>().material.color = newColor;
+    }
 }
         
