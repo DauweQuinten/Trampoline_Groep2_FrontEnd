@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2612999361849721677}
-  - component: {fileID: 8251539065723284839}
+  - component: {fileID: 4161246303966263797}
   m_Layer: 0
   m_Name: SocketController
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8251539065723284839
+--- !u!114 &4161246303966263797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 3922186193690725266}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79cfc3343099d5244a8772a658477061, type: 3}
+  m_Script: {fileID: 11500000, guid: e1329a810af82664e82c6974705225bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  socketSpeed: 0
+  OnJump:
+    m_PersistentCalls:
+      m_Calls: []
+  btnPressedLeft:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlayerControls, Assembly-CSharp
+        m_MethodName: ChangeColor
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  btnPressedRight:
+    m_PersistentCalls:
+      m_Calls: []
+  btnPressedBoth:
+    m_PersistentCalls:
+      m_Calls: []
