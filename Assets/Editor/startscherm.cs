@@ -28,4 +28,14 @@ public class startscherm : EditorWindow
         VisualElement labelFromUxml = visualTree.Instantiate();
         root.Add(labelFromUxml);
     }
+    
+    void OnEnable()
+    {
+        CreateGUI();
+    }
+    void OnDisable()
+    {
+        rootVisualElement.Clear();
+    }
+    
 }
