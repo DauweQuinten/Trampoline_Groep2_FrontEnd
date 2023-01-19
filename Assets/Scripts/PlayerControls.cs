@@ -135,6 +135,7 @@ public class PlayerControls : MonoBehaviour
     // Change color
     public void ChangeColor(Color newColor)
     {
+        Debug.Log("Color should change");
         GetComponent<Renderer>().material.color = newColor;
     }
 }

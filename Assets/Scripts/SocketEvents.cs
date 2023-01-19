@@ -18,6 +18,14 @@ public class MyTestEvent : UnityEvent<Color>
     
 }
 
+
+// Attribute to make the class showable in the inspector
+[System.Serializable]
+public class MyJumpEvent : UnityEvent<float, int>
+{
+    
+}
+
 #endregion
 
 
@@ -31,13 +39,15 @@ public class SocketEvents : MonoBehaviour
     public UnityEvent btnPressedRight;
     public UnityEvent btnPressedBoth;
 
+    private bool leftPressed = false;
+    
     // websocket
     private WebSocket ws;
 
     #endregion
 
     private void Start()
-    {
+    {                  
         #region initialize events
         
         if (OnJump == null)
@@ -49,7 +59,7 @@ public class SocketEvents : MonoBehaviour
         {
             btnPressedLeft = new MyTestEvent();
         }
-        
+
         if (btnPressedRight == null)
         {
             btnPressedRight = new UnityEvent();
@@ -66,7 +76,7 @@ public class SocketEvents : MonoBehaviour
 
         // Connect to websocket
         ws = new WebSocket(General.SocketUrl);
-        //ws.Connect();
+        ws.Connect();
 
         // On socket connected
         ws.OnOpen += (sender, e) =>
@@ -113,12 +123,12 @@ public class SocketEvents : MonoBehaviour
                 }
                 else if (btnState == BtnState.LEFT)
                 {
-                    Debug.Log("Left button pressed");
-                    btnPressedLeft.Invoke(Color.red);
+                    Debug.Log("Left button pressed");                
+                    leftPressed = true;
                 }
                 else if (btnState == BtnState.RIGHT)
                 {
-                    Debug.Log("Right button pressed");
+                    Debug.Log("Right button pressed");           
                     btnPressedRight.Invoke();
                 }
             }
@@ -129,9 +139,16 @@ public class SocketEvents : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (leftPressed)
         {
+            Debug.Log("Invoke event");
             btnPressedLeft.Invoke(Color.red);
+            leftPressed = false;
         }
+    }
+
+    private void OnDestroy()
+    {
+        ws.Close();
     }
 }
