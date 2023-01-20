@@ -378,6 +378,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7748023349030019088, guid: 43e10eaf7dc8a3f419538386e2d23698, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9045017117455474008, guid: 43e10eaf7dc8a3f419538386e2d23698, type: 3}
       propertyPath: m_Camera
       value: 
@@ -449,8 +453,28 @@ PrefabInstance:
       value: SocketController
       objectReference: {fileID: 0}
     - target: {fileID: 4161246303966263797, guid: 7c11dc4eaf1624e17a6ced5dee48cc13, type: 3}
+      propertyPath: onJump.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161246303966263797, guid: 7c11dc4eaf1624e17a6ced5dee48cc13, type: 3}
       propertyPath: btnPressedLeft.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161246303966263797, guid: 7c11dc4eaf1624e17a6ced5dee48cc13, type: 3}
+      propertyPath: onJump.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161246303966263797, guid: 7c11dc4eaf1624e17a6ced5dee48cc13, type: 3}
+      propertyPath: onJump.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 480023800}
+    - target: {fileID: 4161246303966263797, guid: 7c11dc4eaf1624e17a6ced5dee48cc13, type: 3}
+      propertyPath: onJump.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161246303966263797, guid: 7c11dc4eaf1624e17a6ced5dee48cc13, type: 3}
+      propertyPath: onJump.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Paddle
       objectReference: {fileID: 0}
     - target: {fileID: 4161246303966263797, guid: 7c11dc4eaf1624e17a6ced5dee48cc13, type: 3}
       propertyPath: btnPressedLeft.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -477,8 +501,8 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4161246303966263797, guid: 7c11dc4eaf1624e17a6ced5dee48cc13, type: 3}
-      propertyPath: btnPressedLeft.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: set_enabled
+      propertyPath: onJump.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerControls, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4161246303966263797, guid: 7c11dc4eaf1624e17a6ced5dee48cc13, type: 3}
       propertyPath: btnPressedLeft.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -494,6 +518,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4161246303966263797, guid: 7c11dc4eaf1624e17a6ced5dee48cc13, type: 3}
       propertyPath: btnPressedLeft.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      value: PlayerControls, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4161246303966263797, guid: 7c11dc4eaf1624e17a6ced5dee48cc13, type: 3}
+      propertyPath: onJump.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []

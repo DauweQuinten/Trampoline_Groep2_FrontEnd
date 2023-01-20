@@ -38,6 +38,9 @@ public class SocketEvents : MonoBehaviour
     public MyTestEvent btnPressedLeft;
     public UnityEvent btnPressedRight;
     public UnityEvent btnPressedBoth;
+    public UnityEvent btnReleasedLeft;
+    public UnityEvent btnReleasedRight;
+    public UnityEvent btnReleasedBoth;
 
     private bool leftPressed = false;
     
@@ -50,26 +53,18 @@ public class SocketEvents : MonoBehaviour
     {                  
         #region initialize events
         
-        if (OnJump == null)
-        {
-            OnJump = new UnityEvent();
-        }
+        OnJump ??= new UnityEvent();
+        btnPressedLeft ??= new MyTestEvent();
+        btnPressedRight ??= new UnityEvent();
+        btnPressedBoth ??= new UnityEvent();
+        btnReleasedLeft ??= new UnityEvent();
+        btnReleasedRight ??= new UnityEvent();
+        btnReleasedBoth ??= new UnityEvent();
+    
+        #endregion
 
-        if (btnPressedLeft == null)
-        {
-            btnPressedLeft = new MyTestEvent();
-        }
-
-        if (btnPressedRight == null)
-        {
-            btnPressedRight = new UnityEvent();
-        }
-        
-        if (btnPressedBoth == null)
-        {
-            btnPressedBoth = new UnityEvent();
-        }
-
+        #region previousButton
+        var previousButtonState = new bool[3];
         #endregion
         
         #region websocket events
@@ -111,26 +106,39 @@ public class SocketEvents : MonoBehaviour
             }
             else if (message.Button != null)
             {            
-                var btnMessage = message.Button;
-                Debug.Log(btnMessage);
-                var btnState = message.Button.BtnState;
-                Debug.Log(btnState);
+                var btnMessage = message.Button.BtnStates;
+                
+                if(previousButtonState[2] && !btnMessage[2])
+                    btnReleasedBoth.Invoke();
 
-                if (btnState == BtnState.BOTH)
+                if (btnMessage[0] && btnMessage[1])
                 {
-                    Debug.Log("Both buttons pressed");
+                    Debug.Log("both buttons pressed");
                     btnPressedBoth.Invoke();
                 }
-                else if (btnState == BtnState.LEFT)
+
+                else if (btnMessage[0])
                 {
-                    Debug.Log("Left button pressed");                
-                    leftPressed = true;
+                    Debug.Log("left button pressed");
+                    btnPressedLeft.Invoke(Color.red);
                 }
-                else if (btnState == BtnState.RIGHT)
+                else if (!btnMessage[0])
                 {
-                    Debug.Log("Right button pressed");           
+                    Debug.Log("left button no longer pressed");
+                    btnReleasedLeft.Invoke();
+                }
+                else if (btnMessage[1])
+                {
+                    Debug.Log("right button pressed");
                     btnPressedRight.Invoke();
                 }
+                else if (!btnMessage[1])
+                {
+                    Debug.Log("right button no longer pressed");
+                    btnReleasedRight.Invoke();
+                }
+                
+                previousButtonState = btnMessage;
             }
         };
 
