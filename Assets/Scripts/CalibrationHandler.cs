@@ -15,6 +15,13 @@ public class CalibrationHandler : MonoBehaviour
     public UnityEvent onPlayer2Calibrated;
     public UnityEvent onCalibrationFinished;
 
+    // event states
+    private bool calibrationStartTrigger = false;
+    private bool player1CalibratedTrigger = false;
+    private bool Player2CalibratedTrigger = false;
+    private bool calibrationFinishTrigger = false;
+
+    
     // websocket
     private WebSocket ws;
 
@@ -60,12 +67,12 @@ public class CalibrationHandler : MonoBehaviour
             // Check if message is a calibration message
             if (true) // If calibration p1 completed
             {
-                player1Calibrated = true;               
+                player1CalibratedTrigger = true;               
             }
 
             if (true) // If calibration p2 completed
             {
-                player2Calibrated = true;
+                Player2CalibratedTrigger = true;
             }          
         };
     }
@@ -79,19 +86,25 @@ public class CalibrationHandler : MonoBehaviour
             onCalibrationStarted.Invoke();
         }
 
-        if (player1Calibrated)
+        if (player1CalibratedTrigger)
         {
             onPlayer1Calibrated.Invoke();
+            player1CalibratedTrigger = false;
         }
 
-        if (player2Calibrated)
+        if (Player2CalibratedTrigger)
         {
             onPlayer2Calibrated.Invoke();
+            Player2CalibratedTrigger = false;
         }
 
         if (player1Calibrated && player2Calibrated)
         {
             onCalibrationFinished.Invoke();
+            
+            // reset calibration states
+            player1Calibrated = false;
+            player2Calibrated = false;
         }
     }
     
