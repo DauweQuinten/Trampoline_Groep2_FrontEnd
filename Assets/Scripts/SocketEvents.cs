@@ -19,6 +19,7 @@ public class MyTestEvent : UnityEvent<Color>
 }
 
 
+// Attribute to make the class showable in the inspector
 [System.Serializable]
 public class MyJumpEvent : UnityEvent<float, int>
 {
@@ -33,21 +34,15 @@ public class SocketEvents : MonoBehaviour
     #region Variables
 
     // Unity events
-    public MyJumpEvent onJump;
+    public UnityEvent OnJump;
     public MyTestEvent btnPressedLeft;
     public UnityEvent btnPressedRight;
     public UnityEvent btnPressedBoth;
+    public UnityEvent btnReleasedLeft;
+    public UnityEvent btnReleasedRight;
+    public UnityEvent btnReleasedBoth;
 
-    // event states
     private bool leftPressed = false;
-    private bool rightPressed = false;
-    private bool bothPressed = false;
-    private bool playerJumped = false;
-
-    // other variables
-    private float jumpForce;
-    private int player;
-    
     
     // websocket
     private WebSocket ws;
@@ -58,26 +53,18 @@ public class SocketEvents : MonoBehaviour
     {                  
         #region initialize events
         
-        if (onJump == null)
-        {
-            onJump = new MyJumpEvent();
-        }
-      
-        if (btnPressedLeft == null)
-        {
-            btnPressedLeft = new MyTestEvent();
-        }
+        OnJump ??= new UnityEvent();
+        btnPressedLeft ??= new MyTestEvent();
+        btnPressedRight ??= new UnityEvent();
+        btnPressedBoth ??= new UnityEvent();
+        btnReleasedLeft ??= new UnityEvent();
+        btnReleasedRight ??= new UnityEvent();
+        btnReleasedBoth ??= new UnityEvent();
+    
+        #endregion
 
-        if (btnPressedRight == null)
-        {
-            btnPressedRight = new UnityEvent();
-        }
-        
-        if (btnPressedBoth == null)
-        {
-            btnPressedBoth = new UnityEvent();
-        }
-
+        #region previousButton
+        var previousButtonState = new bool[3];
         #endregion
         
         #region websocket events
@@ -106,65 +93,66 @@ public class SocketEvents : MonoBehaviour
                 Debug.Log("Jump received");
                 
                 var jumpMessage = message.Jump;
-                playerJumped = true;
 
-                jumpForce = jumpMessage.Force;
-                player = jumpMessage.Player;              
+                // check which player has jumped
+                if (jumpMessage.Player == 0)
+                {
+                    // player 1 has jumped
+                }
+                else if (jumpMessage.Player == 1)
+                {
+                    // player 2 has jumped
+                }
             }
-            
             else if (message.Button != null)
             {            
-                var btnMessage = message.Button;
-                Debug.Log(btnMessage);
-                var btnState = message.Button.BtnState;
-                Debug.Log(btnState);
+                var btnMessage = message.Button.BtnStates;
+                
+                if(previousButtonState[2] && !btnMessage[2])
+                    btnReleasedBoth.Invoke();
 
-                if (btnState == BtnState.BOTH)
+                if (btnMessage[0] && btnMessage[1])
                 {
-                    bothPressed = true;
+                    Debug.Log("both buttons pressed");
+                    btnPressedBoth.Invoke();
                 }
-                else if (btnState == BtnState.LEFT)
-                {                
-                    leftPressed = true;
-                }
-                else if (btnState == BtnState.RIGHT)
+
+                else if (btnMessage[0])
                 {
-                    rightPressed = true;
+                    Debug.Log("left button pressed");
+                    btnPressedLeft.Invoke(Color.red);
                 }
+                else if (!btnMessage[0])
+                {
+                    Debug.Log("left button no longer pressed");
+                    btnReleasedLeft.Invoke();
+                }
+                else if (btnMessage[1])
+                {
+                    Debug.Log("right button pressed");
+                    btnPressedRight.Invoke();
+                }
+                else if (!btnMessage[1])
+                {
+                    Debug.Log("right button no longer pressed");
+                    btnReleasedRight.Invoke();
+                }
+                
+                previousButtonState = btnMessage;
             }
         };
-        
+
         #endregion
     }
-    
+
     private void Update()
     {
-        #region invoke events 
-
         if (leftPressed)
         {
+            Debug.Log("Invoke event");
             btnPressedLeft.Invoke(Color.red);
             leftPressed = false;
         }
-        if (rightPressed)
-        {
-            btnPressedRight.Invoke();
-            rightPressed = false;
-        }
-        if (bothPressed)
-        {
-            btnPressedBoth.Invoke();
-            bothPressed = false;
-        }
-        if (playerJumped)
-        {
-            Debug.Log("Player has jumped");
-            onJump.Invoke(jumpForce, player);
-            playerJumped = false;          
-        }
-        
-        
-        #endregion
     }
 
     private void OnDestroy()

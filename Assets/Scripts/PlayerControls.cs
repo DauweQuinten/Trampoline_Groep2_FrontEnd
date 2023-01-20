@@ -21,7 +21,6 @@ public class PlayerControls : MonoBehaviour
     
     
     // leeg scriptvariabele
-    private WsHandler wsHandler;
 
     private int speed;
     public float maxForce = 8.0f;
@@ -37,7 +36,6 @@ public class PlayerControls : MonoBehaviour
         levelControllerScript = GameObject.Find("LevelController").GetComponent<LevelController>();
 
         //vraag script op adhv leeg object in de scene en dat steek je in je scripthandler variable
-        wsHandler = GameObject.Find("SocketController").GetComponent<WsHandler>();
 
         //variabele uit socket script gelijk stellen aan lokale variabele
         // speed = wsHandler.socketSpeed;
@@ -66,13 +64,16 @@ public class PlayerControls : MonoBehaviour
 
 
         //move the player left or right based on speed
-        transform.Translate(Vector3.right * Time.deltaTime * speed);    
+        transform.Translate(Vector3.right * (Time.deltaTime * speed));    
 
         
         // position constraints
         if (transform.position.x > xBounds)
         {
-            transform.position = new Vector3(xBounds, transform.position.y, transform.position.z);
+            var transform1 = transform;
+            var position = transform1.position;
+            position = new Vector3(xBounds, position.y, position.z);
+            transform1.position = position;
             speed = -speed/4;
             Debug.Log($"Player hit left wall: speed is {speed}");
             hittedWall = true;
@@ -80,7 +81,10 @@ public class PlayerControls : MonoBehaviour
         
         if (transform.position.x < -xBounds)
         {
-            transform.position = new Vector3(-xBounds, transform.position.y, transform.position.z);
+            var transform1 = transform;
+            var position = transform1.position;
+            position = new Vector3(-xBounds, position.y, position.z);
+            transform1.position = position;
             speed = -speed/4;
             Debug.Log($"Player hit right wall: speed is {speed}");
             hittedWall = true;
