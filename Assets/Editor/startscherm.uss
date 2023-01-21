@@ -31,9 +31,7 @@
     width: 165px;
     margin-left: 20px;
     margin-right: 20px;
-    transition-property: translate;
-    transition-duration: 0.3s;
-    transition-timing-function: ease;
+
 }
 
 .img {
@@ -66,6 +64,9 @@
 
 .button-top {
     background-image: url('project://database/Assets/Editor/resources/Button/TopBoxPS.png?fileID=2800000&guid=d8185efced5606d428d67b42587ec49a&type=3#TopBoxPS');
+    transition-property: translate;
+    transition-duration: 0.1s;
+    transition-timing-function: ease;
 }
 
 .button-base-yellow {
@@ -74,6 +75,9 @@
 
 .button-top-yellow {
     background-image: url('project://database/Assets/Editor/resources/Button/ButtonTopYellowPS.png?fileID=2800000&guid=068a0f9dd8edd14479dc9dfbc2485bc8&type=3#ButtonTopYellowPS');
+    transition-property: translate;
+    transition-duration: 0.1s;
+    transition-timing-function: ease;
 }
 
 .horizontal * {
@@ -81,5 +85,5 @@
 }
 
 .move-down {
-    translate: 0 16px;
+    translate: 0 14px;
 }
