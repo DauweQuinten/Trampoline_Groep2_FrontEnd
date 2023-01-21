@@ -6,5 +6,6 @@ namespace Models
     {
         [JsonProperty("jump")] public Jump Jump { get; set; }
         [JsonProperty("button")] public Button Button { get; set; }
+        [JsonProperty("calibrationJumpDetected")] public CalibrationChanged CalibrationChanged { get; set; }
     }
 }
