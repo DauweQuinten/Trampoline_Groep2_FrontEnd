@@ -9,25 +9,40 @@ using WebSocketSharp;
 
 public class CalibrationHandler : MonoBehaviour
 {
+
+    #region event variables
+
     // events
     public UnityEvent onCalibrationStarted;
     public UnityEvent onPlayer1Calibrated;
     public UnityEvent onPlayer2Calibrated;
     public UnityEvent onCalibrationFinished;
 
-    // event states
+    #endregion
+
+    #region event states (momenteel niet in gebruik)
+
     private bool calibrationStartTrigger = false;
     private bool player1CalibratedTrigger = false;
     private bool Player2CalibratedTrigger = false;
     private bool calibrationFinishTrigger = false;
 
-    
-    // websocket
-    private WebSocket ws;
+    #endregion
 
-    // calibration states
+    #region calibration variables
+
+    int calibrationTime = 5;
     bool player1Calibrated = false;
     bool player2Calibrated = false;
+
+    #endregion
+
+    #region websocket
+
+    private WebSocket ws;
+
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()
@@ -53,9 +68,39 @@ public class CalibrationHandler : MonoBehaviour
 
         #endregion
 
+        #region event listeners
+        
+        onCalibrationStarted.AddListener(() =>
+        {
+            StartCalibration();
+        });
+
+        onPlayer1Calibrated.AddListener(() =>
+        {
+            Debug.Log("Player 1 calibrated");
+            player1Calibrated = true;
+            changeCalibrationPlayer();
+        });
+
+        onPlayer2Calibrated.AddListener(() =>
+        {
+            Debug.Log("Player 2 calibrated");
+            player2Calibrated = true;
+            CompleteCalibration();
+        });
+
+        onCalibrationFinished.AddListener(() =>
+        {
+            CompleteCalibration();
+        });
+
+        #endregion
+
+        #region websocket
+
         // Connect to websocket
         ws = new WebSocket(General.SocketUrl);
-        ws.Connect();
+        // ws.Connect();
 
 
         // Subscribe to events
@@ -63,52 +108,48 @@ public class CalibrationHandler : MonoBehaviour
         {
             // Deserialize message
             var message = JsonConvert.DeserializeObject<SocketOnMessage>(e.Data);
-
-            // Check if message is a calibration message
-            if (true) // If calibration p1 completed
+            
+            if(message.CalibrationChanged != null)
             {
-                player1CalibratedTrigger = true;               
+                var calibrationChanged = message.CalibrationChanged;
+                if(calibrationChanged.PlayerIndex == 0)
+                {
+                    player1Calibrated = true;
+                }
+                else if (calibrationChanged.PlayerIndex == 1)
+                {
+                    player2Calibrated = true;
+                }
             }
-
-            if (true) // If calibration p2 completed
-            {
-                Player2CalibratedTrigger = true;
-            }          
         };
-    }
 
+        #endregion
+
+        #region keyboard control
+        
+        Debug.Log("Press 'C' to start calibration");
+        
+        #endregion
+    }
+      
+    // Update is called each frame
     private void Update()
     {
+        #region keyboard control
+
         // On start calibration
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             // Start calibration
             onCalibrationStarted.Invoke();
         }
 
-        if (player1CalibratedTrigger)
-        {
-            onPlayer1Calibrated.Invoke();
-            player1CalibratedTrigger = false;
-        }
-
-        if (Player2CalibratedTrigger)
-        {
-            onPlayer2Calibrated.Invoke();
-            Player2CalibratedTrigger = false;
-        }
-
-        if (player1Calibrated && player2Calibrated)
-        {
-            onCalibrationFinished.Invoke();
-            
-            // reset calibration states
-            player1Calibrated = false;
-            player2Calibrated = false;
-        }
+        #endregion
     }
-    
-    
+
+
+    #region calibration methods
+
     void SendCalibrationMessage(CalibrationStatus status, int player)
     {
         // Send message: calibration started
@@ -122,8 +163,75 @@ public class CalibrationHandler : MonoBehaviour
         ws.Send(calibrationString);
     }
 
+    void StartCalibration()
+    {
+        {
+            Debug.Log("Calibration has started");
+            Debug.Log("First calibration: player 1");
+            // SendCalibrationMessage(CalibrationStatus.STARTED, 0);
+            StartCoroutine(WaitForPlayer1(calibrationTime));
+        }
+    }
+  
+    void changeCalibrationPlayer()
+    {
+        Debug.Log("Switch to player 2");
+        // SendCalibrationMessage(CalibrationStatus.SWITCH_PLAYER, 1);
+        StartCoroutine(WaitForPlayer2(calibrationTime));
+    }
+  
     void CompleteCalibration()
     {
-        SendCalibrationMessage(CalibrationStatus.FINISHED, 0);
-    }      
+        Debug.Log("Calibration has finished");
+        //SendCalibrationMessage(CalibrationStatus.FINISHED, 0);
+    }
+
+    #endregion
+
+
+    #region calibration timers
+
+    IEnumerator WaitForPlayer1(int waitTime)
+    {      
+        Debug.Log("Speler 1 spring om links te roeien");
+        
+        int currentTime = 0;
+        while (!player1Calibrated)
+        {           
+            if (currentTime < waitTime)
+            {
+                currentTime++;
+                Debug.Log($"Calibration done in {waitTime - currentTime} seconds");
+                yield return new WaitForSeconds(1);
+            }
+            else
+            {              
+                
+                onPlayer1Calibrated.Invoke();
+            }
+        }               
+    }
+
+    IEnumerator WaitForPlayer2(int waitTime)
+    {
+        Debug.Log("Speler 2 spring om rechts te roeien");
+        
+        int currentTime = 0;
+
+        while (!player2Calibrated)
+        {
+            if (currentTime < waitTime)
+            {
+                currentTime++;
+                Debug.Log($"Calibration done in {waitTime - currentTime} seconds");
+                yield return new WaitForSeconds(1);
+            }
+            else
+            {
+                onPlayer2Calibrated.Invoke();
+            }
+        }
+    }
+
+    #endregion
 }

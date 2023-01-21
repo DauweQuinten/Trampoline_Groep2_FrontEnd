@@ -7,7 +7,10 @@ using UnityEngine;
 public enum CalibrationStatus
 {
     [JsonProperty("started")] STARTED,
+    
     [JsonProperty("finished")] FINISHED,
+
+    [JsonProperty("switchPlayer")] SWITCH_PLAYER,
 }
 
 
