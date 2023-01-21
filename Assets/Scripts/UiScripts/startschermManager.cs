@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class startschermManager : MonoBehaviour
@@ -56,6 +57,7 @@ public class startschermManager : MonoBehaviour
             if (_destroy)
             {
                 _document.rootVisualElement.Clear();
+                SceneManager.LoadScene("BoatGame");
             }
         }
     }
