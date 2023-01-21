@@ -34,7 +34,7 @@ public class SocketEvents : MonoBehaviour
     #region Variables
 
     // Unity events
-    public UnityEvent OnJump;
+    public MyJumpEvent OnJump;
     public MyTestEvent btnPressedLeft;
     public UnityEvent btnPressedRight;
     public UnityEvent btnPressedBoth;
@@ -43,6 +43,13 @@ public class SocketEvents : MonoBehaviour
     public UnityEvent btnReleasedBoth;
 
     private bool leftPressed = false;
+    private bool rightPressed = false;
+    private bool bothPressed = false;
+    private bool playerJumped = false;
+    
+    private float jumpForce = 0;
+    private int player = 0;
+    
     
     // websocket
     private WebSocket ws;
@@ -53,7 +60,7 @@ public class SocketEvents : MonoBehaviour
     {                  
         #region initialize events
         
-        OnJump ??= new UnityEvent();
+        OnJump ??= new MyJumpEvent();
         btnPressedLeft ??= new MyTestEvent();
         btnPressedRight ??= new UnityEvent();
         btnPressedBoth ??= new UnityEvent();
@@ -93,17 +100,12 @@ public class SocketEvents : MonoBehaviour
                 Debug.Log("Jump received");
                 
                 var jumpMessage = message.Jump;
-
-                // check which player has jumped
-                if (jumpMessage.Player == 0)
-                {
-                    // player 1 has jumped
-                }
-                else if (jumpMessage.Player == 1)
-                {
-                    // player 2 has jumped
-                }
+                playerJumped = true;
+                jumpForce = jumpMessage.Force;
+                player = jumpMessage.Player;
+                
             }
+
             else if (message.Button != null)
             {            
                 var btnMessage = message.Button.BtnStates;
@@ -147,12 +149,29 @@ public class SocketEvents : MonoBehaviour
 
     private void Update()
     {
+        if(playerJumped)
+        {
+            Debug.Log("Player has jumped");
+            OnJump.Invoke(jumpForce, player);
+            playerJumped = false;
+        }
         if (leftPressed)
         {
             Debug.Log("Invoke event");
             btnPressedLeft.Invoke(Color.red);
             leftPressed = false;
         }
+        if (rightPressed)
+        {
+            btnPressedRight.Invoke();
+            rightPressed = false;
+        }
+        if (bothPressed)
+        {
+            btnPressedBoth.Invoke();
+            bothPressed = false;
+        }
+
     }
 
     private void OnDestroy()
