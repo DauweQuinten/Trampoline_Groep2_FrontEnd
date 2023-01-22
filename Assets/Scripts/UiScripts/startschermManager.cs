@@ -38,19 +38,19 @@ public class startschermManager : MonoBehaviour
             _document.rootVisualElement.Clear();
             SceneManager.LoadScene("BoatGame");
         }
-        else if (ButtonListener.Left == BtnValue.Pressed)
+        if (ButtonListener.Left == BtnValue.Pressed)
         {
             _btnBlueTop.AddToClassList("move-down");
         }
-        else if (ButtonListener.Right == BtnValue.Pressed)
+        if (ButtonListener.Right == BtnValue.Pressed)
         {
             _btnYellowTop.AddToClassList("move-down");
         }
-        else if (ButtonListener.Left == BtnValue.Released)
+        if (ButtonListener.Left == BtnValue.Released)
         {
             _btnBlueTop.RemoveFromClassList("move-down");
         }
-        else if (ButtonListener.Right == BtnValue.Released)
+        if (ButtonListener.Right == BtnValue.Released)
         {
             _btnYellowTop.RemoveFromClassList("move-down");
         }
