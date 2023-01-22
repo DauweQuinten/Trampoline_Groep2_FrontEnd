@@ -12,28 +12,21 @@ public class CalibrationHandler : MonoBehaviour
 
     #region event variables
 
-    // events
-    public UnityEvent onCalibrationStarted;
-    public UnityEvent onPlayer1Calibrated;
-    public UnityEvent onPlayer2Calibrated;
+    public UnityEvent onCalibrationStarted;   
     public UnityEvent onCalibrationFinished;
-
-    #endregion
-
-    #region event states (momenteel niet in gebruik)
-
-    private bool calibrationStartTrigger = false;
-    private bool player1CalibratedTrigger = false;
-    private bool Player2CalibratedTrigger = false;
-    private bool calibrationFinishTrigger = false;
+    public UnityEvent onCalibratingP1;
+    public UnityEvent onCalibratingP2;
 
     #endregion
 
     #region calibration variables
+    
+    bool[] playerCalibratedArray = { false, false };
+    bool calibrationChanged = false;
 
-    int calibrationTime = 5;
-    bool player1Calibrated = false;
-    bool player2Calibrated = false;
+    bool isCalibrationStarted = false;
+    bool isCalibrationFinished = false;
+    bool isCalibrating = false;
 
     #endregion
 
@@ -49,23 +42,11 @@ public class CalibrationHandler : MonoBehaviour
     {
         #region initialize events
 
-        if (onCalibrationStarted == null)
-        {
-            onCalibrationStarted = new UnityEvent();
-        }
-        if (onPlayer1Calibrated == null)
-        {
-            onPlayer1Calibrated = new UnityEvent();
-        }
-        if (onPlayer2Calibrated == null)
-        {
-            onPlayer2Calibrated = new UnityEvent();
-        }
-        if (onCalibrationFinished == null)
-        {
-            onCalibrationFinished = new UnityEvent();
-        }
-
+        onCalibrationStarted ??= new UnityEvent();
+        onCalibrationFinished ??= new UnityEvent();
+        onCalibratingP1 ??= new UnityEvent();
+        onCalibratingP2 ??= new UnityEvent();
+      
         #endregion
 
         #region event listeners
@@ -75,18 +56,16 @@ public class CalibrationHandler : MonoBehaviour
             StartCalibration();
         });
 
-        onPlayer1Calibrated.AddListener(() =>
+        onCalibratingP1.AddListener(() =>
         {
-            Debug.Log("Player 1 calibrated");
-            player1Calibrated = true;
-            changeCalibrationPlayer();
+            // Start calibration of player 0 (async)
+            StartCoroutine(CalibratePlayer(0));
         });
 
-        onPlayer2Calibrated.AddListener(() =>
+        onCalibratingP2.AddListener(() =>
         {
-            Debug.Log("Player 2 calibrated");
-            player2Calibrated = true;
-            CompleteCalibration();
+            // Start calibration of player 1 (async)
+            StartCoroutine(CalibratePlayer(1));
         });
 
         onCalibrationFinished.AddListener(() =>
@@ -111,44 +90,50 @@ public class CalibrationHandler : MonoBehaviour
             
             if(message.CalibrationChanged != null)
             {
-                var calibrationChanged = message.CalibrationChanged;
-                if(calibrationChanged.PlayerIndex == 0)
-                {
-                    player1Calibrated = true;
-                }
-                else if (calibrationChanged.PlayerIndex == 1)
-                {
-                    player2Calibrated = true;
-                }
+                calibrationChanged = true;
             }
         };
 
         #endregion
+   
+        #region intro in debug
 
-        #region keyboard control
-        
-        Debug.Log("Press 'C' to start calibration");
-        
+        Debug.Log("Press 'A' to start the calibration");
+      
         #endregion
     }
       
     // Update is called each frame
     private void Update()
     {
-        #region keyboard control
 
-        // On start calibration
-        if (Input.GetKeyDown(KeyCode.C))
+        // On start calibration (execute only once because of isCalibrationStarted)
+        if (Input.GetKeyDown(KeyCode.A) && !isCalibrationStarted)
         {
-            // Start calibration
+            // Start calibration p1
             onCalibrationStarted.Invoke();
         }
 
-        #endregion
+        if ((playerCalibratedArray[0] && !playerCalibratedArray[1]) && !isCalibrating)
+        {           
+            changeCalibrationPlayer(1);
+            onCalibratingP2.Invoke();
+        }
+
+        if (!playerCalibratedArray[0] && playerCalibratedArray[1] && !isCalibrating)
+        {
+            changeCalibrationPlayer(0);
+            onCalibratingP1.Invoke();
+        }
+        
+        if (playerCalibratedArray[0] && playerCalibratedArray[1] && !isCalibrationFinished)
+        {
+            onCalibrationFinished.Invoke();
+        }
     }
 
-
-    #region calibration methods
+     
+    #region calibration handling 
 
     void SendCalibrationMessage(CalibrationStatus status, int player)
     {
@@ -166,72 +151,49 @@ public class CalibrationHandler : MonoBehaviour
     void StartCalibration()
     {
         {
-            Debug.Log("Calibration has started");
-            Debug.Log("First calibration: player 1");
-            // SendCalibrationMessage(CalibrationStatus.STARTED, 0);
-            StartCoroutine(WaitForPlayer1(calibrationTime));
+            Debug.Log("Calibration started");
+            SendCalibrationMessage(CalibrationStatus.STARTED, 0);
+            onCalibratingP1.Invoke();
         }
     }
   
-    void changeCalibrationPlayer()
+    void changeCalibrationPlayer(int playerIndex)
     {
-        Debug.Log("Switch to player 2");
-        // SendCalibrationMessage(CalibrationStatus.SWITCH_PLAYER, 1);
-        StartCoroutine(WaitForPlayer2(calibrationTime));
+        Debug.Log($"Switch to player{playerIndex}");
+        SendCalibrationMessage(CalibrationStatus.SWITCH_PLAYER, playerIndex);
     }
   
     void CompleteCalibration()
     {
-        Debug.Log("Calibration has finished");
-        //SendCalibrationMessage(CalibrationStatus.FINISHED, 0);
+        isCalibrationFinished = true;
+        Debug.Log("Calibration finished");
+        SendCalibrationMessage(CalibrationStatus.FINISHED, 0);
     }
 
     #endregion
 
 
-    #region calibration timers
+    #region calibration function
 
-    IEnumerator WaitForPlayer1(int waitTime)
-    {      
-        Debug.Log("Speler 1 spring om links te roeien");
-        
-        int currentTime = 0;
-        while (!player1Calibrated)
-        {           
-            if (currentTime < waitTime)
-            {
-                currentTime++;
-                Debug.Log($"Calibration done in {waitTime - currentTime} seconds");
-                yield return new WaitForSeconds(1);
-            }
-            else
-            {              
-                
-                onPlayer1Calibrated.Invoke();
-            }
-        }               
-    }
-
-    IEnumerator WaitForPlayer2(int waitTime)
+    IEnumerator CalibratePlayer(int playerIndex)
     {
-        Debug.Log("Speler 2 spring om rechts te roeien");
-        
-        int currentTime = 0;
+        isCalibrating = true;
 
-        while (!player2Calibrated)
-        {
-            if (currentTime < waitTime)
-            {
-                currentTime++;
-                Debug.Log($"Calibration done in {waitTime - currentTime} seconds");
-                yield return new WaitForSeconds(1);
-            }
-            else
-            {
-                onPlayer2Calibrated.Invoke();
-            }
-        }
+        Debug.Log($"Player{playerIndex} is calibrating");
+        Debug.Log($"Player{playerIndex} start jumping!");
+
+        // Debug.Log($"DEBUG: PRESS SPACE TO CONTINUE");
+        // yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+
+        yield return new WaitUntil(() => calibrationChanged);
+        calibrationChanged = false;
+        Debug.Log($"Almost there, Keep jumping!");
+        yield return new WaitForSeconds(5);
+        Debug.Log($"Well done!");
+        playerCalibratedArray[playerIndex] = true;
+        isCalibrating = false;
     }
-
+    
     #endregion
+    
 }
