@@ -67,6 +67,7 @@
     transition-property: translate;
     transition-duration: 0.1s;
     transition-timing-function: ease;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .button-base-yellow {
