@@ -9,13 +9,12 @@ using UnityEngine.Events;
 using WebSocketSharp;
 
 
-#region Custom events 
+#region Custom events
 
 // Attribute to make the class showable in the inspector
 [System.Serializable]
 public class MyTestEvent : UnityEvent<Color>
 {
-    
 }
 
 
@@ -23,7 +22,6 @@ public class MyTestEvent : UnityEvent<Color>
 [System.Serializable]
 public class MyJumpEvent : UnityEvent<float, int>
 {
-    
 }
 
 #endregion
@@ -36,6 +34,7 @@ public class SocketEvents : MonoBehaviour
     // Unity events
     public MyJumpEvent OnJump;
     public MyTestEvent btnPressedLeft;
+    public UnityEvent btnPressedLeft2;
     public UnityEvent btnPressedRight;
     public UnityEvent btnPressedBoth;
     public UnityEvent btnReleasedLeft;
@@ -46,28 +45,29 @@ public class SocketEvents : MonoBehaviour
     private bool rightPressed = false;
     private bool bothPressed = false;
     private bool playerJumped = false;
-    
+
     private float jumpForce = 0;
     private int player = 0;
-    
-    
+
+
     // websocket
     private WebSocket ws;
 
     #endregion
 
     private void Start()
-    {                  
+    {
         #region initialize events
-        
+
         OnJump ??= new MyJumpEvent();
         btnPressedLeft ??= new MyTestEvent();
+        btnPressedLeft2 ??= new UnityEvent();
         btnPressedRight ??= new UnityEvent();
         btnPressedBoth ??= new UnityEvent();
         btnReleasedLeft ??= new UnityEvent();
         btnReleasedRight ??= new UnityEvent();
         btnReleasedBoth ??= new UnityEvent();
-    
+
         #endregion
 
         #region previousButton
@@ -81,10 +81,7 @@ public class SocketEvents : MonoBehaviour
         ws.Connect();
 
         // On socket connected
-        ws.OnOpen += (sender, e) =>
-        {
-            Debug.Log("Socket Open!");
-        };
+        ws.OnOpen += (sender, e) => { Debug.Log("Socket Open!"); };
 
         // On message received
         ws.OnMessage += (sender, e) =>
@@ -103,44 +100,49 @@ public class SocketEvents : MonoBehaviour
                 playerJumped = true;
                 jumpForce = jumpMessage.Force;
                 player = jumpMessage.Player;
-                
             }
 
             else if (message.Button != null)
-            {            
+            {
                 var btnMessage = message.Button.BtnStates;
-                
-                if(previousButtonState[2] && !btnMessage[2])
-                    btnReleasedBoth.Invoke();
-
-                if (btnMessage[0] && btnMessage[1])
+                Debug.Log($"{btnMessage.BtnRight}, {btnMessage.BtnLeft}, {btnMessage.Both} ");
+                if (btnMessage.Both == BtnValue.Pressed)
                 {
-                    Debug.Log("both buttons pressed");
+                    Debug.Log("Both");
                     btnPressedBoth.Invoke();
+                 
+                }
+                if (btnMessage.Both == BtnValue.Released)
+                {
+                    Debug.Log("both released");
+                    btnReleasedBoth.Invoke();
                 }
 
-                else if (btnMessage[0])
+                if (btnMessage.BtnLeft == BtnValue.Pressed)
                 {
-                    Debug.Log("left button pressed");
-                    btnPressedLeft.Invoke(Color.red);
+                    Debug.Log("Left");
+                    // btnPressedLeft.Invoke(Color.red);
+                    btnPressedLeft2.Invoke();
                 }
-                else if (!btnMessage[0])
+
+                if (btnMessage.BtnLeft == BtnValue.Released)
                 {
-                    Debug.Log("left button no longer pressed");
+                    Debug.Log("left released");
                     btnReleasedLeft.Invoke();
+                    
                 }
-                else if (btnMessage[1])
+
+                if (btnMessage.BtnRight == BtnValue.Pressed)
                 {
-                    Debug.Log("right button pressed");
+                    Debug.Log("Right");
                     btnPressedRight.Invoke();
                 }
-                else if (!btnMessage[1])
+
+                if (btnMessage.BtnRight == BtnValue.Released)
                 {
-                    Debug.Log("right button no longer pressed");
+                    Debug.Log("right released");
                     btnReleasedRight.Invoke();
                 }
-                
-                previousButtonState = btnMessage;
             }
         };
 
@@ -149,33 +151,39 @@ public class SocketEvents : MonoBehaviour
 
     private void Update()
     {
-        if(playerJumped)
+        if (playerJumped)
         {
             Debug.Log("Player has jumped");
             OnJump.Invoke(jumpForce, player);
             playerJumped = false;
         }
+
         if (leftPressed)
         {
             Debug.Log("Invoke event");
             btnPressedLeft.Invoke(Color.red);
+            btnPressedLeft2.Invoke();
             leftPressed = false;
         }
+
         if (rightPressed)
         {
             btnPressedRight.Invoke();
             rightPressed = false;
         }
+
         if (bothPressed)
         {
             btnPressedBoth.Invoke();
             bothPressed = false;
         }
-
     }
 
     private void OnDestroy()
     {
-        ws.Close();
+        if (ws.IsAlive)
+        {
+            ws.Close();
+        }
     }
 }
