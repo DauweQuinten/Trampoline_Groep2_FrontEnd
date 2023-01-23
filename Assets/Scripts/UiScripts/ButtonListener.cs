@@ -1,4 +1,5 @@
 ﻿using Models;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace UiScripts
@@ -23,6 +24,41 @@ namespace UiScripts
             events.btnPressedBoth.AddListener(BothButtonsOnClicked);
             events.btnReleasedBoth.AddListener(BothButtonsOnReleased);
         }
+
+
+        public static void UpdateLed(LedType type, LedValue state)
+        {
+            // todo: add led events to socketController
+            var socketObject = GameObject.Find("SocketController");
+            var events = socketObject.GetComponent<SocketEvents>();
+            switch (type, state)
+            {
+                case (LedType.Left, LedValue.On):
+                    // events.ledLeftOn.Invoke();
+                    break;
+                case (LedType.Left, LedValue.Off):
+                    // events.ledLeftOff.Invoke();
+                    break;
+                case (LedType.Right, LedValue.On):
+                    // events.ledRightOn.Invoke();
+                    break;
+                case (LedType.Right, LedValue.Off):
+                    // events.ledRightOff.Invoke();
+                    break;
+            }
+        }
+
+        public enum LedType
+        {
+            Left,
+            Right
+        }
+        public enum LedValue
+        {
+            [JsonProperty("ON")] On,
+            [JsonProperty("OFF")] Off
+        }
+        
 
         private static void LeftMoveDown2(Color arg0)
         {
