@@ -114,8 +114,7 @@ public class scoreboard : MonoBehaviour
             }
         }
     }
-    //void OnDestroy() => Dispose();
-    //public void Dispose() => Destroy(_texture);
+
 
     private void Update()
     {
