@@ -28,6 +28,7 @@
 }
 
 .c-score-image {
+    position: relative;
 }
 
 .container {
