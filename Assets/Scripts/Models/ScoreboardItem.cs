@@ -38,7 +38,7 @@ namespace Models
             ScoreboardItem otherItem = obj as ScoreboardItem;
             if (otherItem != null)
                 return otherItem.Score.CompareTo(this.Score);
-
+            
             throw new ArgumentException("Object is not an Item");
         }
     }
