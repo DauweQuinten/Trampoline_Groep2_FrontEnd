@@ -1,0 +1,42 @@
+using Models;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace UiScripts
+{
+    public class gameOver : MonoBehaviour
+    {
+        private UIDocument _document;
+        private VisualElement _btnYellowTop;
+        private int _updateCount;
+        // Start is called before the first frame update
+        void Start()
+        {
+            _document = GetComponent<UIDocument>();
+            var labelScore = _document.rootVisualElement.Q<Label>("score");
+            labelScore.text = "1:51";
+            // labelScore.text = "Score: " + ScoreModel.Score;
+            
+            // handle button
+            var btnYellow = _document.rootVisualElement.Q("yellowButton");
+            _btnYellowTop = btnYellow.Q("buttonTop");
+            ButtonListener.ListenToButtons();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (ButtonListener.BtnUpdate <= _updateCount) return;
+            switch (ButtonListener.Right)
+            {
+                case BtnValue.Pressed:
+                    _btnYellowTop.AddToClassList("move-down");
+                    // move to next screen after animation
+                    break;
+                case BtnValue.Released:
+                    _btnYellowTop.RemoveFromClassList("move-down");
+                    break;
+            }
+        }
+    }
+}
