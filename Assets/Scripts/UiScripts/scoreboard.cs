@@ -62,7 +62,7 @@ public class scoreboard : EditorWindow
             l.style.color = Color.white;
             v.Add(i);
             v.Add(l);
-            return v;
+            return l;
         };
 
         lvwScores.makeItem = makeItem;
