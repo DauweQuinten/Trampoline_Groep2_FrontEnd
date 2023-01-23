@@ -79,9 +79,9 @@ public class CalibrationHandler : MonoBehaviour
 
         // Connect to websocket
         ws = new WebSocket(General.SocketUrl);
-        // ws.Connect();
+        ws.Connect();
 
-
+        
         // Subscribe to events
         ws.OnMessage += (sender, e) =>
         {
