@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using UnityEngine;
 using static UnityEditor.Progress;
 
 namespace Models
@@ -28,10 +29,7 @@ namespace Models
             get { return $"http://127.0.0.1:3000/username/avatar/{this.Id}"; }
         }
         
-        public override string ToString()
-        {
-            return $"{Username} - {Score} - {Date}";
-        }
+        public Texture2D Img { get; set; }
 
         public int CompareTo(object obj)
         {
