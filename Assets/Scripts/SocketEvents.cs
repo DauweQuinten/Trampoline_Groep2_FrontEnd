@@ -48,10 +48,10 @@ public class SocketEvents : MonoBehaviour
 
     private float jumpForce = 0;
     private int player = 0;
-
+    
 
     // websocket
-    private WebSocket ws;
+    public WebSocket ws;
 
     #endregion
 
@@ -78,7 +78,11 @@ public class SocketEvents : MonoBehaviour
 
         // Connect to websocket
         ws = new WebSocket(General.SocketUrl);
-        ws.Connect();
+
+        if (!ws.IsAlive)
+        {
+            ws.Connect();
+        }
 
         // On socket connected
         ws.OnOpen += (sender, e) => { Debug.Log("Socket Open!"); };
@@ -94,9 +98,9 @@ public class SocketEvents : MonoBehaviour
             // Check message type
             if (message.Jump != null)
             {
-                Debug.Log("Jump received");
-                
+                Debug.Log("Jump received");              
                 var jumpMessage = message.Jump;
+              
                 playerJumped = true;
                 jumpForce = jumpMessage.Force;
                 player = jumpMessage.Player;

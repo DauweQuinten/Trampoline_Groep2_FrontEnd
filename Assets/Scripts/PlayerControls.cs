@@ -11,7 +11,7 @@ using Unity.VisualScripting;
 public class PlayerControls : MonoBehaviour
 {
     // variables
-    private LevelController levelControllerScript;
+    private SocketEvents socketEventsScript;
     private float xBounds = 3.5f;
 
     public bool hasCollided = false;
@@ -24,21 +24,29 @@ public class PlayerControls : MonoBehaviour
 
     private int speed;
     public float maxForce = 8.0f;
+
+    // player indexen
+    int leftPlayerIndex;
+    int rightPlayerIndex;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        // Setup playerindex
+        leftPlayerIndex = GameVariablesHolder.playerMapping[0];
+        rightPlayerIndex = GameVariablesHolder.playerMapping[1];
+
         // start coroutines
         StartCoroutine(SlowDown());
 
         // get level controller script
-        levelControllerScript = GameObject.Find("LevelController").GetComponent<LevelController>();
+        socketEventsScript = GameObject.Find("SocketController").GetComponent<SocketEvents>();
 
-        //vraag script op adhv leeg object in de scene en dat steek je in je scripthandler variable
-
-        //variabele uit socket script gelijk stellen aan lokale variabele
-        // speed = wsHandler.socketSpeed;
+        socketEventsScript.OnJump.AddListener((float force, int player) =>
+        {
+            Paddle(force, player);
+        });
     }
 
 
@@ -114,7 +122,6 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-
     IEnumerator ToggleBackwardsMovementAfterSeconds(float seconds)
     {
         isBackwards = true;
@@ -145,16 +152,15 @@ public class PlayerControls : MonoBehaviour
 
     public void Paddle(float force, int player)
     {
-        switch (player)
+        if (player == leftPlayerIndex)
         {
-            case 0:
-                Debug.Log("Player 1 jumped with force: " + force);
-                speed += Mathf.FloorToInt(maxForce * force);
-                break;
-            case 1:
-                Debug.Log("Player 2 jumped with force: " + force);
-                speed -= Mathf.FloorToInt(maxForce * force);
-                break;
+            Debug.Log("Left player jumped with force: " + force);
+            speed += Mathf.FloorToInt(maxForce * force);
+        }
+        else if (player == rightPlayerIndex)
+        {
+            Debug.Log("Right player jumped with force: " + force);
+            speed -= Mathf.FloorToInt(maxForce * force);
         }
     }
 }
