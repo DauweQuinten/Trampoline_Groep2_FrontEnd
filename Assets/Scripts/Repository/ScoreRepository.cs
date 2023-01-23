@@ -10,17 +10,18 @@ using UnityEngine.SocialPlatforms.Impl;
 
 namespace Repository
 {
-    public class ScoreRepository
+    public static class ScoreRepository
     {
         private const string _BASEURI = "http://127.0.0.1:3000";
-        public static HttpClient GetHttpClient()
+
+        private static HttpClient GetHttpClient()
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
 
             return client;
-
         }
+
         public static async Task<List<ScoreboardItem>> GetScoresAsync()
         {
             string url = $"{_BASEURI}/scoreboard";
@@ -37,13 +38,13 @@ namespace Repository
                 }
                 catch (Exception ex)
                 {
-
                     throw ex;
                 }
             }
         }
-       public static async Task AddScoreAsync(ScoreboardItem score)
-       {
+
+        public static async Task AddScoreAsync(ScoreboardItem score)
+        {
             string url = $"{_BASEURI}/scoreboard";
             using (HttpClient client = GetHttpClient())
             {
@@ -60,11 +61,10 @@ namespace Repository
                 }
                 catch (Exception ex)
                 {
-
                     throw ex;
                 }
             }
-       }
+        }
 
         public static async Task UpdateScoreAsync(ScoreboardItem score)
         {
@@ -84,7 +84,6 @@ namespace Repository
                 }
                 catch (Exception ex)
                 {
-
                     throw ex;
                 }
             }
@@ -105,7 +104,6 @@ namespace Repository
                 }
                 catch (Exception ex)
                 {
-
                     throw ex;
                 }
             }
@@ -129,14 +127,9 @@ namespace Repository
                 }
                 catch (Exception ex)
                 {
-
                     throw ex;
                 }
             }
         }
-        
-        
-        
-
     }
 }
