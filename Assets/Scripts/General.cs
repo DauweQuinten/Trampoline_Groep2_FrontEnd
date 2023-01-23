@@ -2,6 +2,6 @@
 {
     public static class General
     {
-        public const string SocketUrl = "ws://localhost:3000";
+        public const string SocketUrl = "ws://172.30.248.64:3000";
     }
 }

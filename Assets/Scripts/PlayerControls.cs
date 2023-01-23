@@ -147,11 +147,11 @@ public class PlayerControls : MonoBehaviour
     {
         switch (player)
         {
-            case 1:
+            case 0:
                 Debug.Log("Player 1 jumped with force: " + force);
                 speed += Mathf.FloorToInt(maxForce * force);
                 break;
-            case 2:
+            case 1:
                 Debug.Log("Player 2 jumped with force: " + force);
                 speed -= Mathf.FloorToInt(maxForce * force);
                 break;
