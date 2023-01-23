@@ -36,7 +36,7 @@ public class startschermManager : MonoBehaviour
         if (ButtonListener.Both == BtnValue.Pressed)
         {
             _document.rootVisualElement.Clear();
-            SceneManager.LoadScene("BoatGame");
+            SceneManager.LoadScene("CalibrationScene");
         }
         if (ButtonListener.Left == BtnValue.Pressed)
         {
