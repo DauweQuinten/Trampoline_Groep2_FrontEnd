@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using WebSocketSharp;
+using UnityEngine.SceneManagement;
 
 public class CalibrationHandler : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class CalibrationHandler : MonoBehaviour
     #endregion
 
 
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -106,6 +109,13 @@ public class CalibrationHandler : MonoBehaviour
     // Update is called each frame
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameVariablesHolder.testString = "testjee uit calibration";
+            SceneManager.LoadScene("BoatGame");
+        }
+        
+
 
         // On start calibration (execute only once because of isCalibrationStarted)
         if (Input.GetKeyDown(KeyCode.A) && !isCalibrationStarted)

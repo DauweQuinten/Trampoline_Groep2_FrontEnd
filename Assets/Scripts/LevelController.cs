@@ -14,6 +14,8 @@ public class LevelController : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(GameVariablesHolder.testString);
+
         StartCoroutine(addScore(timeToScore));
     }
 
