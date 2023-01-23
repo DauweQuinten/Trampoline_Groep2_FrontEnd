@@ -87,6 +87,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boat
       objectReference: {fileID: 0}
+    - target: {fileID: 7086528410928995424, guid: 1dda59ec061a19548ba2d6f6c3b31791, type: 3}
+      propertyPath: keyboardEnabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dda59ec061a19548ba2d6f6c3b31791, type: 3}
 --- !u!4 &732650698 stripped
