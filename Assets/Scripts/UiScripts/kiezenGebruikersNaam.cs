@@ -17,6 +17,7 @@ public class kiezenGebruikersNaam : MonoBehaviour
     private VisualElement _btnBlueTop;
     private Label _userNameLabel;
     private int _counter = -1;
+    private bool _yellowReleasedFirst = false;
 
     void Start()
     {
@@ -64,10 +65,11 @@ public class kiezenGebruikersNaam : MonoBehaviour
             {
                 case BtnValue.Pressed:
                     _btnYellowTop.AddToClassList("move-down");
-                    NextScene();
+                    if (_yellowReleasedFirst) NextScene();
                     break;
                 case BtnValue.Released:
                     _btnYellowTop.RemoveFromClassList("move-down");
+                    _yellowReleasedFirst = true;
                     break;
             }
         }
@@ -75,6 +77,7 @@ public class kiezenGebruikersNaam : MonoBehaviour
 
     private void NextScene()
     {
+        Debug.Log("going to next scene and turning LED's off");
         GameVariablesHolder.Username = _gebruikersNaam;
         ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
         ButtonListener.UpdateLed(LedType.Right, LedValue.Off);

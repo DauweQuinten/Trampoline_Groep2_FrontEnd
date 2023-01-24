@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,6 +28,8 @@ namespace UiScripts
             var btnBlue = _document.rootVisualElement.Q("blueButton");
             _btnBlueTop = btnBlue.Q("buttonTop");
             ButtonListener.ListenToButtons();
+            ButtonListener.UpdateLed(LedType.Left, LedValue.On);
+            ButtonListener.UpdateLed(LedType.Right, LedValue.On);
         }
 
         private void Update()
@@ -33,8 +37,9 @@ namespace UiScripts
             if (!_isEnabled || ButtonListener.BtnUpdate <= _previousUpdateCount) return;
             if (ButtonListener.Both == BtnValue.Pressed)
             {
-                _document.rootVisualElement.Clear();
-            SceneManager.LoadScene("CalibrationScene");
+                ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
+                ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
+                StartCoroutine(LoadSceneAfterDelay(0.3f));
             }
 
             if (ButtonListener.Left == BtnValue.Pressed)
@@ -58,6 +63,12 @@ namespace UiScripts
             }
 
             _previousUpdateCount = ButtonListener.BtnUpdate;
+        }
+
+        private static IEnumerator LoadSceneAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            SceneManager.LoadScene("CalibrationScene");
         }
     }
 }
