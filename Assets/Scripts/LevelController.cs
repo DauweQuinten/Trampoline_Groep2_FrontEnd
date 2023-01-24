@@ -8,14 +8,19 @@ using UnityEngine.Events;
 
 public class LevelController : MonoBehaviour
 {
+    #region variables
+
+    // Events
     public UnityEvent onGameOver;
 
+    // Game variables
     public float scrollSpeed = 10f;
     public bool ScrollState = true;
     public bool gameOver = false;
     private int score = 0;
     private float timeToScore = 0.5f;
     
+    // Distance variables
     private float distanceAtStart;
     private float distanceToShark;
     public float distancePercentage;
@@ -24,7 +29,8 @@ public class LevelController : MonoBehaviour
     private GameObject player;
     private GameObject shark;
 
-
+    #endregion
+    
 
     private void Start()
     {
@@ -51,12 +57,34 @@ public class LevelController : MonoBehaviour
         #endregion
 
 
-        // Get initial distance between player and shark
+        // Get initial distance between player and shark at start of game
         distanceAtStart = Vector3.Distance(player.transform.position, shark.transform.position);
 
+        // Start the score counter
         StartCoroutine(addScore(timeToScore));
     }
 
+    private void Update()
+    {
+        // calculate distance between shark and player if the player is not dead
+        if (player && shark)
+        {
+            distanceToShark = Vector3.Distance(player.transform.position, shark.transform.position);
+            distancePercentage = MathF.Floor((distanceToShark / distanceAtStart)*100);        
+        }
+
+        // handle game over
+        if (gameOver == true)
+        {
+            GameVariablesHolder.Score = score;
+            onGameOver.Invoke();
+            SceneManager.LoadScene("Game-over"); 
+        }
+        
+    }
+
+    
+    // Add score per time survived
     IEnumerator addScore(float timeToScore)
     {
         while (true && !gameOver)
@@ -66,23 +94,6 @@ public class LevelController : MonoBehaviour
             Debug.Log($"Score: {score}");
         }
     }
-  
-    private void Update()
-    {
-        // calculate distance between shark and player if the player is not dead
-        if (player && shark)
-        {
-            distanceToShark = Vector3.Distance(player.transform.position, shark.transform.position);
-            distancePercentage = MathF.Floor((distanceToShark / distanceAtStart)*100);        
-        }
-        
-        if (gameOver == true)
-        {
-            GameVariablesHolder.Score = score;
-            onGameOver.Invoke();
-            SceneManager.LoadScene("Game-over"); 
-        }
-        
-    }
-    
+
+
 }
