@@ -110,10 +110,9 @@
 }
 
 .arrow-right {
-    background-image: url("project://database/Assets/Editor/resources/arrow.png?fileID=2800000&guid=7ca675d5750bf654586da3afd8970df9&type=3#arrow&apos;");
+    background-image: url('project://database/Assets/Editor/resources/arrow.png?fileID=2800000&guid=7ca675d5750bf654586da3afd8970df9&type=3#arrow');
     position: relative;
 }
-
 
 .bottom {
     position: absolute;
@@ -155,4 +154,46 @@
 
 .padding-right-sm {
     padding-right: 20px;
+}
+
+.left {
+    position: absolute;
+    left: 45px;
+    top: 30px;
+    bottom: 30px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.shark-distance-bar {
+    height: 60%;
+    width: 80px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-left-color: rgb(19, 10, 1);
+    border-right-color: rgb(19, 10, 1);
+    border-top-color: rgb(19, 10, 1);
+    border-bottom-color: rgb(19, 10, 1);
+    background-color: rgb(211, 200, 160);
+    flex-direction: column-reverse;
+    border-left-width: 15px;
+    border-right-width: 15px;
+    border-top-width: 15px;
+    border-bottom-width: 15px;
+}
+
+.shark-distance-bar-position {
+    flex-direction: column-reverse;
+    background-color: rgb(79, 153, 173);
+    height: 40%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-left-color: rgb(19, 10, 1);
+    border-right-color: rgb(19, 10, 1);
+    border-top-color: rgb(19, 10, 1);
+    border-bottom-color: rgb(19, 10, 1);
 }

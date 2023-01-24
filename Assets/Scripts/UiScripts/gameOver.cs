@@ -19,8 +19,10 @@ namespace UiScripts
         {
             _document = GetComponent<UIDocument>();
             var labelScore = _document.rootVisualElement.Q<Label>("score");
-            labelScore.text = "1:51";
-            // labelScore.text = "Score: " + ScoreModel.Score;
+            var scoreInSeconden = GameVariablesHolder.Score / 10;
+            var minuuten = scoreInSeconden / 60;
+            var seconden = scoreInSeconden % 60;
+            labelScore.text = $"{minuuten}:{seconden}";
 
             // handle button
             var btnYellow = _document.rootVisualElement.Q("yellowButton");

@@ -17,9 +17,9 @@ public class LevelController : MonoBehaviour
     public float scrollSpeed = 10f;
     public bool ScrollState = true;
     public bool gameOver = false;
-    private int score = 0;
-    private float timeToScore = 0.5f;
-    
+    public int score = 0;
+    private float timeToScore = .1f;
+
     // Distance variables
     private float distanceAtStart;
     private float distanceToShark;
@@ -30,12 +30,12 @@ public class LevelController : MonoBehaviour
     private GameObject shark;
 
     #endregion
-    
+
 
     private void Start()
     {
         #region initialize events
-        
+
         onGameOver ??= new UnityEvent();
 
         #endregion
@@ -46,7 +46,7 @@ public class LevelController : MonoBehaviour
         shark = GameObject.Find("Shark");
 
         #endregion
-  
+
         #region startup logging
 
         Debug.Log("Game started!");
@@ -70,7 +70,7 @@ public class LevelController : MonoBehaviour
         if (player && shark)
         {
             distanceToShark = Vector3.Distance(player.transform.position, shark.transform.position);
-            distancePercentage = MathF.Floor((distanceToShark / distanceAtStart)*100);        
+            distancePercentage = distanceToShark / distanceAtStart;
         }
 
         // handle game over
@@ -78,12 +78,11 @@ public class LevelController : MonoBehaviour
         {
             GameVariablesHolder.Score = score;
             onGameOver.Invoke();
-            SceneManager.LoadScene("Game-over"); 
+            SceneManager.LoadScene("Game-over");
         }
-        
     }
 
-    
+
     // Add score per time survived
     IEnumerator addScore(float timeToScore)
     {
@@ -94,6 +93,4 @@ public class LevelController : MonoBehaviour
             Debug.Log($"Score: {score}");
         }
     }
-
-
 }
