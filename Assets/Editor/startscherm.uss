@@ -132,3 +132,7 @@
 .center {
     align-items: center;
 }
+
+.row-reverse {
+    flex-direction: row-reverse;
+}

@@ -1,5 +1,7 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements"
+         xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm"/>
     <ui:VisualElement class="container" style="justify-content: space-between;">
         <ui:VisualElement name="row" class="margin-lg">
             <ui:VisualElement name="top">
@@ -13,14 +15,16 @@
                       class="outline-text outline-text-md"/>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement />
-    <ui:VisualElement name="containerBottomRight" class="bottom-right" style="right: 218px; bottom: 22px;">
-        <ui:VisualElement name="fixed-container">
+    <ui:VisualElement/>
+
+    <ui:VisualElement class="bottom row-reverse">
+        <ui:VisualElement name="bottomrightcorner" class="row center" style="height: 100%;">
             <ui:VisualElement name="yellowButton" class="button">
-                <ui:VisualElement name="buttonTop" class="button-top-yellow img" />
-                <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img" />
+                <ui:VisualElement name="buttonTop" class="button-top-yellow img"/>
+                <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img"
+                                  style="bottom: -20px; right: -54px;"/>
             </ui:VisualElement>
-            <ui:VisualElement name="arrowRight" class="arrow-right img" style="background-image: url(&apos;project://database/Assets/Editor/resources/arrow.png?fileID=2800000&amp;guid=7ca675d5750bf654586da3afd8970df9&amp;type=3#arrow&apos;); top: -4px; right: -206px; left: 207px; bottom: 5px;" />
+            <ui:Label text="Ga verder" display-tooltip-when-elided="true" class="outline-text outline-text-md"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
