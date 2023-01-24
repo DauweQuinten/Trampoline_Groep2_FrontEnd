@@ -117,7 +117,7 @@ namespace Repository
             }
         }
 
-        public static async Task GenerateImageAsync(ScoreboardItem score)
+        public static async Task<byte[]> GenerateImageAsync(ScoreboardItem score)
         {
             string url = $"{_BASEURI}/username/avatar";
             using (HttpClient client = GetHttpClient())
@@ -132,6 +132,10 @@ namespace Repository
                     {
                         throw new Exception($"unsuccesful Image Generation to url:{url}, object:{json}");
                     }
+
+                    // get the png from body
+                    var body = await response.Content.ReadAsByteArrayAsync();
+                    return body;
                 }
                 catch (Exception ex)
                 {

@@ -54,6 +54,18 @@ public class kiezenGebruikersNaam : MonoBehaviour
             Score = GameVariablesHolder.Score
         });
         GameVariablesHolder.Id = _id;
+        GetAvatar();
+    }
+
+    private async void GetAvatar()
+    {
+        var bytesArray = await ScoreRepository.GenerateImageAsync(new ScoreboardItem { Id = _id });
+        // bytesArray is the byte array of the image
+        // convert byteArray to default texture and assign it to the image
+        var texture = new Texture2D(1, 1);
+        texture.LoadImage(bytesArray);
+        var image = _document.rootVisualElement.Q<Image>("avatar");
+        image.image = texture;
     }
 
     private async void GenerateNewName()
@@ -68,6 +80,7 @@ public class kiezenGebruikersNaam : MonoBehaviour
             Date = System.DateTime.Now,
             Id = _id
         });
+        GetAvatar();
     }
 
     // Update is called once per frame
