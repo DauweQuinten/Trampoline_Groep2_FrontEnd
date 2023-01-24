@@ -10,25 +10,27 @@ using Unity.VisualScripting;
 
 public class PlayerControls : MonoBehaviour
 {
-    // variables
-    private SocketEvents socketEventsScript;
-    private float xBounds = 3.5f;
+    #region variables
 
+    // script references
+    private SocketEvents socketEventsScript;
+
+    // movement variables
+    private float xBounds = 3.5f;
+    private int speed;
+    public float maxForce = 8.0f;
+
+    // player states
     public bool hasCollided = false;
     public bool hittedWall = false;
     public bool keyboardEnabled;
     public bool isBackwards;
-    
-    
-    // leeg scriptvariabele
-
-    private int speed;
-    public float maxForce = 8.0f;
-
+   
     // player indexen
     int leftPlayerIndex;
     int rightPlayerIndex;
-    
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -37,12 +39,13 @@ public class PlayerControls : MonoBehaviour
         leftPlayerIndex = GameVariablesHolder.playerMapping[0];
         rightPlayerIndex = GameVariablesHolder.playerMapping[1];
 
-        // start coroutines
+        // slow down the speed over time
         StartCoroutine(SlowDown());
 
-        // get level controller script
+        // get socketcontroller script
         socketEventsScript = GameObject.Find("SocketController").GetComponent<SocketEvents>();
 
+        // Paddle on jump from kinect        
         socketEventsScript.OnJump.AddListener((float force, int player) =>
         {
             Paddle(force, player);
@@ -53,9 +56,7 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Get keyboard input from players (temporary input)
-
-
+        // Move on keyboard input (if enabled)
         if (keyboardEnabled)
         {          
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -70,12 +71,10 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
-
         //move the player left or right based on speed
         transform.Translate(Vector3.right * (Time.deltaTime * speed));    
-
-        
-        // position constraints
+      
+        // position constraints with bounce effect
         if (transform.position.x > xBounds)
         {
             var transform1 = transform;
@@ -100,7 +99,7 @@ public class PlayerControls : MonoBehaviour
     }
 
 
-
+    
     // Coroutine to slow down the player
     IEnumerator SlowDown()
     {
@@ -122,14 +121,13 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    // Move backwards on collision with object
     IEnumerator ToggleBackwardsMovementAfterSeconds(float seconds)
     {
         isBackwards = true;
         yield return new WaitForSeconds(seconds);
         isBackwards = false;
     }
-
-
 
 
     // On collision
@@ -142,14 +140,14 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    // Change color
+    // Change color (Temperary)
     public void ChangeColor(Color newColor)
     {
         Debug.Log("Color should change");
         GetComponent<Renderer>().material.color = newColor;
     }
 
-
+    // Paddle on jump from kinect
     public void Paddle(float force, int player)
     {
         if (player == leftPlayerIndex)
