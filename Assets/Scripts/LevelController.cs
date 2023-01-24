@@ -49,7 +49,7 @@ public class LevelController : MonoBehaviour
     {
         if (gameOver == true)
         {
-            GameVariablesHolder.score = score;
+            GameVariablesHolder.Score = score;
             onGameOver.Invoke();
 
             // SceneManager.LoadScene(""); 
