@@ -43,27 +43,35 @@ namespace Repository
             }
         }
 
-        public static async Task AddScoreAsync(ScoreboardItem score)
+        public static async Task<int> AddScoreAsync(ScoreboardItem score)
         {
-            string url = $"{_BASEURI}/scoreboard";
-            using (HttpClient client = GetHttpClient())
+            var url = $"{_BASEURI}/scoreboard";
+            using var client = GetHttpClient();
+            try
             {
-                try
-                {
-                    string json = JsonConvert.SerializeObject(score);
-                    StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                var json = JsonConvert.SerializeObject(score);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                    var response = await client.PostAsync(url, content);
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        throw new Exception($"unsuccesful POST to url:{url}, object:{json}");
-                    }
-                }
-                catch (Exception ex)
+                var response = await client.PostAsync(url, content);
+                if (!response.IsSuccessStatusCode)
                 {
-                    throw ex;
+                    throw new Exception($"unsuccesful POST to url:{url}, object:{json}");
                 }
+
+                var body = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<IDResponse>(body);
+                return result.Id;
             }
+            catch (Exception ex)
+            {
+                Debug.Log($"Adding score failed {ex.Message}");
+                throw new Exception("Adding score failed");
+            }
+        }
+
+        public class IDResponse
+        {
+            [JsonProperty("id")] public int Id { get; set; }
         }
 
         public static async Task UpdateScoreAsync(ScoreboardItem score)
