@@ -9,4 +9,8 @@ public static class GameVariablesHolder
     public static int[] playerMapping = { -1, -1 };
 
     public static int score { get; set; }
+    public static string Username { get; set; }
+    public static int Score { get; set; } = 115;
+
+
 }
