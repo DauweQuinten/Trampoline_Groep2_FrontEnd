@@ -27,6 +27,7 @@ namespace UiScripts
             _btnYellowTop = btnYellow.Q("buttonTop");
             ButtonListener.ListenToButtons();
             ButtonListener.UpdateLed(LedType.Right, LedValue.On);
+            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
         }
 
         // Update is called once per frame

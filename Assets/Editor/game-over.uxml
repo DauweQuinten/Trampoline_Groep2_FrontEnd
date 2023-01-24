@@ -6,8 +6,7 @@
         <ui:VisualElement name="row" class="margin-lg">
             <ui:VisualElement name="top">
                 <ui:Label text="Game over" display-tooltip-when-elided="true" name="gameOver" class="outline-text"/>
-                <ui:Label text="01:00" display-tooltip-when-elided="true" name="score"
-                          class="outline-text outline-text-md"/>
+
             </ui:VisualElement>
             <ui:VisualElement name="img-shark-destory-boat"
                               style="background-image: url(&apos;project://database/Assets/Editor/resources/woodTexture.png?fileID=2800000&amp;guid=49cdbd5188cd313439aa4b15a2332d8c&amp;type=3#woodTexture&apos;); width: 708px; height: 344px;"/>
@@ -17,8 +16,14 @@
     </ui:VisualElement>
     <ui:VisualElement/>
 
+    <ui:VisualElement class="top row-reverse">
+        <ui:VisualElement class="row">
+            <ui:Label text="Score " class="outline-text outline-text-md padding-right-sm"/>
+            <ui:Label text="1:59" display-tooltip-when-elided="true" name="score" class="outline-text outline-text-md"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
     <ui:VisualElement class="bottom row-reverse">
-        <ui:VisualElement name="bottomrightcorner" class="row center" style="height: 100%;">
+        <ui:VisualElement name="bottomrightcorner" class="row center row-reverse" style="height: 100%;">
             <ui:VisualElement name="yellowButton" class="button">
                 <ui:VisualElement name="buttonTop" class="button-top-yellow img"/>
                 <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img"

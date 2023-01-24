@@ -11,6 +11,5 @@ public static class GameVariablesHolder
     public static int score { get; set; }
     public static string Username { get; set; }
     public static int Score { get; set; } = 115;
-
-
+    public static int Id { get; set; }
 }
