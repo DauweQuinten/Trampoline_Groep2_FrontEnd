@@ -32,6 +32,9 @@ public class kiezenGebruikersNaam : MonoBehaviour
         var btnBlue = _document.rootVisualElement.Q("blueButton");
         _btnBlueTop = btnBlue.Q("buttonTop");
         ButtonListener.ListenToButtons();
+        Debug.Log("Turning LED's on");
+        ButtonListener.UpdateLed(LedType.Left, LedValue.On);
+        ButtonListener.UpdateLed(LedType.Right, LedValue.On);
     }
 
     private async void GenerateNewName()
@@ -73,7 +76,9 @@ public class kiezenGebruikersNaam : MonoBehaviour
     private void NextScene()
     {
         GameVariablesHolder.Username = _gebruikersNaam;
+        ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
+        ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
         // Todo: change name of next scene
-        // SceneManager.LoadScene("placeholder");
+        // SceneManager.LoadScene("scenes/");
     }
 }
