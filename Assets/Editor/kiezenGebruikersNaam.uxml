@@ -15,7 +15,7 @@
                     <ui:VisualElement name="buttonBottom" class="button-bottom button-base img"
                                       style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/Bluebottom36000.png?fileID=2800000&amp;guid=2de0889becbace94a937f3af86c831ca&amp;type=3#Bluebottom36000&apos;); -unity-background-scale-mode: scale-to-fit;"/>
                 </ui:VisualElement>
-                <ui:Label text="Genereer je naam" class="outline-text outline-text-md"/>
+                <ui:Label text="Verander naam" class="outline-text outline-text-md"/>
             </ui:VisualElement>
             <ui:VisualElement name="bottomrightcorner" class="row center" style="height: 100%;">
                 <ui:VisualElement name="yellowButton" class="button">
