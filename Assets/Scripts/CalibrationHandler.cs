@@ -100,14 +100,12 @@ public class CalibrationHandler : MonoBehaviour
                 if (!playerCalibratedArray[0])
                 {
                     Debug.Log("Left player index changed to " + message.CalibrationChanged.KinectIndex);
-                    // playerMapping[0] = message.CalibrationChanged.KinectIndex;
                     GameVariablesHolder.playerMapping[0] = message.CalibrationChanged.KinectIndex;
                     Debug.Log($"mapping is now: {GameVariablesHolder.playerMapping[0]}");
                 }
                 else if (!playerCalibratedArray[1])
                 {
                     Debug.Log("Right player index changed to " + message.CalibrationChanged.KinectIndex);
-                    // playerMapping[1] = message.CalibrationChanged.KinectIndex;
                     GameVariablesHolder.playerMapping[1] = message.CalibrationChanged.KinectIndex;
                     Debug.Log($"mapping is now: {GameVariablesHolder.playerMapping[1]}");
                 }
@@ -134,7 +132,7 @@ public class CalibrationHandler : MonoBehaviour
         }
 
         if ((playerCalibratedArray[0] && !playerCalibratedArray[1]) && !isCalibrating)
-        {
+        {                      
             changeCalibrationPlayer(1);
             onCalibratingP2.Invoke();
         }
@@ -152,6 +150,7 @@ public class CalibrationHandler : MonoBehaviour
     }
 
 
+    
     #region calibration handling 
 
     void SendCalibrationMessage(CalibrationStatus status, int player)
@@ -176,27 +175,24 @@ public class CalibrationHandler : MonoBehaviour
         }
     }
 
-    void changeCalibrationPlayer(int playerIndex)
+    IEnumerator changeCalibrationPlayer(int playerIndex)
     {
+        Debug.Log($"Well done, left player is ready to go!");
+        Debug.Log($"Right player, are you ready?");
+        yield return new WaitForSeconds(3);
         Debug.Log($"Switch to player{playerIndex}");
         SendCalibrationMessage(CalibrationStatus.SWITCH_PLAYER, playerIndex);
     }
 
     void CompleteCalibration()
     {
-        isCalibrationFinished = true;
-     
-        // GameVariablesHolder.playerMapping = playerMapping;
-
-
+        isCalibrationFinished = true;     
         Debug.Log("Calibration finished");
         SendCalibrationMessage(CalibrationStatus.FINISHED, 0);
-
         StartCoroutine(LoadGameScene());
     }
 
     #endregion
-
 
     #region calibration function
 
@@ -225,7 +221,7 @@ public class CalibrationHandler : MonoBehaviour
 
     IEnumerator LoadGameScene()
     {
-        Debug.Log("Game starts in 5 seconds");
+        Debug.Log("Well done! The game starts in 5 seconds");
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene("BoatGame");
     }
