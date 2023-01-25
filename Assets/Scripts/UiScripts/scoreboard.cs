@@ -15,7 +15,7 @@ public class scoreboard : MonoBehaviour
     List<ScoreboardItem> list_Items;
     ScoreboardItem _UserItem;
     private UIDocument _document;
-
+    private List<VisualElement> _listview_Items = new List<VisualElement>();
 
     private VisualElement _btnYellowTop;
     private VisualElement _btnBlueTop;
@@ -37,20 +37,21 @@ public class scoreboard : MonoBehaviour
         ButtonListener.ListenToButtons();
         _root = _document.rootVisualElement;
         FillBoard();
+
     }
+
 
 
     async void FillBoard()
     {
+
         list_Items = await ScoreRepository.GetScoresAsync();
-        GameVariablesHolder.Id = 2;
         _UserItem = await ScoreRepository.GetScoreAsync(GameVariablesHolder.Id);
 
         foreach (ScoreboardItem item in list_Items)
         {
             item.Img = await GetRemoteTexture(item.ImgUrl);
         }
-
         _UserItem.Img = await GetRemoteTexture(_UserItem.ImgUrl);
         list_Items.Sort();
         ListView lvwScores = _root.Q<ListView>("lvwScores");
@@ -59,8 +60,16 @@ public class scoreboard : MonoBehaviour
 
         _root.Q<Image>("lblUserImage").image = _UserItem.Img;
         _root.Q<Label>("lblUserScore").text = $"{_UserItem.Username} - {_UserItem.Score}";
-    }
 
+        foreach (var item in _listview_Items)
+        {
+            if (item.ClassListContains($"Id{_UserItem.Id}"))
+            {
+                item.AddToClassList("c-user-list");
+            }
+        }
+
+    }
     void FillList(ListView list, List<ScoreboardItem> items)
     {
         list.Q<ScrollView>().verticalScrollerVisibility = ScrollerVisibility.Hidden;
@@ -69,7 +78,6 @@ public class scoreboard : MonoBehaviour
         list.bindItem = BindItem;
         list.itemsSource = items;
     }
-
     private VisualElement MakeItem()
     {
         //Here we take the uxml and make a VisualElement
@@ -85,20 +93,31 @@ public class scoreboard : MonoBehaviour
         i.AddToClassList("u-list-img");
         listItem.Add(i);
 
-        var l = new Label { name = "score-label" };
+        var l = new Label { name = "score-name-label" };
         l.AddToClassList("c-score-label");
+        l.AddToClassList("u-list-label");
         listItem.Add(l);
-
+        
+        var s = new Label { name = "score-number-label" };
+        s.AddToClassList("c-score-label");
+        listItem.Add(s);
+        _listview_Items.Add(listItem);
         return listItem;
+
     }
 
     private void BindItem(VisualElement e, int i)
     {
+        e.AddToClassList($"Id{list_Items[i].Id}");
+
         e.Q<Label>("score-number").text = $"{i + 1}.";
 
-        e.Q<Label>("score-label").text = $"{list_Items[i].Username} - {list_Items[i].Score}";
+        e.Q<Label>("score-name-label").text = $"{list_Items[i].Username}";
+
+        e.Q<Label>("score-number-label").text = $"{list_Items[i].Score}";
 
         e.Q<Image>("score-image").image = list_Items[i].Img;
+
     }
 
     public static async Task<Texture2D> GetRemoteTexture(string url)
@@ -110,10 +129,10 @@ public class scoreboard : MonoBehaviour
 
             // await until it's done: 
             while (asyncOp.isDone == false)
-                await Task.Delay(1000 / 30); //30 hertz
+                await Task.Delay(1000 / 30);//30 hertz
 
             // read results:
-            if (www.result != UnityWebRequest.Result.Success) // for Unity >= 2020.1
+            if (www.result != UnityWebRequest.Result.Success)// for Unity >= 2020.1
             {
                 // log error:
                 Debug.Log($"{www.error}, URL:{www.url}");
