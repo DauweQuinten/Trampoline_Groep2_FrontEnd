@@ -2,6 +2,7 @@ using Models;
 using Newtonsoft.Json;
 using System.Collections;
 using UiScripts;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -30,6 +31,7 @@ public class CalibrationHandler : MonoBehaviour
     bool isCalibrationStarted = false;
     bool isCalibrationFinished = false;
     bool isCalibrating = false;
+    bool calibrationHasChanged = false;
 
     #endregion
 
@@ -131,12 +133,18 @@ public class CalibrationHandler : MonoBehaviour
         if ((playerCalibratedArray[0] && !playerCalibratedArray[1]) && !isCalibrating)
         {
             changeCalibrationPlayer(1);
-            onCalibratingP2.Invoke();
+
+            if(calibrationHasChanged == true)
+            {
+                onCalibratingP2.Invoke();
+                calibrationHasChanged = false;
+            }
         }
 
         if (!playerCalibratedArray[0] && playerCalibratedArray[1] && !isCalibrating)
         {
             changeCalibrationPlayer(0);
+
             onCalibratingP1.Invoke();
         }
 
@@ -177,22 +185,17 @@ public class CalibrationHandler : MonoBehaviour
         SendTextToUi("Goed gedaan, je bent klaar om te gaan!", 0);
         Debug.Log($"Right player, are you ready?");
         SendTextToUi("Ben je klaar?", 1);
-
-        
+  
         float currentSeconds = Time.realtimeSinceStartup;
-
-        Debug.Log("Current time is " + currentSeconds);
-
         while (Time.realtimeSinceStartup < currentSeconds + 3)
         {
-            
-            Debug.Log("i'm waiting for youuuuuu");
-            SendTextToUi("i'm waiting for youuuuuu", 0);
+            SendTextToUi("I'm waitingg?", 0);
         }
 
         Debug.Log($"Switch to player{playerIndex}");
         SendTextToUi("Start met springen!", 1);
         SendCalibrationMessage(CalibrationStatus.SWITCH_PLAYER, playerIndex);
+        calibrationHasChanged = true;
     }
 
     void CompleteCalibration()
