@@ -31,7 +31,7 @@ public class MoveForward : MonoBehaviour
     void Update()
     {
         // translate forward over time based on scroll speed
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
 
         // define speed based on game state
         if (levelControllerScript.gameOver)

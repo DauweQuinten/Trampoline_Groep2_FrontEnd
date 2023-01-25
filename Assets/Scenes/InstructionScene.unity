@@ -227,6 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 304234302}
   - component: {fileID: 304234303}
+  - component: {fileID: 304234304}
   m_Layer: 0
   m_Name: hoeSpelen
   m_TagString: Untagged
@@ -265,6 +266,18 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 9f1523ea3abaada4d80b0e1b208f3570, type: 3}
   m_SortingOrder: 0
+--- !u!114 &304234304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304234301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc7c31f985ab9224ca8ccc186e571fb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1071029990
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,7 +44,7 @@ public class CalibrationHandler : MonoBehaviour
     void Awake()
     {
         // make reference to KalibratieUi
-        _ui = GameObject.Find("KalibratieUi").GetComponent<KalibratieUi>();
+        _ui = GameObject.Find("calibration").GetComponent<KalibratieUi>();
         if (_ui == null) Debug.LogError("KalibratieUi not found");
 
         #region initialize events
@@ -240,7 +240,7 @@ public class CalibrationHandler : MonoBehaviour
         SendTextToUi("Het spel begint over 5 seconden!", 0);
         SendTextToUi("Het spel begint over 5 seconden!", 1);
         yield return new WaitForSeconds(5);
-        SceneManager.LoadScene("BoatGame");
+        SceneManager.LoadScene("BoatGame2.0");
     }
 
     #endregion

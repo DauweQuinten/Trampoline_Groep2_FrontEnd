@@ -13,6 +13,7 @@ using System.Linq;
 public class scoreboard : MonoBehaviour
 {
     List<ScoreboardItem> list_Items;
+    ScoreboardItem _UserItem;
     private UIDocument _document;
 
 
@@ -36,46 +37,52 @@ public class scoreboard : MonoBehaviour
         ButtonListener.ListenToButtons();
         _root = _document.rootVisualElement;
         FillBoard();
-        
     }
 
-    
 
     async void FillBoard()
     {
-        
         list_Items = await ScoreRepository.GetScoresAsync();
+        GameVariablesHolder.Id = 2;
+        _UserItem = await ScoreRepository.GetScoreAsync(GameVariablesHolder.Id);
+
         foreach (ScoreboardItem item in list_Items)
         {
             item.Img = await GetRemoteTexture(item.ImgUrl);
         }
+
+        _UserItem.Img = await GetRemoteTexture(_UserItem.ImgUrl);
         list_Items.Sort();
         ListView lvwScores = _root.Q<ListView>("lvwScores");
-        
+
         FillList(lvwScores, list_Items.Take(10).ToList());
 
+        _root.Q<Image>("lblUserImage").image = _UserItem.Img;
+        _root.Q<Label>("lblUserScore").text = $"{_UserItem.Username} - {_UserItem.Score}";
     }
+
     void FillList(ListView list, List<ScoreboardItem> items)
     {
-        list.AddToClassList("c-score-list");
         list.Q<ScrollView>().verticalScrollerVisibility = ScrollerVisibility.Hidden;
-        list.fixedItemHeight = 65;
+        list.fixedItemHeight = 62;
         list.makeItem = MakeItem;
         list.bindItem = BindItem;
         list.itemsSource = items;
     }
+
     private VisualElement MakeItem()
     {
         //Here we take the uxml and make a VisualElement
         VisualElement listItem = new VisualElement();
         listItem.AddToClassList("c-score-list-item");
 
-        var number = new Label{name = "score-number"};
+        var number = new Label { name = "score-number" };
         number.AddToClassList("c-score-number");
         listItem.Add(number);
 
-        var i = new Image{name = "score-image"};
+        var i = new Image { name = "score-image" };
         i.AddToClassList("c-score-image");
+        i.AddToClassList("u-list-img");
         listItem.Add(i);
 
         var l = new Label { name = "score-label" };
@@ -83,19 +90,17 @@ public class scoreboard : MonoBehaviour
         listItem.Add(l);
 
         return listItem;
-
     }
-    
+
     private void BindItem(VisualElement e, int i)
     {
         e.Q<Label>("score-number").text = $"{i + 1}.";
 
         e.Q<Label>("score-label").text = $"{list_Items[i].Username} - {list_Items[i].Score}";
-        
-        e.Q<Image>("score-image").image = list_Items[i].Img;
 
+        e.Q<Image>("score-image").image = list_Items[i].Img;
     }
-    
+
     public static async Task<Texture2D> GetRemoteTexture(string url)
     {
         using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))
@@ -105,15 +110,13 @@ public class scoreboard : MonoBehaviour
 
             // await until it's done: 
             while (asyncOp.isDone == false)
-                await Task.Delay(1000 / 30);//30 hertz
+                await Task.Delay(1000 / 30); //30 hertz
 
             // read results:
-            if( www.result!=UnityWebRequest.Result.Success )// for Unity >= 2020.1
+            if (www.result != UnityWebRequest.Result.Success) // for Unity >= 2020.1
             {
                 // log error:
-                #if DEBUG
                 Debug.Log($"{www.error}, URL:{www.url}");
-                #endif
 
                 // nothing to return on error:
                 return null;
@@ -133,16 +136,19 @@ public class scoreboard : MonoBehaviour
         if (ButtonListener.Both == BtnValue.Pressed)
         {
             _document.rootVisualElement.Clear();
-            SceneManager.LoadScene("StartScene");
+            SceneManager.LoadScene("Startscherm");
         }
+
         if (ButtonListener.Left == BtnValue.Pressed)
         {
-            SceneManager.LoadScene("StartScene");
+            SceneManager.LoadScene("Startscherm");
         }
+
         if (ButtonListener.Right == BtnValue.Pressed)
         {
-            SceneManager.LoadScene("StartScene");
+            SceneManager.LoadScene("Startscherm");
         }
+
         _previousUpdateCount = ButtonListener.BtnUpdate;
     }
 }

@@ -19,6 +19,12 @@ public class SpawnManager : MonoBehaviour
     private LevelController levelControllerScript;
     private PlayerControls playerControlsScript;
 
+    // spawn rate
+    private float spawnRate = 2;
+
+    // reference to coroutine
+    Coroutine spawnRoutine;
+    
     #endregion
 
 
@@ -30,11 +36,14 @@ public class SpawnManager : MonoBehaviour
         playerControlsScript = GameObject.Find("Boat").GetComponent<PlayerControls>();
 
         // start spawning obstacles
-        StartCoroutine(SpawnRandonObstacle());
-    }
+        spawnRoutine = StartCoroutine(SpawnRandonObstacle(spawnRate));
 
+        // trigger increase difficulty event from level controller
+        levelControllerScript.onIncreaseDifficulty.AddListener(IncreaseDifficulty);
+    }
+    
     // spawn obstacles at random position
-    IEnumerator SpawnRandonObstacle()
+    IEnumerator SpawnRandonObstacle(float spawnRate)
     {
         while (!levelControllerScript.gameOver)
         {
@@ -45,7 +54,17 @@ public class SpawnManager : MonoBehaviour
                 Instantiate(obstaclePrefabs[obstacleIndex], spawnPos, obstaclePrefabs[obstacleIndex].transform.rotation);
                 
             }
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(spawnRate);
         }
     }
+
+    void IncreaseDifficulty() 
+    {
+        // increase spawn rate
+        StopCoroutine(spawnRoutine);
+        spawnRate -= 0.5f;
+        spawnRoutine = StartCoroutine(SpawnRandonObstacle(spawnRate));
+    }
+
+
 }
