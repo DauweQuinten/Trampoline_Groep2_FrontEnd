@@ -44,7 +44,7 @@ public class CalibrationHandler : MonoBehaviour
     void Awake()
     {
         // make reference to KalibratieUi
-        _ui = GameObject.Find("KalibratieUi").GetComponent<KalibratieUi>();
+        _ui = GameObject.Find("calibration").GetComponent<KalibratieUi>();
         if (_ui == null) Debug.LogError("KalibratieUi not found");
 
         #region initialize events
