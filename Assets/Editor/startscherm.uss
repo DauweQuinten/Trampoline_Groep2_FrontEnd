@@ -15,7 +15,6 @@
     -unity-text-outline-width: 8px;
 }
 
-
 .c-score-number {
     -unity-text-outline-color: rgb(19, 10, 1);
     -unity-font: url('project://database/Assets/Editor/resources/Fonts%20&%20Materials/MouseMemoirs-Regular.ttf?fileID=12800000&guid=7e75f74396c653544a29de5a17f26147&type=3#MouseMemoirs-Regular');
@@ -25,9 +24,8 @@
     -unity-font-style: bold;
     color: rgb(240, 223, 202);
     text-shadow: 2px 3px 2px rgba(15, 40, 13, 0.25);
-    -unity-text-align: center; 
+    -unity-text-align: center;
     max-width: 20px;
-    
 }
 
 .c-score-label {
@@ -39,9 +37,8 @@
     -unity-font-style: bold;
     color: rgb(240, 223, 202);
     text-shadow: 2px 3px 2px rgba(15, 40, 13, 0.25);
-    -unity-text-align: center; 
+    -unity-text-align: center;
     max-width: 200px;
-    
 }
 
 .c-score-image {
@@ -52,8 +49,8 @@
 }
 
 .c-score-list-item {
-     flex-direction: row;
-     align-items: center;
+    flex-direction: row;
+    align-items: center;
 }
 
 .c-score-list {
@@ -101,6 +98,13 @@
     left: 0;
 }
 
+.img-relative {
+    height: 100%;
+    width: 100%;
+    -unity-background-scale-mode: scale-to-fit;
+    position: relative;
+}
+
 .mg-bt-md {
     padding-bottom: 40px;
     margin-top: 0;
@@ -137,6 +141,12 @@
     transition-timing-function: ease;
 }
 
+.placeholder-image {
+    background-image: url('project://database/Assets/Editor/resources/placeholderImage.png?fileID=2800000&guid=8975d575386fa664b952b65456eee517&type=3#placeholderImage');
+    height: 200px;
+    width: 250px;
+}
+
 .horizontal * {
     padding-right: 20px;
 }
@@ -155,6 +165,11 @@
     margin-top: 120px;
     margin-bottom: 120px;
 }
+
+.margin-bottom-lg {
+    margin-bottom: 90px;
+}
+
 
 .padding-lg {
     padding-top: 120px;
@@ -198,6 +213,10 @@
 
 .center {
     align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
 }
 
 .row-reverse {
@@ -249,7 +268,18 @@
     border-bottom-color: rgb(19, 10, 1);
 }
 
-
 .transparent-gray-background {
     background-color: rgba(0, 0, 0, 0.7);
 }
+
+.placeholder-img {
+}
+
+.padding-left-xxl {
+    padding-left: 360px;
+}
+
+.padding-left-lg {
+    padding-left: 90px;
+}
+
