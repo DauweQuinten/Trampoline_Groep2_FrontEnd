@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Models;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.UIElements;
 
 namespace UiScripts
 {
-    public class startschermManager : MonoBehaviour
+    public class StartschermManager : MonoBehaviour
     {
 // Start is called before the first frame update
         private UIDocument _document;
@@ -15,6 +16,7 @@ namespace UiScripts
 
         private int _previousUpdateCount = -1;
         private bool _isEnabled;
+        private bool _btnsHaveBeenPressed;
 
 
         private void Start()
@@ -34,40 +36,45 @@ namespace UiScripts
         private void Update()
         {
             if (!_isEnabled || ButtonListener.BtnUpdate <= _previousUpdateCount) return;
-            if (ButtonListener.Both == BtnValue.Pressed)
+            switch (ButtonListener.Both)
             {
-                ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
-                ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
-                StartCoroutine(LoadSceneAfterDelay(0.3f));
+                case BtnValue.Pressed:
+                    _btnsHaveBeenPressed = true;
+                    break;
+                case BtnValue.Released:
+                    if (_btnsHaveBeenPressed) StartCoroutine(GoToNextScene(0.3f));
+                    break;
             }
 
-            if (ButtonListener.Left == BtnValue.Pressed)
+            switch (ButtonListener.Left)
             {
-                _btnBlueTop.AddToClassList("move-down");
+                case BtnValue.Pressed:
+                    _btnBlueTop.AddToClassList("move-down");
+                    break;
+                case BtnValue.Released:
+                    _btnBlueTop.RemoveFromClassList("move-down");
+                    break;
             }
 
-            if (ButtonListener.Right == BtnValue.Pressed)
+            switch (ButtonListener.Right)
             {
-                _btnYellowTop.AddToClassList("move-down");
-            }
-
-            if (ButtonListener.Left == BtnValue.Released)
-            {
-                _btnBlueTop.RemoveFromClassList("move-down");
-            }
-
-            if (ButtonListener.Right == BtnValue.Released)
-            {
-                _btnYellowTop.RemoveFromClassList("move-down");
+                case BtnValue.Pressed:
+                    _btnYellowTop.AddToClassList("move-down");
+                    break;
+                case BtnValue.Released:
+                    _btnYellowTop.RemoveFromClassList("move-down");
+                    break;
             }
 
             _previousUpdateCount = ButtonListener.BtnUpdate;
         }
 
-        private static IEnumerator LoadSceneAfterDelay(float delay)
+        private static IEnumerator GoToNextScene(float delay)
         {
+            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
+            ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
             yield return new WaitForSeconds(delay);
-            SceneManager.LoadScene("CalibrationScene");
+            SceneManager.LoadScene("InstructionScene");
         }
     }
 }
