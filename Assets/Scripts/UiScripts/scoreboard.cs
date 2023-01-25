@@ -15,7 +15,7 @@ public class scoreboard : MonoBehaviour
     List<ScoreboardItem> list_Items;
     ScoreboardItem _UserItem;
     private UIDocument _document;
-
+    private List<VisualElement> _listview_Items = new List<VisualElement>();
 
     private VisualElement _btnYellowTop;
     private VisualElement _btnBlueTop;
@@ -46,7 +46,6 @@ public class scoreboard : MonoBehaviour
     {
 
         list_Items = await ScoreRepository.GetScoresAsync();
-        GameVariablesHolder.Id = 2;
         _UserItem = await ScoreRepository.GetScoreAsync(GameVariablesHolder.Id);
 
         foreach (ScoreboardItem item in list_Items)
@@ -61,6 +60,14 @@ public class scoreboard : MonoBehaviour
 
         _root.Q<Image>("lblUserImage").image = _UserItem.Img;
         _root.Q<Label>("lblUserScore").text = $"{_UserItem.Username} - {_UserItem.Score}";
+
+        foreach (var item in _listview_Items)
+        {
+            if (item.ClassListContains($"Id{_UserItem.Id}"))
+            {
+                item.AddToClassList("c-user-list");
+            }
+        }
 
     }
     void FillList(ListView list, List<ScoreboardItem> items)
@@ -86,19 +93,28 @@ public class scoreboard : MonoBehaviour
         i.AddToClassList("u-list-img");
         listItem.Add(i);
 
-        var l = new Label { name = "score-label" };
+        var l = new Label { name = "score-name-label" };
         l.AddToClassList("c-score-label");
+        l.AddToClassList("u-list-label");
         listItem.Add(l);
-
+        
+        var s = new Label { name = "score-number-label" };
+        s.AddToClassList("c-score-label");
+        listItem.Add(s);
+        _listview_Items.Add(listItem);
         return listItem;
 
     }
 
     private void BindItem(VisualElement e, int i)
     {
+        e.AddToClassList($"Id{list_Items[i].Id}");
+
         e.Q<Label>("score-number").text = $"{i + 1}.";
 
-        e.Q<Label>("score-label").text = $"{list_Items[i].Username} - {list_Items[i].Score}";
+        e.Q<Label>("score-name-label").text = $"{list_Items[i].Username}";
+
+        e.Q<Label>("score-number-label").text = $"{list_Items[i].Score}";
 
         e.Q<Image>("score-image").image = list_Items[i].Img;
 
