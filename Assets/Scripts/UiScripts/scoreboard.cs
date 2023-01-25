@@ -1,173 +1,188 @@
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.UIElements;
-using Repository;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using Models;
-using UnityEngine.Networking;
-using UiScripts;
-using UnityEngine.SceneManagement;
 using System.Linq;
+using System.Threading.Tasks;
+using Models;
+using Repository;
+using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
-public class scoreboard : MonoBehaviour
+namespace UiScripts
 {
-    List<ScoreboardItem> list_Items;
-    ScoreboardItem _UserItem;
-    private UIDocument _document;
-    private List<VisualElement> _listview_Items = new List<VisualElement>();
-
-    private VisualElement _btnYellowTop;
-    private VisualElement _btnBlueTop;
-
-    private VisualElement _root;
-    private int _previousUpdateCount = -1;
-    private bool _isEnabled;
-
-
-    public void Start()
+    public class scoreboard : MonoBehaviour
     {
-        _isEnabled = true;
-        _document = GetComponent<UIDocument>();
-        // Each editor window contains a root VisualElement object
-        var btnYellow = _document.rootVisualElement.Q("yellowButton");
-        _btnYellowTop = btnYellow.Q("buttonTop");
-        var btnBlue = _document.rootVisualElement.Q("blueButton");
-        _btnBlueTop = btnBlue.Q("buttonTop");
-        ButtonListener.ListenToButtons();
-        _root = _document.rootVisualElement;
-        FillBoard();
+        private List<ScoreboardItem> _listItems;
+        private ScoreboardItem _userItem;
+        private UIDocument _document;
+        private List<VisualElement> _listviewItems = new();
 
-    }
+        private VisualElement _btnYellowTop;
+        private VisualElement _btnBlueTop;
 
+        private VisualElement _root;
+        private int _previousUpdateCount = -1;
+        private bool _isEnabled;
 
 
-    async void FillBoard()
-    {
-
-        list_Items = await ScoreRepository.GetScoresAsync();
-        _UserItem = await ScoreRepository.GetScoreAsync(GameVariablesHolder.Id);
-
-        foreach (ScoreboardItem item in list_Items)
+        public void Start()
         {
-            item.Img = await GetRemoteTexture(item.ImgUrl);
+            _isEnabled = true;
+            _document = GetComponent<UIDocument>();
+            // Each editor window contains a root VisualElement object
+            var btnYellow = _document.rootVisualElement.Q("yellowButton");
+            _btnYellowTop = btnYellow.Q("buttonTop");
+            var btnBlue = _document.rootVisualElement.Q("blueButton");
+            _btnBlueTop = btnBlue.Q("buttonTop");
+            ButtonListener.ListenToButtons();
+            _root = _document.rootVisualElement;
+            FillBoard();
         }
-        _UserItem.Img = await GetRemoteTexture(_UserItem.ImgUrl);
-        list_Items.Sort();
-        ListView lvwScores = _root.Q<ListView>("lvwScores");
 
-        FillList(lvwScores, list_Items.Take(10).ToList());
 
-        _root.Q<Image>("lblUserImage").image = _UserItem.Img;
-        _root.Q<Label>("lblUserScore").text = $"{_UserItem.Username} - {_UserItem.Score}";
-
-        foreach (var item in _listview_Items)
+        async void FillBoard()
         {
-            if (item.ClassListContains($"Id{_UserItem.Id}"))
+            _listItems = await ScoreRepository.GetScoresAsync();
+            _userItem = await ScoreRepository.GetScoreAsync(GameVariablesHolder.Id);
+
+            foreach (ScoreboardItem item in _listItems)
             {
-                item.AddToClassList("c-user-list");
+                item.Img = await GetRemoteTexture(item.ImgUrl);
+            }
+
+            _userItem.Img = await GetRemoteTexture(_userItem.ImgUrl);
+            _listItems.Sort();
+            ListView lvwScores = _root.Q<ListView>("lvwScores");
+
+            FillList(lvwScores, _listItems.Take(9).ToList());
+
+            var scoreInSeconds = _userItem.Score / 10;
+            var seconds = scoreInSeconds % 60;
+            var minutes = scoreInSeconds / 60;
+            var milliSeconds = _userItem.Score % 10;
+
+            _root.Q<Image>("lblUserImage").image = _userItem.Img;
+            _root.Q<Label>("thisUserScore").text = $"{minutes:D}:{seconds:D2}.{milliSeconds:D1}";
+            _root.Q<Label>("lblUserScore").text = _userItem.Username;
+
+            foreach (var item in _listviewItems)
+            {
+                if (item.ClassListContains($"Id{_userItem.Id}"))
+                {
+                    item.AddToClassList("c-user-list");
+                }
             }
         }
 
-    }
-    void FillList(ListView list, List<ScoreboardItem> items)
-    {
-        list.Q<ScrollView>().verticalScrollerVisibility = ScrollerVisibility.Hidden;
-        list.fixedItemHeight = 62;
-        list.makeItem = MakeItem;
-        list.bindItem = BindItem;
-        list.itemsSource = items;
-    }
-    private VisualElement MakeItem()
-    {
-        //Here we take the uxml and make a VisualElement
-        VisualElement listItem = new VisualElement();
-        listItem.AddToClassList("c-score-list-item");
-
-        var number = new Label { name = "score-number" };
-        number.AddToClassList("c-score-number");
-        listItem.Add(number);
-
-        var i = new Image { name = "score-image" };
-        i.AddToClassList("c-score-image");
-        i.AddToClassList("u-list-img");
-        listItem.Add(i);
-
-        var l = new Label { name = "score-name-label" };
-        l.AddToClassList("c-score-label");
-        l.AddToClassList("u-list-label");
-        listItem.Add(l);
-        
-        var s = new Label { name = "score-number-label" };
-        s.AddToClassList("c-score-label");
-        listItem.Add(s);
-        _listview_Items.Add(listItem);
-        return listItem;
-
-    }
-
-    private void BindItem(VisualElement e, int i)
-    {
-        e.AddToClassList($"Id{list_Items[i].Id}");
-
-        e.Q<Label>("score-number").text = $"{i + 1}.";
-
-        e.Q<Label>("score-name-label").text = $"{list_Items[i].Username}";
-
-        e.Q<Label>("score-number-label").text = $"{list_Items[i].Score}";
-
-        e.Q<Image>("score-image").image = list_Items[i].Img;
-
-    }
-
-    public static async Task<Texture2D> GetRemoteTexture(string url)
-    {
-        using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))
+        void FillList(ListView list, List<ScoreboardItem> items)
         {
-            // begin request:
-            var asyncOp = www.SendWebRequest();
+            list.Q<ScrollView>().verticalScrollerVisibility = ScrollerVisibility.Hidden;
+            list.fixedItemHeight = 62;
+            list.makeItem = MakeItem;
+            list.bindItem = BindItem;
+            list.itemsSource = items;
+        }
 
-            // await until it's done: 
-            while (asyncOp.isDone == false)
-                await Task.Delay(1000 / 30);//30 hertz
+        private VisualElement MakeItem()
+        {
+            //Here we take the uxml and make a VisualElement
+            VisualElement listItem = new VisualElement();
+            listItem.AddToClassList("c-score-list-item");
 
-            // read results:
-            if (www.result != UnityWebRequest.Result.Success)// for Unity >= 2020.1
+            var leftAlignement = new VisualElement
             {
-                // log error:
-                Debug.Log($"{www.error}, URL:{www.url}");
+                name = "leftAlignment"
+            };
+            leftAlignement.AddToClassList("row");
+            listItem.Add(leftAlignement);
 
-                // nothing to return on error:
-                return null;
-            }
-            else
+            var number = new Label { name = "score-number" };
+            number.AddToClassList("c-score-number");
+            leftAlignement.Add(number);
+
+            var i = new Image { name = "score-image" };
+            i.AddToClassList("c-score-image");
+            i.AddToClassList("u-list-img");
+            leftAlignement.Add(i);
+
+            var l = new Label { name = "score-name-label" };
+            l.AddToClassList("c-score-label");
+            l.AddToClassList("u-list-label");
+            leftAlignement.Add(l);
+
+            var s = new Label { name = "score-number-label" };
+            s.AddToClassList("c-score-label");
+            listItem.Add(s);
+            _listviewItems.Add(listItem);
+            return listItem;
+        }
+
+        private void BindItem(VisualElement e, int i)
+        {
+            e.AddToClassList($"Id{_listItems[i].Id}");
+
+            e.Q<Label>("score-number").text = $"{i + 1}.";
+
+            e.Q<Label>("score-name-label").text = $"{_listItems[i].Username}";
+            var scoreInSeconds = _listItems[i].Score / 10;
+            var seconds = scoreInSeconds % 60;
+            var minutes = scoreInSeconds / 60;
+            var milliSeconds = _listItems[i].Score % 10;
+
+            e.Q<Label>("score-number-label").text = $"{minutes:D}:{seconds:D2}.{milliSeconds:D1}";
+
+            e.Q<Image>("score-image").image = _listItems[i].Img;
+        }
+
+        public static async Task<Texture2D> GetRemoteTexture(string url)
+        {
+            using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))
             {
-                // return valid results:
-                return DownloadHandlerTexture.GetContent(www);
+                // begin request:
+                var asyncOp = www.SendWebRequest();
+
+                // await until it's done: 
+                while (asyncOp.isDone == false)
+                    await Task.Delay(1000 / 30); //30 hertz
+
+                // read results:
+                if (www.result != UnityWebRequest.Result.Success) // for Unity >= 2020.1
+                {
+                    // log error:
+                    Debug.Log($"{www.error}, URL:{www.url}");
+
+                    // nothing to return on error:
+                    return null;
+                }
+                else
+                {
+                    // return valid results:
+                    return DownloadHandlerTexture.GetContent(www);
+                }
             }
         }
-    }
 
 
-    private void Update()
-    {
-        if (!_isEnabled || ButtonListener.BtnUpdate <= _previousUpdateCount) return;
-        if (ButtonListener.Both == BtnValue.Pressed)
+        private void Update()
         {
-            _document.rootVisualElement.Clear();
-            SceneManager.LoadScene("Startscherm");
-        }
+            if (!_isEnabled || ButtonListener.BtnUpdate <= _previousUpdateCount) return;
+            if (ButtonListener.Both == BtnValue.Pressed)
+            {
+                _document.rootVisualElement.Clear();
+                SceneManager.LoadScene("Startscherm");
+            }
 
-        if (ButtonListener.Left == BtnValue.Pressed)
-        {
-            SceneManager.LoadScene("Startscherm");
-        }
+            if (ButtonListener.Left == BtnValue.Pressed)
+            {
+                SceneManager.LoadScene("Startscherm");
+            }
 
-        if (ButtonListener.Right == BtnValue.Pressed)
-        {
-            SceneManager.LoadScene("Startscherm");
-        }
+            if (ButtonListener.Right == BtnValue.Pressed)
+            {
+                SceneManager.LoadScene("Startscherm");
+            }
 
-        _previousUpdateCount = ButtonListener.BtnUpdate;
+            _previousUpdateCount = ButtonListener.BtnUpdate;
+        }
     }
 }
