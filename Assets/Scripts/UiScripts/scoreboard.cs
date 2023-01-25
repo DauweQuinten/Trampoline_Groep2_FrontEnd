@@ -52,14 +52,14 @@ public class scoreboard : MonoBehaviour
         list_Items.Sort();
         ListView lvwScores = _root.Q<ListView>("lvwScores");
         
-        FillList(lvwScores, list_Items.Take(5).ToList());
+        FillList(lvwScores, list_Items.Take(10).ToList());
 
     }
     void FillList(ListView list, List<ScoreboardItem> items)
     {
         list.AddToClassList("c-score-list");
         list.Q<ScrollView>().verticalScrollerVisibility = ScrollerVisibility.Hidden;
-        list.fixedItemHeight = 90;
+        list.fixedItemHeight = 65;
         list.makeItem = MakeItem;
         list.bindItem = BindItem;
         list.itemsSource = items;
