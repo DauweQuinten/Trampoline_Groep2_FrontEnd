@@ -25,6 +25,14 @@
     justify-content: center;
 }
 
+.container.transparent {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.full-width {
+    width: 100%;
+}
+
 .justify-between {
     justify-content: space-around;
 }
@@ -103,6 +111,11 @@
     margin-bottom: 120px;
 }
 
+.padding-lg {
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
 .bottom-left {
     position: absolute;
     bottom: 30px;
@@ -168,10 +181,7 @@
 .shark-distance-bar {
     height: 60%;
     width: 80px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-radius: 20px;
     border-left-color: rgb(19, 10, 1);
     border-right-color: rgb(19, 10, 1);
     border-top-color: rgb(19, 10, 1);
@@ -188,12 +198,13 @@
     flex-direction: column-reverse;
     background-color: rgb(79, 153, 173);
     height: 40%;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
     border-left-color: rgb(19, 10, 1);
     border-right-color: rgb(19, 10, 1);
     border-top-color: rgb(19, 10, 1);
     border-bottom-color: rgb(19, 10, 1);
+}
+
+
+.transparent-gray-background {
+    background-color: rgba(0, 0, 0, 0.7);
 }
