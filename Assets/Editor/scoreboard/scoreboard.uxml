@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm" />
 	<ui:VisualElement class="container">
         <ui:Label text="ScoreBoard" class="outline-text" />
-        <ui:VisualElement class="startscherm-button" style="-unity-font: url(&apos;project://database/Assets/Editor/resources/Fonts%20&amp;%20Materials/MouseMemoirs-Regular.ttf?fileID=12800000&amp;guid=7e75f74396c653544a29de5a17f26147&amp;type=3#MouseMemoirs-Regular&apos;); height: 626px; -unity-font-definition: none; background-image: url(&apos;project://database/Assets/Editor/resources/woodTexture.png?fileID=2800000&amp;guid=49cdbd5188cd313439aa4b15a2332d8c&amp;type=3#woodTexture&apos;); width: 1074px; margin-left: auto; margin-right: auto; margin-top: 0;">
+        <ui:VisualElement style="-unity-font: url(&apos;project://database/Assets/Editor/resources/Fonts%20&amp;%20Materials/MouseMemoirs-Regular.ttf?fileID=12800000&amp;guid=7e75f74396c653544a29de5a17f26147&amp;type=3#MouseMemoirs-Regular&apos;); height: 626px; -unity-font-definition: none; background-image: url(&apos;project://database/Assets/Editor/resources/woodTexture.png?fileID=2800000&amp;guid=49cdbd5188cd313439aa4b15a2332d8c&amp;type=3#woodTexture&apos;); width: 1074px; margin-left: auto; margin-right: auto; margin-top: 0;">
             <ui:ListView name="lvwScores">
              </ui:ListView>
         </ui:VisualElement>

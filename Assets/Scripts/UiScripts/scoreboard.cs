@@ -8,10 +8,10 @@ using Models;
 using UnityEngine.Networking;
 using UiScripts;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class scoreboard : MonoBehaviour
 {
-    ListView lvwScores;
     List<ScoreboardItem> list_Items;
     private UIDocument _document;
 
@@ -19,8 +19,10 @@ public class scoreboard : MonoBehaviour
     private VisualElement _btnYellowTop;
     private VisualElement _btnBlueTop;
 
+    private VisualElement _root;
     private int _previousUpdateCount = -1;
     private bool _isEnabled;
+
 
     public void Start()
     {
@@ -32,14 +34,14 @@ public class scoreboard : MonoBehaviour
         var btnBlue = _document.rootVisualElement.Q("blueButton");
         _btnBlueTop = btnBlue.Q("buttonTop");
         ButtonListener.ListenToButtons();
-        VisualElement root = _document.rootVisualElement;
-        FillList(root);
+        _root = _document.rootVisualElement;
+        FillBoard();
         
     }
 
     
 
-    async void FillList(VisualElement root)
+    async void FillBoard()
     {
         
         list_Items = await ScoreRepository.GetScoresAsync();
@@ -48,38 +50,48 @@ public class scoreboard : MonoBehaviour
             item.Img = await GetRemoteTexture(item.ImgUrl);
         }
         list_Items.Sort();
+        ListView lvwScores = _root.Q<ListView>("lvwScores");
         
-        lvwScores = root.Q<ListView>("lvwScores");
-        lvwScores.fixedItemHeight = 142;
-        lvwScores.makeItem = MakeItem;
-        lvwScores.bindItem = BindItem;
-        lvwScores.itemsSource = list_Items;
+        FillList(lvwScores, list_Items.Take(5).ToList());
+
     }
-    
+    void FillList(ListView list, List<ScoreboardItem> items)
+    {
+        list.AddToClassList("c-score-list");
+        list.Q<ScrollView>().verticalScrollerVisibility = ScrollerVisibility.Hidden;
+        list.fixedItemHeight = 90;
+        list.makeItem = MakeItem;
+        list.bindItem = BindItem;
+        list.itemsSource = items;
+    }
     private VisualElement MakeItem()
     {
         //Here we take the uxml and make a VisualElement
         VisualElement listItem = new VisualElement();
-        var i = new Image();
-        i.name = "score-image";
+        listItem.AddToClassList("c-score-list-item");
+
+        var number = new Label{name = "score-number"};
+        number.AddToClassList("c-score-number");
+        listItem.Add(number);
+
+        var i = new Image{name = "score-image"};
         i.AddToClassList("c-score-image");
         listItem.Add(i);
-        
-        var l = new Label();
-        l.name = "score-label";
+
+        var l = new Label { name = "score-label" };
         l.AddToClassList("c-score-label");
         listItem.Add(l);
-        
+
         return listItem;
 
     }
-
+    
     private void BindItem(VisualElement e, int i)
     {
-        //We add the game name to the label of the list item
+        e.Q<Label>("score-number").text = $"{i + 1}.";
+
         e.Q<Label>("score-label").text = $"{list_Items[i].Username} - {list_Items[i].Score}";
         
-        //Here we create a call back for clicking on the list item and provide data to a function
         e.Q<Image>("score-image").image = list_Items[i].Img;
 
     }
@@ -96,7 +108,6 @@ public class scoreboard : MonoBehaviour
                 await Task.Delay(1000 / 30);//30 hertz
 
             // read results:
-            //if (www.isNetworkError || www.isHttpError)
             if( www.result!=UnityWebRequest.Result.Success )// for Unity >= 2020.1
             {
                 // log error:
