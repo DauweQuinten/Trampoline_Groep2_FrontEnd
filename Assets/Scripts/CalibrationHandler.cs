@@ -1,6 +1,7 @@
 using Models;
 using Newtonsoft.Json;
 using System.Collections;
+using System.Threading;
 using UiScripts;
 using UnityEngine;
 using UnityEngine.Events;
@@ -171,13 +172,16 @@ public class CalibrationHandler : MonoBehaviour
         }
     }
 
-    IEnumerator changeCalibrationPlayer(int playerIndex)
+    void changeCalibrationPlayer(int playerIndex)
     {
         Debug.Log($"Well done, left player is ready to go!");
         SendTextToUi("Goed gedaan, je bent klaar om te gaan!", 0);
         Debug.Log($"Right player, are you ready?");
         SendTextToUi("Ben je klaar?", 1);
-        yield return new WaitForSeconds(3);
+
+        // wait 3 seconds
+        Thread.Sleep(3000);
+
         Debug.Log($"Switch to player{playerIndex}");
         SendTextToUi("Start met springen!", 1);
         SendCalibrationMessage(CalibrationStatus.SWITCH_PLAYER, playerIndex);
