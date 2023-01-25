@@ -12,7 +12,7 @@ namespace UiScripts
         private UIDocument _document;
         private int _buttonCounter = -1;
         private VisualElement _yellowButtonTop;
-        private bool _rightButtonHasBeenReleased;
+        private bool _rightHasBeenPressed;
 
         void Start()
         {
@@ -27,16 +27,16 @@ namespace UiScripts
         void Update()
         {
             if (_buttonCounter >= ButtonListener.BtnUpdate) return;
+            // go to next scenen on button release
             switch (ButtonListener.Right)
             {
                 case BtnValue.Pressed:
                     _yellowButtonTop.AddToClassList("move-down");
-                    if (!_rightButtonHasBeenReleased) break;
-                    StartCoroutine(GoToNextScene(0.3f));
+                    _rightHasBeenPressed = true;
                     break;
                 case BtnValue.Released:
                     _yellowButtonTop.RemoveFromClassList("move-down");
-                    _rightButtonHasBeenReleased = true;
+                    if (_rightHasBeenPressed) StartCoroutine(GoToNextScene(0.3f));
                     break;
             }
 
