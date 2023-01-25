@@ -56,7 +56,7 @@ public class SharkController : MonoBehaviour
         // Shark forward movement
         if ((isMoving || playerControlsScript.isBackwards) && !levelControllerScript.gameOver)
         {
-            transform.Translate(Vector3.back * Time.deltaTime * sharkSpeed);  
+            transform.Translate(Vector3.back * Time.deltaTime * sharkSpeed, Space.World);  
         }
     }
 
