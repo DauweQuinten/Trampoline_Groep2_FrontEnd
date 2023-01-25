@@ -1,12 +1,5 @@
-using DefaultNamespace;
 using Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
-using UiScripts;
 using UnityEngine;
 using UnityEngine.Events;
 using WebSocketSharp;

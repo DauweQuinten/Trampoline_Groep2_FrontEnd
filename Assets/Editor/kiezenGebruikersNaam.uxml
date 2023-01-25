@@ -5,7 +5,7 @@
          editor-extension-mode="False">
     <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm"/>
     <ui:VisualElement name="container" class="container">
-        <ui:Label text="1:59" display-tooltip-when-elided="true" name="score" class="outline-text outline-text-md"/>
+        <ui:Image name="avatar" class="image avatar"/>
         <ui:Label text="BabyShark" display-tooltip-when-elided="true" name="generatedname" class="outline-text"/>
         <ui:VisualElement class="bottom">
             <ui:VisualElement name="bottomleftcorner" class="row center">
@@ -15,9 +15,9 @@
                     <ui:VisualElement name="buttonBottom" class="button-bottom button-base img"
                                       style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/Bluebottom36000.png?fileID=2800000&amp;guid=2de0889becbace94a937f3af86c831ca&amp;type=3#Bluebottom36000&apos;); -unity-background-scale-mode: scale-to-fit;"/>
                 </ui:VisualElement>
-                <ui:Label text="Verander naam" class="outline-text outline-text-md"/>
+                <ui:Label text="Veranderen" class="outline-text outline-text-md"/>
             </ui:VisualElement>
-            <ui:VisualElement name="bottomrightcorner" class="row center" style="height: 100%;">
+            <ui:VisualElement name="bottomrightcorner" class="row center row-reverse" style="height: 100%;">
                 <ui:VisualElement name="yellowButton" class="button">
                     <ui:VisualElement name="buttonTop" class="button-top-yellow img"/>
                     <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img"
@@ -25,6 +25,12 @@
                 </ui:VisualElement>
                 <ui:Label text="Ga verder" display-tooltip-when-elided="true" class="outline-text outline-text-md"/>
             </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement class="top row-reverse">
+        <ui:VisualElement class="row">
+            <ui:Label text="Score " class="outline-text outline-text-md padding-right-sm"/>
+            <ui:Label text="1:59" display-tooltip-when-elided="true" name="score" class="outline-text outline-text-md"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

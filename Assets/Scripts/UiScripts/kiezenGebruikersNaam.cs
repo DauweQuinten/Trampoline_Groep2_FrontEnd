@@ -18,10 +18,14 @@ public class kiezenGebruikersNaam : MonoBehaviour
     private Label _userNameLabel;
     private int _counter = -1;
     private bool _yellowReleasedFirst = false;
+    private int _id;
 
     void Start()
     {
-        GenerateNewName();
+        // for first time we need to insert in the database
+        GenerateNewNameAndInsertInDatabase();
+
+
         _document = GetComponent<UIDocument>();
         _userNameLabel = _document.rootVisualElement.Q<Label>("generatedname");
         var score = _document.rootVisualElement.Q<Label>("score");
@@ -38,10 +42,45 @@ public class kiezenGebruikersNaam : MonoBehaviour
         ButtonListener.UpdateLed(LedType.Right, LedValue.On);
     }
 
-    private async void GenerateNewName()
+    private async void GenerateNewNameAndInsertInDatabase()
     {
         _gebruikersNaam = await ScoreRepository.UserNameGeneration();
-        _userNameLabel.text = _gebruikersNaam.Trim('\"');
+        _gebruikersNaam = _gebruikersNaam.Trim('\"');
+        _userNameLabel.text = _gebruikersNaam;
+        _id = await ScoreRepository.AddScoreAsync(new ScoreboardItem()
+        {
+            Date = System.DateTime.Now,
+            Username = _gebruikersNaam,
+            Score = GameVariablesHolder.Score
+        });
+        GameVariablesHolder.Id = _id;
+        GetAvatar();
+    }
+
+    private async void GetAvatar()
+    {
+        var bytesArray = await ScoreRepository.GenerateImageAsync(new ScoreboardItem { Id = _id });
+        // bytesArray is the byte array of the image
+        // convert byteArray to default texture and assign it to the image
+        var texture = new Texture2D(1, 1);
+        texture.LoadImage(bytesArray);
+        var image = _document.rootVisualElement.Q<Image>("avatar");
+        image.image = texture;
+    }
+
+    private async void GenerateNewName()
+    {
+        var res = await ScoreRepository.UserNameGeneration();
+        _gebruikersNaam = res.Trim('\"');
+        _userNameLabel.text = _gebruikersNaam;
+        await ScoreRepository.UpdateScoreAsync(new ScoreboardItem
+        {
+            Score = GameVariablesHolder.Score,
+            Username = _gebruikersNaam,
+            Date = System.DateTime.Now,
+            Id = _id
+        });
+        GetAvatar();
     }
 
     // Update is called once per frame

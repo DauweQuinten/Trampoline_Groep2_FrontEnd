@@ -1,4 +1,3 @@
-using DefaultNamespace;
 using Models;
 using Newtonsoft.Json;
 using System.Collections;
@@ -9,7 +8,6 @@ using WebSocketSharp;
 
 public class CalibrationHandler : MonoBehaviour
 {
-
     #region event variables
 
     public UnityEvent onCalibrationStarted;
@@ -53,10 +51,7 @@ public class CalibrationHandler : MonoBehaviour
 
         #region event listeners
 
-        onCalibrationStarted.AddListener(() =>
-        {
-            StartCalibration();
-        });
+        onCalibrationStarted.AddListener(() => { StartCalibration(); });
 
         onCalibratingP1.AddListener(() =>
         {
@@ -70,10 +65,7 @@ public class CalibrationHandler : MonoBehaviour
             StartCoroutine(CalibratePlayer(1));
         });
 
-        onCalibrationFinished.AddListener(() =>
-        {
-            CompleteCalibration();
-        });
+        onCalibrationFinished.AddListener(() => { CompleteCalibration(); });
 
         #endregion
 
@@ -86,7 +78,7 @@ public class CalibrationHandler : MonoBehaviour
         {
             ws.Connect();
         }
-        
+
         // Subscribe to events
         ws.OnMessage += (sender, e) =>
         {
@@ -132,7 +124,7 @@ public class CalibrationHandler : MonoBehaviour
         }
 
         if ((playerCalibratedArray[0] && !playerCalibratedArray[1]) && !isCalibrating)
-        {                      
+        {
             changeCalibrationPlayer(1);
             onCalibratingP2.Invoke();
         }
@@ -150,8 +142,7 @@ public class CalibrationHandler : MonoBehaviour
     }
 
 
-    
-    #region calibration handling 
+    #region calibration handling
 
     void SendCalibrationMessage(CalibrationStatus status, int player)
     {
@@ -186,7 +177,7 @@ public class CalibrationHandler : MonoBehaviour
 
     void CompleteCalibration()
     {
-        isCalibrationFinished = true;     
+        isCalibrationFinished = true;
         Debug.Log("Calibration finished");
         SendCalibrationMessage(CalibrationStatus.FINISHED, 0);
         StartCoroutine(LoadGameScene());
@@ -227,5 +218,4 @@ public class CalibrationHandler : MonoBehaviour
     }
 
     #endregion
-
 }
