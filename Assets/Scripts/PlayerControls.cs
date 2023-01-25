@@ -18,7 +18,7 @@ public class PlayerControls : MonoBehaviour
     // movement variables
     public float xBounds = 3.5f;
     private int speed;
-    public float maxForce = 8.0f;
+    private float maxForce = 4.0f;
 
     // player states
     public bool hasCollided = false;
@@ -61,12 +61,12 @@ public class PlayerControls : MonoBehaviour
         {          
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                speed -= 2;
+                speed -= Mathf.FloorToInt(maxForce);
                 Debug.Log($"current speed: {speed}");
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                speed += 2;
+                speed += Mathf.FloorToInt(maxForce);
                 Debug.Log($"current speed: {speed}");
             }
         }
