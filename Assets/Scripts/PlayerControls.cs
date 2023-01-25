@@ -16,9 +16,9 @@ public class PlayerControls : MonoBehaviour
     private SocketEvents socketEventsScript;
 
     // movement variables
-    private float xBounds = 3.5f;
+    public float xBounds = 3.5f;
     private int speed;
-    public float maxForce = 8.0f;
+    private float maxForce = 4.0f;
 
     // player states
     public bool hasCollided = false;
@@ -61,18 +61,18 @@ public class PlayerControls : MonoBehaviour
         {          
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                speed -= 2;
+                speed -= Mathf.FloorToInt(maxForce);
                 Debug.Log($"current speed: {speed}");
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                speed += 2;
+                speed += Mathf.FloorToInt(maxForce);
                 Debug.Log($"current speed: {speed}");
             }
         }
 
         //move the player left or right based on speed
-        transform.Translate(Vector3.right * (Time.deltaTime * speed));    
+        transform.Translate(Vector3.left * (Time.deltaTime * speed));    
       
         // position constraints with bounce effect
         if (transform.position.x > xBounds)
