@@ -118,17 +118,15 @@ public class CalibrationHandler : MonoBehaviour
         Debug.Log("Press 'A' to start the calibration");
 
         #endregion
+
+        // start the sequence
+        onCalibrationStarted.Invoke();
     }
 
     // Update is called each frame
     private void Update()
     {
         // On start calibration (execute only once because of isCalibrationStarted)
-        if (Input.GetKeyDown(KeyCode.A) && !isCalibrationStarted)
-        {
-            // Start calibration p1
-            onCalibrationStarted.Invoke();
-        }
 
         if ((playerCalibratedArray[0] && !playerCalibratedArray[1]) && !isCalibrating)
         {
@@ -181,7 +179,7 @@ public class CalibrationHandler : MonoBehaviour
         SendTextToUi("Ben je klaar?", 1);
         yield return new WaitForSeconds(3);
         Debug.Log($"Switch to player{playerIndex}");
-        SendTextToUi("Start!", 1);
+        SendTextToUi("Start met springen!", 1);
         SendCalibrationMessage(CalibrationStatus.SWITCH_PLAYER, playerIndex);
     }
 
