@@ -170,7 +170,6 @@
     margin-bottom: 90px;
 }
 
-
 .padding-lg {
     padding-top: 120px;
     padding-bottom: 120px;
@@ -283,3 +282,6 @@
     padding-left: 90px;
 }
 
+.wood-sign-img {
+    background-image: url('project://database/Assets/Editor/resources/woodTextureNew.png?fileID=2800000&guid=b46f2831e3ccf2749a51b8535cbc0032&type=3#woodTextureNew');
+}
