@@ -1,33 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using static UnityEditor.Progress;
 
 namespace Models
 {
     public class ScoreboardItem : IComparable
     {
-        [JsonProperty("username")]
-        public string Username { get; set; }
-        
-        [JsonProperty("id")]
-        public int Id { get; set; }
+        [JsonProperty("username")] public string Username { get; set; }
 
-        [JsonProperty("score")]
-        public int Score { get; set; }
+        [JsonProperty("id")] public int Id { get; set; }
 
-        [JsonProperty("date")]
-        public DateTime Date { get; set; }
+        [JsonProperty("score")] public int Score { get; set; }
+
+        [JsonProperty("date")] public DateTime Date { get; set; }
 
         public string ImgUrl
         {
             get { return $"http://127.0.0.1:3000/username/avatar/{this.Id}"; }
         }
-        
+
         public override string ToString()
         {
             return $"{Username} - {Score} - {Date}";
