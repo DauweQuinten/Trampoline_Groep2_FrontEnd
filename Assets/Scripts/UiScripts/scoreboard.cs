@@ -97,7 +97,9 @@ namespace UiScripts
             listItem.Add(leftAlignement);
 
             var number = new Label { name = "score-number" };
-            number.AddToClassList("c-score-number");
+            number.style.width = 35;
+            number.AddToClassList("outline-text");
+            number.AddToClassList("outline-text-sm");
             leftAlignement.Add(number);
 
             var i = new Image { name = "score-image" };
@@ -106,12 +108,16 @@ namespace UiScripts
             leftAlignement.Add(i);
 
             var l = new Label { name = "score-name-label" };
-            l.AddToClassList("c-score-label");
+            l.style.maxWidth = 200;
+            l.AddToClassList("outline-text");
+            l.AddToClassList("outline-text-sm");
             l.AddToClassList("u-list-label");
             leftAlignement.Add(l);
 
             var s = new Label { name = "score-number-label" };
-            s.AddToClassList("c-score-label");
+            s.style.maxWidth = 200;
+            s.AddToClassList("outline-text");
+            s.AddToClassList("outline-text-sm");
             listItem.Add(s);
             _listviewItems.Add(listItem);
             return listItem;

@@ -10,15 +10,14 @@
                 <ui:VisualElement class="c-UserScore"
                                   style="flex-direction: column; align-items: center; justify-content: space-between; width: 685px; height: 505px;">
                     <ui:VisualElement name="scoreContainer" class="row">
-                        <ui:Label text="Jullie tijd" name="scorelabel" class="c-score-label u-text-md"
-                                  style="max-width: none;"/>
+                        <ui:Label text="Jullie tijd" name="scorelabel" class="outline-text outline-text-sm u-text-md"/>
                         <ui:Label text="1:24" display-tooltip-when-elided="true" name="thisUserScore"
                                   class="outline-text outline-text-md"
                                   style="font-size: 70px; -unity-text-outline-width: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-right: 0; padding-left: 15px;"/>
                     </ui:VisualElement>
                     <ui:Image name="lblUserImage" class="c-score-image"/>
-                    <ui:Label name="lblUserScore" class="c-score-label u-text-md"
-                              style="white-space: normal; max-width: 100%;"/>
+                    <ui:Label name="lblUserScore" class="outline-text outline-test-sm u-text-md"
+                              style="white-space: normal;"/>
                 </ui:VisualElement>
                 <ui:ListView name="lvwScores" class="c-score-list" style="width: 639px; height: 569px;"/>
             </ui:VisualElement>
@@ -26,14 +25,14 @@
         <ui:VisualElement name="both-buttons" class="horizontal">
             <ui:Label text="Druk op" class="outline-text outline-text-md"/>
             <ui:VisualElement name="blueButton" class="button">
-                <ui:VisualElement name="buttonTop" class="button-top img"
+                <ui:VisualElement name="buttonTop" class="button-top button-animation img"
                                   style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/BlueTop36000.png?fileID=2800000&amp;guid=fddd164aacd74224d978b606e5becc1f&amp;type=3#BlueTop36000&apos;); -unity-background-scale-mode: scale-to-fit;"/>
                 <ui:VisualElement name="buttonBottom" class="button-bottom button-base img"
                                   style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/Bluebottom36000.png?fileID=2800000&amp;guid=2de0889becbace94a937f3af86c831ca&amp;type=3#Bluebottom36000&apos;); -unity-background-scale-mode: scale-to-fit;"/>
             </ui:VisualElement>
             <ui:Label text="of" name="Label" class="outline-text outline-text-md"/>
             <ui:VisualElement name="yellowButton" class="button">
-                <ui:VisualElement name="buttonTop" class="button-top-yellow img"/>
+                <ui:VisualElement name="buttonTop" class="button-top-yellow img button-animation"/>
                 <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img"/>
             </ui:VisualElement>
             <ui:Label text="om te herstarten" class="outline-text outline-text-md" />
