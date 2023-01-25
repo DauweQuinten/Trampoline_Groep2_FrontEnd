@@ -8,7 +8,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Utilities;
 using Unity.VisualScripting;
 
-public class PlayerControls : MonoBehaviour
+public class F_PlayerControls : MonoBehaviour
 {
     #region variables
 
