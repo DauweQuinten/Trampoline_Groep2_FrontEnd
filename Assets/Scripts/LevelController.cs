@@ -12,6 +12,7 @@ public class LevelController : MonoBehaviour
 
     // Events
     public UnityEvent onGameOver;
+    public UnityEvent onIncreaseDifficulty;
 
     // Game variables
     public float scrollSpeed = 10f;
@@ -19,6 +20,11 @@ public class LevelController : MonoBehaviour
     public bool gameOver = false;
     public int score = 0;
     private float timeToScore = .1f;
+
+    // Difficulty levels
+    private bool level1 = true;
+    private bool level2 = false;
+    private bool level3 = false;
 
     // Distance variables
     private float distanceAtStart;
@@ -28,6 +34,7 @@ public class LevelController : MonoBehaviour
     // GameObjects
     private GameObject player;
     private GameObject shark;
+    
 
     #endregion
 
@@ -37,6 +44,7 @@ public class LevelController : MonoBehaviour
         #region initialize events
 
         onGameOver ??= new UnityEvent();
+        onIncreaseDifficulty ??= new UnityEvent();
 
         #endregion
 
@@ -73,13 +81,28 @@ public class LevelController : MonoBehaviour
             distancePercentage = distanceToShark / distanceAtStart;
         }
 
+        // start level 2 after 40 seconds survived
+        if (score > 400 && !level2)
+        {
+            onIncreaseDifficulty.Invoke();
+            level2 = true;
+        }
+
+        // start level 3 after 100 seconds survived
+        if (score > 1000 && !level3)
+        {
+            onIncreaseDifficulty.Invoke();
+            level3 = true;
+        }
+
+
         // handle game over
         if (gameOver == true)
         {
             GameVariablesHolder.Score = score;
             onGameOver.Invoke();
             SceneManager.LoadScene("Game-over");
-        }
+        }     
     }
 
 

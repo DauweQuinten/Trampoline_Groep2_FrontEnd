@@ -13,6 +13,7 @@ namespace UiScripts
         private VisualElement _btnYellowTop;
 
         private int _updateCount;
+        private bool _rightHasBeenPressed = false;
 
         // Start is called before the first frame update
         void Start()
@@ -40,19 +41,19 @@ namespace UiScripts
             {
                 case BtnValue.Pressed:
                     _btnYellowTop.AddToClassList("move-down");
-                    ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
-                    // wait for .3s
-                    StartCoroutine(LoadSceneAfterDelay(0.3f));
-                    // move to next screen after animation
+                    _rightHasBeenPressed = true;
                     break;
                 case BtnValue.Released:
                     _btnYellowTop.RemoveFromClassList("move-down");
+                    if (_rightHasBeenPressed) StartCoroutine(LoadSceneAfterDelay(0.3f));
                     break;
             }
         }
 
         private static IEnumerator LoadSceneAfterDelay(float delay)
         {
+            ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
+            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
             yield return new WaitForSeconds(delay);
             SceneManager.LoadScene("username-kiezen");
         }

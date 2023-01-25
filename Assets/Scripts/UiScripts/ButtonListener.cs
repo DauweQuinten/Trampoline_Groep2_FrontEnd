@@ -28,7 +28,6 @@ namespace UiScripts
 
         public static void UpdateLed(LedType type, LedValue state)
         {
-            // todo: add led events to socketController
             var socketObject = GameObject.Find("SocketController");
             var events = socketObject.GetComponent<SocketEvents>();
             switch (type, state)

@@ -1,104 +1,154 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Models;
-using Repository;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UIElements;
+using Repository;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using Models;
+using UnityEngine.Networking;
+using UiScripts;
+using UnityEngine.SceneManagement;
+using System.Linq;
 
-namespace UiScripts
+public class scoreboard : MonoBehaviour
 {
-    public class scoreboard : EditorWindow
+    List<ScoreboardItem> list_Items;
+    ScoreboardItem _UserItem;
+    private UIDocument _document;
+
+
+    private VisualElement _btnYellowTop;
+    private VisualElement _btnBlueTop;
+
+    private VisualElement _root;
+    private int _previousUpdateCount = -1;
+    private bool _isEnabled;
+
+
+    public void Start()
     {
-        ListView lvwScores;
-        List<ScoreboardItem> list_Items;
+        _isEnabled = true;
+        _document = GetComponent<UIDocument>();
+        // Each editor window contains a root VisualElement object
+        var btnYellow = _document.rootVisualElement.Q("yellowButton");
+        _btnYellowTop = btnYellow.Q("buttonTop");
+        var btnBlue = _document.rootVisualElement.Q("blueButton");
+        _btnBlueTop = btnBlue.Q("buttonTop");
+        ButtonListener.ListenToButtons();
+        _root = _document.rootVisualElement;
+        FillBoard();
+    }
 
-        [MenuItem("Window/UI Toolkit/scoreboard")]
-        public static void ShowExample()
+
+    async void FillBoard()
+    {
+        list_Items = await ScoreRepository.GetScoresAsync();
+        GameVariablesHolder.Id = 2;
+        _UserItem = await ScoreRepository.GetScoreAsync(GameVariablesHolder.Id);
+
+        foreach (ScoreboardItem item in list_Items)
         {
-            scoreboard wnd = GetWindow<scoreboard>();
-            wnd.titleContent = new GUIContent("scoreboard");
+            item.Img = await GetRemoteTexture(item.ImgUrl);
         }
 
-        public void CreateGUI()
+        _UserItem.Img = await GetRemoteTexture(_UserItem.ImgUrl);
+        list_Items.Sort();
+        ListView lvwScores = _root.Q<ListView>("lvwScores");
+
+        FillList(lvwScores, list_Items.Take(10).ToList());
+
+        _root.Q<Image>("lblUserImage").image = _UserItem.Img;
+        _root.Q<Label>("lblUserScore").text = $"{_UserItem.Username} - {_UserItem.Score}";
+    }
+
+    void FillList(ListView list, List<ScoreboardItem> items)
+    {
+        list.Q<ScrollView>().verticalScrollerVisibility = ScrollerVisibility.Hidden;
+        list.fixedItemHeight = 62;
+        list.makeItem = MakeItem;
+        list.bindItem = BindItem;
+        list.itemsSource = items;
+    }
+
+    private VisualElement MakeItem()
+    {
+        //Here we take the uxml and make a VisualElement
+        VisualElement listItem = new VisualElement();
+        listItem.AddToClassList("c-score-list-item");
+
+        var number = new Label { name = "score-number" };
+        number.AddToClassList("c-score-number");
+        listItem.Add(number);
+
+        var i = new Image { name = "score-image" };
+        i.AddToClassList("c-score-image");
+        i.AddToClassList("u-list-img");
+        listItem.Add(i);
+
+        var l = new Label { name = "score-label" };
+        l.AddToClassList("c-score-label");
+        listItem.Add(l);
+
+        return listItem;
+    }
+
+    private void BindItem(VisualElement e, int i)
+    {
+        e.Q<Label>("score-number").text = $"{i + 1}.";
+
+        e.Q<Label>("score-label").text = $"{list_Items[i].Username} - {list_Items[i].Score}";
+
+        e.Q<Image>("score-image").image = list_Items[i].Img;
+    }
+
+    public static async Task<Texture2D> GetRemoteTexture(string url)
+    {
+        using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))
         {
-            // Each editor window contains a root VisualElement object
-            VisualElement root = rootVisualElement;
+            // begin request:
+            var asyncOp = www.SendWebRequest();
 
-            // VisualElements objects can contain other VisualElement following a tree hierarchy.
-            //VisualElement label = new Label("Hello World! From C#");
-            //root.Add(label);
+            // await until it's done: 
+            while (asyncOp.isDone == false)
+                await Task.Delay(1000 / 30); //30 hertz
 
-            // Import UXML
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/scoreboard/scoreboard.uxml");
-            VisualElement labelFromUXML = visualTree.Instantiate();
-            root.Add(labelFromUXML);
-
-            // A stylesheet can be added to a VisualElement.
-            // The style will be applied to the VisualElement and all of its children.
-            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Editor/scoreboard/scoreboard.uss");
-            root.styleSheets.Add(styleSheet);
-
-            FillList(root);
-        }
-
-        async Task FillList(VisualElement root)
-        {
-            list_Items = await ScoreRepository.GetScoresAsync();
-            list_Items.Sort();
-            Action<VisualElement, int> bindItem = (e, i) =>
-                (e as Label).text = $"{list_Items[i].Username} - {list_Items[i].Score}";
-            lvwScores = root.Q<ListView>("lvwScores");
-
-            Func<VisualElement> makeItem = () =>
+            // read results:
+            if (www.result != UnityWebRequest.Result.Success) // for Unity >= 2020.1
             {
-                var v = new VisualElement();
-                var i = new Image();
-                var l = new Label();
-                l.style.width = 64;
-                l.style.color = Color.white;
-                v.Add(i);
-                v.Add(l);
-                return l;
-            };
+                // log error:
+                Debug.Log($"{www.error}, URL:{www.url}");
 
-            lvwScores.makeItem = makeItem;
-            lvwScores.bindItem = bindItem;
-            lvwScores.itemsSource = list_Items;
-        }
-
-
-        public static async Task<Texture2D> GetRemoteTexture(string url)
-        {
-            using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))
+                // nothing to return on error:
+                return null;
+            }
+            else
             {
-                // begin request:
-                var asyncOp = www.SendWebRequest();
-
-                // await until it's done: 
-                while (asyncOp.isDone == false)
-                    await Task.Delay(1000 / 30); //30 hertz
-
-                // read results:
-                //if (www.isNetworkError || www.isHttpError)
-                if (www.result != UnityWebRequest.Result.Success) // for Unity >= 2020.1
-                {
-                    // log error:
-#if DEBUG
-                    Debug.Log($"{www.error}, URL:{www.url}");
-#endif
-
-                    // nothing to return on error:
-                    return null;
-                }
-                else
-                {
-                    // return valid results:
-                    return DownloadHandlerTexture.GetContent(www);
-                }
+                // return valid results:
+                return DownloadHandlerTexture.GetContent(www);
             }
         }
+    }
+
+
+    private void Update()
+    {
+        if (!_isEnabled || ButtonListener.BtnUpdate <= _previousUpdateCount) return;
+        if (ButtonListener.Both == BtnValue.Pressed)
+        {
+            _document.rootVisualElement.Clear();
+            SceneManager.LoadScene("Startscherm");
+        }
+
+        if (ButtonListener.Left == BtnValue.Pressed)
+        {
+            SceneManager.LoadScene("Startscherm");
+        }
+
+        if (ButtonListener.Right == BtnValue.Pressed)
+        {
+            SceneManager.LoadScene("Startscherm");
+        }
+
+        _previousUpdateCount = ButtonListener.BtnUpdate;
     }
 }

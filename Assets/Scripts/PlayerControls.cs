@@ -16,16 +16,16 @@ public class PlayerControls : MonoBehaviour
     private SocketEvents socketEventsScript;
 
     // movement variables
-    private float xBounds = 3.5f;
+    public float xBounds = 3.5f;
     private int speed;
-    public float maxForce = 8.0f;
+    private float maxForce = 7.0f;
 
     // player states
     public bool hasCollided = false;
     public bool hittedWall = false;
     public bool keyboardEnabled;
     public bool isBackwards;
-   
+
     // player indexen
     int leftPlayerIndex;
     int rightPlayerIndex;
@@ -46,10 +46,7 @@ public class PlayerControls : MonoBehaviour
         socketEventsScript = GameObject.Find("SocketController").GetComponent<SocketEvents>();
 
         // Paddle on jump from kinect        
-        socketEventsScript.OnJump.AddListener((float force, int player) =>
-        {
-            Paddle(force, player);
-        });
+        socketEventsScript.OnJump.AddListener((float force, int player) => { Paddle(force, player); });
     }
 
 
@@ -58,22 +55,22 @@ public class PlayerControls : MonoBehaviour
     {
         // Move on keyboard input (if enabled)
         if (keyboardEnabled)
-        {          
+        {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                speed -= 2;
+                speed -= Mathf.FloorToInt(maxForce);
                 Debug.Log($"current speed: {speed}");
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                speed += 2;
+                speed += Mathf.FloorToInt(maxForce);
                 Debug.Log($"current speed: {speed}");
             }
         }
 
         //move the player left or right based on speed
-        transform.Translate(Vector3.right * (Time.deltaTime * speed));    
-      
+        transform.Translate(Vector3.left * (Time.deltaTime * speed));
+
         // position constraints with bounce effect
         if (transform.position.x > xBounds)
         {
@@ -81,25 +78,24 @@ public class PlayerControls : MonoBehaviour
             var position = transform1.position;
             position = new Vector3(xBounds, position.y, position.z);
             transform1.position = position;
-            speed = -speed/4;
+            speed = -speed / 4;
             Debug.Log($"Player hit left wall: speed is {speed}");
             hittedWall = true;
         }
-        
+
         if (transform.position.x < -xBounds)
         {
             var transform1 = transform;
             var position = transform1.position;
             position = new Vector3(-xBounds, position.y, position.z);
             transform1.position = position;
-            speed = -speed/4;
+            speed = -speed / 4;
             Debug.Log($"Player hit right wall: speed is {speed}");
             hittedWall = true;
-        }     
+        }
     }
 
 
-    
     // Coroutine to slow down the player
     IEnumerator SlowDown()
     {
@@ -116,6 +112,7 @@ public class PlayerControls : MonoBehaviour
                 {
                     speed += 1;
                 }
+
                 Debug.Log($"Current speed: {speed}");
             }
         }
@@ -162,4 +159,3 @@ public class PlayerControls : MonoBehaviour
         }
     }
 }
-        
