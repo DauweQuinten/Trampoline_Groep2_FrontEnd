@@ -1,0 +1,31 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements"
+         xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm"/>
+    <ui:Label text="Kalibratie" display-tooltip-when-elided="true" name="kalibratieLabel" class="outline-text"
+              style="margin-top: 30px; border-bottom-width: 10px; border-left-color: rgba(63, 39, 2, 255); border-right-color: rgba(63, 39, 2, 255); border-top-color: rgba(63, 39, 2, 255); border-bottom-color: rgba(63, 39, 2, 255);"/>
+    <ui:VisualElement name="Container" class="container"
+                      style="background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between; height: 20%;">
+        <ui:VisualElement name="Left" style="width: 100%; height: 100%; align-items: center; justify-content: center;">
+            <ui:Label text="Linkse speler" display-tooltip-when-elided="true" name="LeftInstructionText"
+                      class="outline-text" style="white-space: normal;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="devider" style="background-color: rgb(63, 39, 2); height: 100%; width: 25px;"/>
+        <ui:VisualElement name="Right" style="width: 100%; height: 100%; justify-content: center; align-items: center;">
+            <ui:Label text="Rechtse speler" display-tooltip-when-elided="true" name="RightInstructionTest"
+                      class="outline-text" style="white-space: normal;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Container" class="container"
+                      style="background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between;">
+        <ui:VisualElement name="Left" style="width: 100%; height: 100%; align-items: center; justify-content: center;">
+            <ui:Label text="Lorem Ipsum Placeholder with wrap" display-tooltip-when-elided="true" name="leftPlayerLabel"
+                      class="outline-text outline-text-md" style="white-space: normal;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="devider" style="background-color: rgba(63, 39, 2, 255); height: 100%; width: 25px;"/>
+        <ui:VisualElement name="Right" style="width: 100%; height: 100%; justify-content: center; align-items: center;">
+            <ui:Label text="Lorem Ipsum Placeholder" display-tooltip-when-elided="true" name="rightPlayerLabel"
+                      class="outline-text outline-text-md" style="white-space: normal;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

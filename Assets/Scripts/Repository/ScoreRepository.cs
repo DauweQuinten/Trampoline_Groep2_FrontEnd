@@ -43,6 +43,27 @@ namespace Repository
             }
         }
 
+        public static async Task<ScoreboardItem> GetScoreAsync(int Id)
+        {
+            string url = $"{_BASEURI}/scoreboard/{Id}";
+            using (HttpClient client = GetHttpClient())
+            {
+                try
+                {
+                    string json = await client.GetStringAsync(url);
+
+                    if (json == null) return null;
+
+                    List<ScoreboardItem> Scorelists = JsonConvert.DeserializeObject<List<ScoreboardItem>>(json);
+                    return Scorelists[0];
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
         public static async Task<int> AddScoreAsync(ScoreboardItem score)
         {
             var url = $"{_BASEURI}/scoreboard";
