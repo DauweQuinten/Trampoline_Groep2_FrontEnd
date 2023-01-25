@@ -69,27 +69,6 @@ namespace Repository
             }
         }
 
-        public static async Task<ScoreboardItem> GetScoreAsync(int id)
-        {
-            string url = $"{_BASEURI}/scoreboard/{id}";
-            using (HttpClient client = GetHttpClient())
-            {
-                try
-                {
-                    string json = await client.GetStringAsync(url);
-
-                    if (json == null) return null;
-
-                    List<ScoreboardItem> Score = JsonConvert.DeserializeObject<List<ScoreboardItem>>(json);
-                    return Score[0];
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-        }
-
         public class IDResponse
         {
             [JsonProperty("id")] public int Id { get; set; }

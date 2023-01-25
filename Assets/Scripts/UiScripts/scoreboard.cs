@@ -13,7 +13,6 @@ using System.Linq;
 public class scoreboard : MonoBehaviour
 {
     List<ScoreboardItem> list_Items;
-    ScoreboardItem _UserItem;
     private UIDocument _document;
 
 
@@ -46,27 +45,21 @@ public class scoreboard : MonoBehaviour
     {
         
         list_Items = await ScoreRepository.GetScoresAsync();
-        GameVariablesHolder.Id = 2;
-        _UserItem = await ScoreRepository.GetScoreAsync(GameVariablesHolder.Id);
-        
         foreach (ScoreboardItem item in list_Items)
         {
             item.Img = await GetRemoteTexture(item.ImgUrl);
         }
-        _UserItem.Img = await GetRemoteTexture(_UserItem.ImgUrl);
         list_Items.Sort();
         ListView lvwScores = _root.Q<ListView>("lvwScores");
         
         FillList(lvwScores, list_Items.Take(10).ToList());
-        
-        _root.Q<Image>("lblUserImage").image = _UserItem.Img;
-        _root.Q<Label>("lblUserScore").text = $"{_UserItem.Username} - {_UserItem.Score}";
 
     }
     void FillList(ListView list, List<ScoreboardItem> items)
     {
+        list.AddToClassList("c-score-list");
         list.Q<ScrollView>().verticalScrollerVisibility = ScrollerVisibility.Hidden;
-        list.fixedItemHeight = 62;
+        list.fixedItemHeight = 65;
         list.makeItem = MakeItem;
         list.bindItem = BindItem;
         list.itemsSource = items;
@@ -83,7 +76,6 @@ public class scoreboard : MonoBehaviour
 
         var i = new Image{name = "score-image"};
         i.AddToClassList("c-score-image");
-        i.AddToClassList("u-list-img");
         listItem.Add(i);
 
         var l = new Label { name = "score-label" };
