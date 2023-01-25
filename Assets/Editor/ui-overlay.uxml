@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements"
+         xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm"/>
+    <ui:VisualElement name="top" class="top row-reverse">
+        <ui:VisualElement class="row">
+            <ui:Label text="Score " class="outline-text outline-text-md padding-right-sm"/>
+            <ui:Label text="1:59" display-tooltip-when-elided="true" name="score" class="outline-text outline-text-md"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="left" class="left">
+        <ui:VisualElement name="shark-distance" class="shark-distance-bar"
+                          style="height: 700px; border-top-left-radius: 40px; border-bottom-left-radius: 40px; border-top-right-radius: 40px; border-bottom-right-radius: 40px; border-left-color: rgba(63, 39, 2, 255); border-right-color: rgba(63, 39, 2, 255); border-top-color: rgba(63, 39, 2, 255); border-bottom-color: rgba(63, 39, 2, 255);">
+            <ui:VisualElement name="shark" class="shark-distance-bar-position"
+                              style="border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; border-top-right-radius: 25px; border-top-left-radius: 25px;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

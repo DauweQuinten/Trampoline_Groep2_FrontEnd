@@ -10,44 +10,53 @@ using Unity.VisualScripting;
 
 public class PlayerControls : MonoBehaviour
 {
-    // variables
-    private LevelController levelControllerScript;
-    private float xBounds = 3.5f;
+    #region variables
 
+    // script references
+    private SocketEvents socketEventsScript;
+
+    // movement variables
+    private float xBounds = 3.5f;
+    private int speed;
+    public float maxForce = 8.0f;
+
+    // player states
     public bool hasCollided = false;
     public bool hittedWall = false;
     public bool keyboardEnabled;
     public bool isBackwards;
-    
-    
-    // leeg scriptvariabele
+   
+    // player indexen
+    int leftPlayerIndex;
+    int rightPlayerIndex;
 
-    private int speed;
-    public float maxForce = 8.0f;
-    
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        // start coroutines
+        // Setup playerindex
+        leftPlayerIndex = GameVariablesHolder.playerMapping[0];
+        rightPlayerIndex = GameVariablesHolder.playerMapping[1];
+
+        // slow down the speed over time
         StartCoroutine(SlowDown());
 
-        // get level controller script
-        levelControllerScript = GameObject.Find("LevelController").GetComponent<LevelController>();
+        // get socketcontroller script
+        socketEventsScript = GameObject.Find("SocketController").GetComponent<SocketEvents>();
 
-        //vraag script op adhv leeg object in de scene en dat steek je in je scripthandler variable
-
-        //variabele uit socket script gelijk stellen aan lokale variabele
-        // speed = wsHandler.socketSpeed;
+        // Paddle on jump from kinect        
+        socketEventsScript.OnJump.AddListener((float force, int player) =>
+        {
+            Paddle(force, player);
+        });
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        // Get keyboard input from players (temporary input)
-
-
+        // Move on keyboard input (if enabled)
         if (keyboardEnabled)
         {          
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -62,12 +71,10 @@ public class PlayerControls : MonoBehaviour
             }
         }
 
-
         //move the player left or right based on speed
         transform.Translate(Vector3.right * (Time.deltaTime * speed));    
-
-        
-        // position constraints
+      
+        // position constraints with bounce effect
         if (transform.position.x > xBounds)
         {
             var transform1 = transform;
@@ -92,7 +99,7 @@ public class PlayerControls : MonoBehaviour
     }
 
 
-
+    
     // Coroutine to slow down the player
     IEnumerator SlowDown()
     {
@@ -114,15 +121,13 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-
+    // Move backwards on collision with object
     IEnumerator ToggleBackwardsMovementAfterSeconds(float seconds)
     {
         isBackwards = true;
         yield return new WaitForSeconds(seconds);
         isBackwards = false;
     }
-
-
 
 
     // On collision
@@ -135,26 +140,25 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    // Change color
+    // Change color (Temperary)
     public void ChangeColor(Color newColor)
     {
         Debug.Log("Color should change");
         GetComponent<Renderer>().material.color = newColor;
     }
 
-
+    // Paddle on jump from kinect
     public void Paddle(float force, int player)
     {
-        switch (player)
+        if (player == leftPlayerIndex)
         {
-            case 0:
-                Debug.Log("Player 1 jumped with force: " + force);
-                speed += Mathf.FloorToInt(maxForce * force);
-                break;
-            case 1:
-                Debug.Log("Player 2 jumped with force: " + force);
-                speed -= Mathf.FloorToInt(maxForce * force);
-                break;
+            Debug.Log("Left player jumped with force: " + force);
+            speed += Mathf.FloorToInt(maxForce * force);
+        }
+        else if (player == rightPlayerIndex)
+        {
+            Debug.Log("Right player jumped with force: " + force);
+            speed -= Mathf.FloorToInt(maxForce * force);
         }
     }
 }

@@ -4,26 +4,39 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    // Variables
+    #region variables
+
+    // reference to prefabs to spawn
     public GameObject[] obstaclePrefabs;
+
+    // range of spawn positions
     public float spawnRangeX = 4;
   
+    // holder for random spawn position
     private Vector3 spawnPos;
+
+    // reference to other scripts
     private LevelController levelControllerScript;
     private PlayerControls playerControlsScript;
+
+    #endregion
 
 
     // Start is called before the first frame update
     void Start()
     {
+        // get reference to other scripts
         levelControllerScript = GameObject.Find("LevelController").GetComponent<LevelController>();
         playerControlsScript = GameObject.Find("Boat").GetComponent<PlayerControls>();
+
+        // start spawning obstacles
         StartCoroutine(SpawnRandonObstacle());
     }
 
+    // spawn obstacles at random position
     IEnumerator SpawnRandonObstacle()
     {
-        while (true && !levelControllerScript.gameOver)
+        while (!levelControllerScript.gameOver)
         {
             if (!playerControlsScript.isBackwards)
             {

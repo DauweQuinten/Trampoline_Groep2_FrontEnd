@@ -1,19 +1,16 @@
-using DefaultNamespace;
 using Models;
 using Newtonsoft.Json;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using WebSocketSharp;
 using UnityEngine.SceneManagement;
+using WebSocketSharp;
 
 public class CalibrationHandler : MonoBehaviour
 {
-
     #region event variables
 
-    public UnityEvent onCalibrationStarted;   
+    public UnityEvent onCalibrationStarted;
     public UnityEvent onCalibrationFinished;
     public UnityEvent onCalibratingP1;
     public UnityEvent onCalibratingP2;
@@ -21,8 +18,10 @@ public class CalibrationHandler : MonoBehaviour
     #endregion
 
     #region calibration variables
-    
+
     bool[] playerCalibratedArray = { false, false };
+    // int[] playerMapping;
+
     bool calibrationChanged = false;
 
     bool isCalibrationStarted = false;
@@ -38,10 +37,8 @@ public class CalibrationHandler : MonoBehaviour
     #endregion
 
 
-
-    
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         #region initialize events
 
@@ -49,15 +46,12 @@ public class CalibrationHandler : MonoBehaviour
         onCalibrationFinished ??= new UnityEvent();
         onCalibratingP1 ??= new UnityEvent();
         onCalibratingP2 ??= new UnityEvent();
-      
+
         #endregion
 
         #region event listeners
-        
-        onCalibrationStarted.AddListener(() =>
-        {
-            StartCalibration();
-        });
+
+        onCalibrationStarted.AddListener(() => { StartCalibration(); });
 
         onCalibratingP1.AddListener(() =>
         {
@@ -71,52 +65,57 @@ public class CalibrationHandler : MonoBehaviour
             StartCoroutine(CalibratePlayer(1));
         });
 
-        onCalibrationFinished.AddListener(() =>
-        {
-            CompleteCalibration();
-        });
+        onCalibrationFinished.AddListener(() => { CompleteCalibration(); });
 
         #endregion
 
         #region websocket
 
-        // Connect to websocket
-        ws = new WebSocket(General.SocketUrl);
-        ws.Connect();
+        // Get socket
+        ws = GameObject.Find("SocketController").GetComponent<SocketEvents>().ws;
 
-        
+        if (!ws.IsAlive)
+        {
+            ws.Connect();
+        }
+
         // Subscribe to events
         ws.OnMessage += (sender, e) =>
         {
             // Deserialize message
             var message = JsonConvert.DeserializeObject<SocketOnMessage>(e.Data);
-            
-            if(message.CalibrationChanged != null)
+
+            if (message.CalibrationChanged != null)
             {
                 calibrationChanged = true;
+
+                if (!playerCalibratedArray[0])
+                {
+                    Debug.Log("Left player index changed to " + message.CalibrationChanged.KinectIndex);
+                    GameVariablesHolder.playerMapping[0] = message.CalibrationChanged.KinectIndex;
+                    Debug.Log($"mapping is now: {GameVariablesHolder.playerMapping[0]}");
+                }
+                else if (!playerCalibratedArray[1])
+                {
+                    Debug.Log("Right player index changed to " + message.CalibrationChanged.KinectIndex);
+                    GameVariablesHolder.playerMapping[1] = message.CalibrationChanged.KinectIndex;
+                    Debug.Log($"mapping is now: {GameVariablesHolder.playerMapping[1]}");
+                }
             }
         };
 
         #endregion
-   
+
         #region intro in debug
 
         Debug.Log("Press 'A' to start the calibration");
-      
+
         #endregion
     }
-      
+
     // Update is called each frame
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GameVariablesHolder.testString = "testjee uit calibration";
-            SceneManager.LoadScene("BoatGame");
-        }
-        
-
-
         // On start calibration (execute only once because of isCalibrationStarted)
         if (Input.GetKeyDown(KeyCode.A) && !isCalibrationStarted)
         {
@@ -125,7 +124,7 @@ public class CalibrationHandler : MonoBehaviour
         }
 
         if ((playerCalibratedArray[0] && !playerCalibratedArray[1]) && !isCalibrating)
-        {           
+        {
             changeCalibrationPlayer(1);
             onCalibratingP2.Invoke();
         }
@@ -135,15 +134,15 @@ public class CalibrationHandler : MonoBehaviour
             changeCalibrationPlayer(0);
             onCalibratingP1.Invoke();
         }
-        
+
         if (playerCalibratedArray[0] && playerCalibratedArray[1] && !isCalibrationFinished)
         {
             onCalibrationFinished.Invoke();
         }
     }
 
-     
-    #region calibration handling 
+
+    #region calibration handling
 
     void SendCalibrationMessage(CalibrationStatus status, int player)
     {
@@ -153,7 +152,7 @@ public class CalibrationHandler : MonoBehaviour
         // parse json to string with Newtonsoft.Json
         string calibrationString = JsonConvert.SerializeObject(calibrationMessage);
         Debug.Log(calibrationString);
-        
+
         // send message
         ws.Send(calibrationString);
     }
@@ -166,22 +165,25 @@ public class CalibrationHandler : MonoBehaviour
             onCalibratingP1.Invoke();
         }
     }
-  
-    void changeCalibrationPlayer(int playerIndex)
+
+    IEnumerator changeCalibrationPlayer(int playerIndex)
     {
+        Debug.Log($"Well done, left player is ready to go!");
+        Debug.Log($"Right player, are you ready?");
+        yield return new WaitForSeconds(3);
         Debug.Log($"Switch to player{playerIndex}");
         SendCalibrationMessage(CalibrationStatus.SWITCH_PLAYER, playerIndex);
     }
-  
+
     void CompleteCalibration()
     {
         isCalibrationFinished = true;
         Debug.Log("Calibration finished");
         SendCalibrationMessage(CalibrationStatus.FINISHED, 0);
+        StartCoroutine(LoadGameScene());
     }
 
     #endregion
-
 
     #region calibration function
 
@@ -203,7 +205,17 @@ public class CalibrationHandler : MonoBehaviour
         playerCalibratedArray[playerIndex] = true;
         isCalibrating = false;
     }
-    
+
     #endregion
-    
+
+    #region Load game scene
+
+    IEnumerator LoadGameScene()
+    {
+        Debug.Log("Well done! The game starts in 5 seconds");
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("BoatGame");
+    }
+
+    #endregion
 }

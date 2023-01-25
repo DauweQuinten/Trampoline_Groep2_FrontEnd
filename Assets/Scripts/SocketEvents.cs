@@ -1,9 +1,5 @@
-using DefaultNamespace;
 using Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using WebSocketSharp;
@@ -40,6 +36,10 @@ public class SocketEvents : MonoBehaviour
     public UnityEvent btnReleasedLeft;
     public UnityEvent btnReleasedRight;
     public UnityEvent btnReleasedBoth;
+    public UnityEvent ledLeftOn;
+    public UnityEvent ledLeftOff;
+    public UnityEvent ledRightOn;
+    public UnityEvent ledRightOff;
 
     private bool leftPressed = false;
     private bool rightPressed = false;
@@ -51,7 +51,7 @@ public class SocketEvents : MonoBehaviour
 
 
     // websocket
-    private WebSocket ws;
+    public WebSocket ws;
 
     #endregion
 
@@ -67,21 +67,32 @@ public class SocketEvents : MonoBehaviour
         btnReleasedLeft ??= new UnityEvent();
         btnReleasedRight ??= new UnityEvent();
         btnReleasedBoth ??= new UnityEvent();
+        ledLeftOn ??= new UnityEvent();
+        ledLeftOff ??= new UnityEvent();
+        ledRightOn ??= new UnityEvent();
+        ledRightOff ??= new UnityEvent();
 
         #endregion
 
         #region previousButton
+
         var previousButtonState = new bool[3];
+
         #endregion
-        
+
         #region websocket events
 
         // Connect to websocket
         ws = new WebSocket(General.SocketUrl);
-        ws.Connect();
+
+        if (!ws.IsAlive)
+        {
+            ws.Connect();
+        }
 
         // On socket connected
         ws.OnOpen += (sender, e) => { Debug.Log("Socket Open!"); };
+
 
         // On message received
         ws.OnMessage += (sender, e) =>
@@ -90,13 +101,13 @@ public class SocketEvents : MonoBehaviour
 
             // parse message to json
             var message = JsonConvert.DeserializeObject<SocketOnMessage>(e.Data);
-            
+
             // Check message type
             if (message.Jump != null)
             {
                 Debug.Log("Jump received");
-                
                 var jumpMessage = message.Jump;
+
                 playerJumped = true;
                 jumpForce = jumpMessage.Force;
                 player = jumpMessage.Player;
@@ -110,8 +121,8 @@ public class SocketEvents : MonoBehaviour
                 {
                     Debug.Log("Both");
                     btnPressedBoth.Invoke();
-                 
                 }
+
                 if (btnMessage.Both == BtnValue.Released)
                 {
                     Debug.Log("both released");
@@ -129,7 +140,6 @@ public class SocketEvents : MonoBehaviour
                 {
                     Debug.Log("left released");
                     btnReleasedLeft.Invoke();
-                    
                 }
 
                 if (btnMessage.BtnRight == BtnValue.Pressed)
@@ -146,8 +156,35 @@ public class SocketEvents : MonoBehaviour
             }
         };
 
+        ListenToLedEvents();
+
         #endregion
     }
+
+    private void ListenToLedEvents()
+    {
+        ledLeftOn.AddListener(() => { SendLedToSocket(LedType.Left, LedValue.On); });
+        ledLeftOff.AddListener(() => { SendLedToSocket(LedType.Left, LedValue.Off); });
+        ledRightOn.AddListener(() => { SendLedToSocket(LedType.Right, LedValue.On); });
+        ledRightOff.AddListener(() => { SendLedToSocket(LedType.Right, LedValue.Off); });
+    }
+
+    private void SendLedToSocket(LedType ledType, LedValue ledState)
+    {
+        var ledMessage = new LedMessage
+        {
+            Id = ledType,
+            Led = ledState
+        };
+        var socketMessage = new SocketLedMessage
+        {
+            LedMessage = ledMessage
+        };
+        var json = JsonConvert.SerializeObject(socketMessage);
+        Debug.Log(json);
+        ws.Send(json);
+    }
+
 
     private void Update()
     {
