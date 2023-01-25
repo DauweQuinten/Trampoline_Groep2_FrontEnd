@@ -284,7 +284,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1241689705}
   - component: {fileID: 1241689704}
-  - component: {fileID: 1241689703}
+  - component: {fileID: 1241689706}
   m_Layer: 5
   m_Name: ScoreboardUI
   m_TagString: Untagged
@@ -292,18 +292,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1241689703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1241689702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aab9b3417e1ef8408b1acc5c81e1475, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1241689704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 0bb609c4693d54b4a99815dc16ddc5fe, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: 36183e573223311439b3eada07e22802, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: d7e0fd83cf45f6a41bc6dc5f43792d26, type: 3}
   m_SortingOrder: 0
@@ -335,6 +323,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1241689706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241689702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aab9b3417e1ef8408b1acc5c81e1475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1543144545
 GameObject:
   m_ObjectHideFlags: 0

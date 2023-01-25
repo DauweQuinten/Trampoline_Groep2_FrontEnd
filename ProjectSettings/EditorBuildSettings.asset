@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/BoatGame2.0.unity
+    guid: c069ad6f69a7f1e4b90b89db9c23d8b7
+  - enabled: 1
     path: Assets/Scenes/Startscherm.unity
     guid: 9ed3958ba1cd62d4abf20b39add517dc
   - enabled: 1
@@ -20,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/username-kiezen.unity
     guid: 54d0a370c7336d14b83461152da27aa4
+  - enabled: 0
+    path: Assets/Scenes/Scoreboard.unity
+    guid: 5ef48f545f6e1b747af3c5f16b0887b8
   m_configObjects: {}
