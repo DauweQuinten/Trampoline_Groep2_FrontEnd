@@ -1,26 +1,39 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm" />
-	<ui:VisualElement class="container">
-        <ui:Label text="ScoreBoard" class="outline-text" />
-        <ui:VisualElement class="c-board" style="-unity-font: url(&apos;project://database/Assets/Editor/resources/Fonts%20&amp;%20Materials/MouseMemoirs-Regular.ttf?fileID=12800000&amp;guid=7e75f74396c653544a29de5a17f26147&amp;type=3#MouseMemoirs-Regular&apos;); height: 626px; -unity-font-definition: none; background-image: url(&apos;project://database/Assets/Editor/resources/woodTexture.png?fileID=2800000&amp;guid=49cdbd5188cd313439aa4b15a2332d8c&amp;type=3#woodTexture&apos;); width: 1074px; margin-left: auto; margin-right: auto; margin-top: 0;">
-            <ui:ListView name="lvwScores" class="c-score-list">
-            </ui:ListView>
-            <ui:VisualElement class="c-UserScore">
-                <ui:Label text="your score:" class="c-score-label u-text-md" />
-                <ui:Image name="lblUserImage" class="c-score-image" />
-				<ui:Label name="lblUserScore" class="c-score-label u-text-md" />
-             </ui:VisualElement>
-        </ui:VisualElement>
-          <ui:VisualElement name="both-buttons" class="horizontal">
-            <ui:Label text="Druk op" class="outline-text outline-text-md" />
-            <ui:VisualElement name="blueButton" class="button">
-                <ui:VisualElement name="buttonTop" class="button-top img" style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/BlueTop36000.png?fileID=2800000&amp;guid=fddd164aacd74224d978b606e5becc1f&amp;type=3#BlueTop36000&apos;); -unity-background-scale-mode: scale-to-fit;" />
-                <ui:VisualElement name="buttonBottom" class="button-bottom button-base img" style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/Bluebottom36000.png?fileID=2800000&amp;guid=2de0889becbace94a937f3af86c831ca&amp;type=3#Bluebottom36000&apos;); -unity-background-scale-mode: scale-to-fit;" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements"
+         xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm"/>
+    <ui:VisualElement class="container">
+        <ui:VisualElement class="c-board"
+                          style="-unity-font: url(&apos;project://database/Assets/Editor/resources/Fonts%20&amp;%20Materials/MouseMemoirs-Regular.ttf?fileID=12800000&amp;guid=7e75f74396c653544a29de5a17f26147&amp;type=3#MouseMemoirs-Regular&apos;); height: 814px; -unity-font-definition: none; background-image: url(&apos;project://database/Assets/Editor/resources/woodTextureNew.png?fileID=2800000&amp;guid=b46f2831e3ccf2749a51b8535cbc0032&amp;type=3#woodTextureNew&apos;); width: 1446px; margin-left: auto; margin-right: auto; margin-top: 0; flex-direction: column; align-items: center; justify-content: flex-start;">
+            <ui:Label text="Scorebord" class="outline-text"/>
+            <ui:VisualElement name="items" style="flex-direction: row-reverse; height: 493px; width: 1330px;">
+                <ui:VisualElement class="c-UserScore"
+                                  style="flex-direction: column; align-items: center; justify-content: space-between; width: 685px; height: 505px;">
+                    <ui:VisualElement name="scoreContainer" class="row">
+                        <ui:Label text="Jullie tijd" name="scorelabel" class="outline-text outline-text-sm u-text-md"/>
+                        <ui:Label text="1:24" display-tooltip-when-elided="true" name="thisUserScore"
+                                  class="outline-text outline-text-md"
+                                  style="font-size: 70px; -unity-text-outline-width: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-right: 0; padding-left: 15px;"/>
+                    </ui:VisualElement>
+                    <ui:Image name="lblUserImage" class="c-score-image"/>
+                    <ui:Label name="lblUserScore" class="outline-text outline-test-sm u-text-md"
+                              style="white-space: normal;"/>
+                </ui:VisualElement>
+                <ui:ListView name="lvwScores" class="c-score-list" style="width: 639px; height: 569px;"/>
             </ui:VisualElement>
-            <ui:Label text="of" name="Label" class="outline-text outline-text-md" />
+        </ui:VisualElement>
+        <ui:VisualElement name="both-buttons" class="horizontal">
+            <ui:Label text="Druk op" class="outline-text outline-text-md"/>
+            <ui:VisualElement name="blueButton" class="button">
+                <ui:VisualElement name="buttonTop" class="button-top button-animation img"
+                                  style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/BlueTop36000.png?fileID=2800000&amp;guid=fddd164aacd74224d978b606e5becc1f&amp;type=3#BlueTop36000&apos;); -unity-background-scale-mode: scale-to-fit;"/>
+                <ui:VisualElement name="buttonBottom" class="button-bottom button-base img"
+                                  style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/Bluebottom36000.png?fileID=2800000&amp;guid=2de0889becbace94a937f3af86c831ca&amp;type=3#Bluebottom36000&apos;); -unity-background-scale-mode: scale-to-fit;"/>
+            </ui:VisualElement>
+            <ui:Label text="of" name="Label" class="outline-text outline-text-md"/>
             <ui:VisualElement name="yellowButton" class="button">
-                <ui:VisualElement name="buttonTop" class="button-top-yellow img" />
-                <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img" />
+                <ui:VisualElement name="buttonTop" class="button-top-yellow img button-animation"/>
+                <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img"/>
             </ui:VisualElement>
             <ui:Label text="om te herstarten" class="outline-text outline-text-md" />
         </ui:VisualElement>

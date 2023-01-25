@@ -1,3 +1,6 @@
+/*variables are not a thing yet, ;(*/
+
+/*region text*/
 .outline-text {
     -unity-text-outline-color: rgb(19, 10, 1);
     -unity-font: url('project://database/Assets/Editor/resources/Fonts%20&%20Materials/MouseMemoirs-Regular.ttf?fileID=12800000&guid=7e75f74396c653544a29de5a17f26147&type=3#MouseMemoirs-Regular');
@@ -7,7 +10,7 @@
     -unity-font-style: bold;
     color: rgb(240, 223, 202);
     text-shadow: 4px 6px 4px rgba(15, 40, 13, 0.25);
-    -unity-text-align: upper-center;
+    -unity-text-align: lower-center;
 }
 
 .outline-text-md {
@@ -15,33 +18,28 @@
     -unity-text-outline-width: 8px;
 }
 
-
-.c-score-number {
-    -unity-text-outline-color: rgb(19, 10, 1);
-    -unity-font: url('project://database/Assets/Editor/resources/Fonts%20&%20Materials/MouseMemoirs-Regular.ttf?fileID=12800000&guid=7e75f74396c653544a29de5a17f26147&type=3#MouseMemoirs-Regular');
-    -unity-text-outline-width: 3px;
+.outline-text-sm {
     font-size: 42px;
-    -unity-font-definition: none;
-    -unity-font-style: bold;
-    color: rgb(240, 223, 202);
     text-shadow: 2px 3px 2px rgba(15, 40, 13, 0.25);
-    -unity-text-align: middle-left; 
-    max-width: 20px;
-    
+    -unity-text-outline-width: 3px;
 }
 
-.c-score-label {
-    -unity-text-outline-color: rgb(19, 10, 1);
-    -unity-font: url('project://database/Assets/Editor/resources/Fonts%20&%20Materials/MouseMemoirs-Regular.ttf?fileID=12800000&guid=7e75f74396c653544a29de5a17f26147&type=3#MouseMemoirs-Regular');
-    -unity-text-outline-width: 3px;
-    font-size: 42px;
-    -unity-font-definition: none;
-    -unity-font-style: bold;
-    color: rgb(240, 223, 202);
-    text-shadow: 2px 3px 2px rgba(15, 40, 13, 0.25);
-    -unity-text-align: middle-left; 
-    max-width: 200px;
+.u-text-md {
+    font-size: 70px;
+    -unity-text-outline-width: 5px;
+    -unity-text-align: middle-center;
 }
+
+/*endregion*/
+
+/*region colors*/
+.transparent-gray-background {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/*endregion*/
+
+/* region images */
 
 .c-score-image {
     position: relative;
@@ -49,43 +47,120 @@
     margin-bottom: 5;
     max-height: 270px;
 }
-.u-text-md {
-    font-size: 70px;
-    -unity-text-outline-width: 5px;
-    -unity-text-align: middle-center;
-}
+
 .u-list-img {
     max-width: 80px;
     max-height: 60px;
     margin-left: 15px;
 }
 
+.img {
+    height: 100%;
+    width: 100%;
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.img-relative {
+    height: 100%;
+    width: 100%;
+    -unity-background-scale-mode: scale-to-fit;
+    position: relative;
+}
+
+.button {
+    position: relative;
+    height: 96px;
+    width: 165px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.avatar {
+    height: 480px;
+    width: 480px;
+    border-radius: 48px;
+}
+
+/*endregion*/
+
+/*region assets*/
+
+.button-base {
+    background-image: url('project://database/Assets/Editor/resources/Button/Bluebottom36000.png?fileID=2800000&guid=2de0889becbace94a937f3af86c831ca&type=3#Bluebottom36000');
+}
+
+.button-top {
+    background-image: url('project://database/Assets/Editor/resources/Button/TopBoxPS.png?fileID=2800000&guid=d8185efced5606d428d67b42587ec49a&type=3#TopBoxPS');
+}
+
+.button-base-yellow {
+    background-image: url('project://database/Assets/Editor/resources/Button/ButtonYellowBottomPS.png?fileID=2800000&guid=0a4d4a18a7973594e97f2d2f6a7fb64e&type=3#ButtonYellowBottomPS');
+}
+
+.button-top-yellow {
+    background-image: url('project://database/Assets/Editor/resources/Button/ButtonTopYellowPS.png?fileID=2800000&guid=068a0f9dd8edd14479dc9dfbc2485bc8&type=3#ButtonTopYellowPS');
+}
+
+/*todo change this to real assets*/
+.placeholder-image {
+    background-image: url('project://database/Assets/Editor/resources/placeholderImage.png?fileID=2800000&guid=8975d575386fa664b952b65456eee517&type=3#placeholderImage');
+    height: 200px;
+    width: 250px;
+}
+
+.wood-sign-img {
+    background-image: url('project://database/Assets/Editor/resources/woodTextureNew.png?fileID=2800000&guid=b46f2831e3ccf2749a51b8535cbc0032&type=3#woodTextureNew');
+}
+
+.arrow-right {
+    background-image: url('project://database/Assets/Editor/resources/arrow.png?fileID=2800000&guid=7ca675d5750bf654586da3afd8970df9&type=3#arrow');
+    position: relative;
+}
+
+/*endregion*/
+
+/*region transitions*/
+.button-animation {
+    transition-property: translate;
+    transition-duration: 0.1s;
+    transition-timing-function: ease;
+}
+
+.move-down {
+    translate: 0 14px;
+}
+
+/*endregion*/
+
+/*region lists*/
 .u-list-label {
     min-width: 250px;
 }
 
 .c-score-list-item {
-     flex-direction: row;
-     align-items: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.c-UserScore{
-    flex-direction: column;
-	align-items: center;
-	justify-content: center;
-}
-
-
-.c-user-list{
+.c-user-list {
     background-color: #FA781A;
     corner-radius: 10px;
 }
 
-.c-board{
+/*endregion*/
 
+/*region containers*/
+.c-board {
     flex-direction: row;
     justify-content: space-around;
 }
+
 .container {
     height: 100%;
     width: 100%;
@@ -108,38 +183,6 @@
     justify-content: space-around;
 }
 
-.button {
-    position: relative;
-    height: 96px;
-    width: 165px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-.img {
-    height: 100%;
-    width: 100%;
-    -unity-background-scale-mode: scale-to-fit;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-
-.img-relative {
-    height: 100%;
-    width: 100%;
-    -unity-background-scale-mode: scale-to-fit;
-    position: relative;
-}
-
-.mg-bt-md {
-    padding-bottom: 40px;
-    margin-top: 0;
-    padding-top: 0;
-}
-
 .horizontal {
     display: flex;
     flex-direction: row;
@@ -147,74 +190,19 @@
     justify-content: flex-start;
 }
 
-.button-base {
-    background-image: url('project://database/Assets/Editor/resources/Button/Bluebottom36000.png?fileID=2800000&guid=2de0889becbace94a937f3af86c831ca&type=3#Bluebottom36000');
-}
-
-.button-top {
-    background-image: url('project://database/Assets/Editor/resources/Button/TopBoxPS.png?fileID=2800000&guid=d8185efced5606d428d67b42587ec49a&type=3#TopBoxPS');
-    transition-property: translate;
-    transition-duration: 0.1s;
-    transition-timing-function: ease;
-    -unity-background-scale-mode: scale-to-fit;
-}
-
-.button-base-yellow {
-    background-image: url('project://database/Assets/Editor/resources/Button/ButtonYellowBottomPS.png?fileID=2800000&guid=0a4d4a18a7973594e97f2d2f6a7fb64e&type=3#ButtonYellowBottomPS');
-}
-
-.button-top-yellow {
-    background-image: url('project://database/Assets/Editor/resources/Button/ButtonTopYellowPS.png?fileID=2800000&guid=068a0f9dd8edd14479dc9dfbc2485bc8&type=3#ButtonTopYellowPS');
-    transition-property: translate;
-    transition-duration: 0.1s;
-    transition-timing-function: ease;
-}
-
-.placeholder-image {
-    background-image: url('project://database/Assets/Editor/resources/placeholderImage.png?fileID=2800000&guid=8975d575386fa664b952b65456eee517&type=3#placeholderImage');
-    height: 200px;
-    width: 250px;
-}
-
 .horizontal * {
     padding-right: 20px;
 }
 
-.move-down {
-    translate: 0 14px;
+.c-UserScore {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.bottom-right {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-}
+/*endregion*/
 
-.margin-lg {
-    margin-top: 120px;
-    margin-bottom: 120px;
-}
-
-.margin-bottom-lg {
-    margin-bottom: 90px;
-}
-
-.padding-lg {
-    padding-top: 120px;
-    padding-bottom: 120px;
-}
-
-.bottom-left {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-}
-
-.arrow-right {
-    background-image: url('project://database/Assets/Editor/resources/arrow.png?fileID=2800000&guid=7ca675d5750bf654586da3afd8970df9&type=3#arrow');
-    position: relative;
-}
-
+/*region positioning*/
 .bottom {
     position: absolute;
     bottom: 30px;
@@ -235,6 +223,72 @@
     justify-content: space-between;
 }
 
+.left {
+    position: absolute;
+    left: 45px;
+    top: 30px;
+    bottom: 30px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+.bottom-left {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+}
+
+/*endregion*/
+
+/*region shark bar 🦈🍫*/
+
+.shark-distance-bar {
+    height: 60%;
+    width: 80px;
+    border-radius: 20px;
+    border-color: rgb(19, 10, 1);
+    background-color: rgb(211, 200, 160);
+    flex-direction: column-reverse;
+    border-width: 15px;
+}
+
+.shark-distance-bar-position {
+    flex-direction: column-reverse;
+    background-color: rgb(79, 153, 173);
+    height: 40%;
+    border-color: rgb(19, 10, 1);
+}
+
+/*endregion*/
+
+/*region utilities 🛠*/
+.mg-bt-md {
+    padding-bottom: 40px;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.margin-lg {
+    margin-top: 120px;
+    margin-bottom: 120px;
+}
+
+.margin-bottom-lg {
+    margin-bottom: 90px;
+}
+
+.padding-lg {
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+
 .row {
     flex-direction: row;
 }
@@ -251,58 +305,6 @@
     flex-direction: row-reverse;
 }
 
-.avatar {
-    height: 480px;
-    width: 480px;
-    border-radius: 48px;
-}
-
-.padding-right-sm {
-    padding-right: 20px;
-}
-
-.left {
-    position: absolute;
-    left: 45px;
-    top: 30px;
-    bottom: 30px;
-    align-items: flex-start;
-    justify-content: center;
-}
-
-.shark-distance-bar {
-    height: 60%;
-    width: 80px;
-    border-radius: 20px;
-    border-left-color: rgb(19, 10, 1);
-    border-right-color: rgb(19, 10, 1);
-    border-top-color: rgb(19, 10, 1);
-    border-bottom-color: rgb(19, 10, 1);
-    background-color: rgb(211, 200, 160);
-    flex-direction: column-reverse;
-    border-left-width: 15px;
-    border-right-width: 15px;
-    border-top-width: 15px;
-    border-bottom-width: 15px;
-}
-
-.shark-distance-bar-position {
-    flex-direction: column-reverse;
-    background-color: rgb(79, 153, 173);
-    height: 40%;
-    border-left-color: rgb(19, 10, 1);
-    border-right-color: rgb(19, 10, 1);
-    border-top-color: rgb(19, 10, 1);
-    border-bottom-color: rgb(19, 10, 1);
-}
-
-.transparent-gray-background {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.placeholder-img {
-}
-
 .padding-left-xxl {
     padding-left: 360px;
 }
@@ -311,6 +313,8 @@
     padding-left: 90px;
 }
 
-.wood-sign-img {
-    background-image: url('project://database/Assets/Editor/resources/woodTextureNew.png?fileID=2800000&guid=b46f2831e3ccf2749a51b8535cbc0032&type=3#woodTextureNew');
+.padding-right-sm {
+    padding-right: 20px;
 }
+
+/*endregion*/
