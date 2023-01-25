@@ -180,7 +180,14 @@ public class CalibrationHandler : MonoBehaviour
         SendTextToUi("Ben je klaar?", 1);
 
         // wait 3 seconds
-        Thread.Sleep(3000);
+        //Thread.Sleep(3000);
+
+        float currentSeconds = Time.timeSinceLevelLoad;
+        while (Time.timeSinceLevelLoad < currentSeconds + 3)
+        {
+            Debug.Log("i'm waiting for youuuuuu");
+            SendTextToUi("i'm waiting for youuuuuu", 0);
+        }
 
         Debug.Log($"Switch to player{playerIndex}");
         SendTextToUi("Start met springen!", 1);
