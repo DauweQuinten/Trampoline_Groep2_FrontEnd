@@ -132,10 +132,9 @@ public class CalibrationHandler : MonoBehaviour
 
         if ((playerCalibratedArray[0] && !playerCalibratedArray[1]) && !isCalibrating)
         {
-            changeCalibrationPlayer(1);
-
             if(calibrationHasChanged == true)
             {
+                changeCalibrationPlayer(1);
                 onCalibratingP2.Invoke();
                 calibrationHasChanged = false;
             }
