@@ -977,6 +977,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1683824500}
   - component: {fileID: 1683824499}
+  - component: {fileID: 1683824501}
+  - component: {fileID: 1683824502}
   m_Layer: 0
   m_Name: River
   m_TagString: Untagged
@@ -1019,6 +1021,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1683824501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683824498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f580f15a1ccbe3d4abd78fbe95ce4c91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1683824502
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683824498}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20, y: 1, z: 80}
+  m_Center: {x: 10, y: 0, z: -40}
 --- !u!1001 &1727545418
 PrefabInstance:
   m_ObjectHideFlags: 0

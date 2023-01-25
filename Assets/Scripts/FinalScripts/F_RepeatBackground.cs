@@ -17,7 +17,7 @@ public class F_RepeatBackground : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z > startPosition.z + boxCollider.size.x/2)
+        if (transform.position.z > startPosition.z + boxCollider.size.z/2)
         {
             transform.position = startPosition;
         }
