@@ -16,7 +16,7 @@ public class PlayerControls : MonoBehaviour
     private SocketEvents socketEventsScript;
 
     // movement variables
-    private float xBounds = 3.5f;
+    public float xBounds = 3.5f;
     private int speed;
     public float maxForce = 8.0f;
 
