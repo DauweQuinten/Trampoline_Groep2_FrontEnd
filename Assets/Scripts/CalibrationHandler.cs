@@ -1,7 +1,6 @@
 using Models;
 using Newtonsoft.Json;
 using System.Collections;
-using System.Threading;
 using UiScripts;
 using UnityEngine;
 using UnityEngine.Events;
@@ -179,12 +178,14 @@ public class CalibrationHandler : MonoBehaviour
         Debug.Log($"Right player, are you ready?");
         SendTextToUi("Ben je klaar?", 1);
 
-        // wait 3 seconds
-        //Thread.Sleep(3000);
+        
+        float currentSeconds = Time.realtimeSinceStartup;
 
-        float currentSeconds = Time.timeSinceLevelLoad;
-        while (Time.timeSinceLevelLoad < currentSeconds + 3)
+        Debug.Log("Current time is " + currentSeconds);
+
+        while (Time.realtimeSinceStartup < currentSeconds + 3)
         {
+            
             Debug.Log("i'm waiting for youuuuuu");
             SendTextToUi("i'm waiting for youuuuuu", 0);
         }
