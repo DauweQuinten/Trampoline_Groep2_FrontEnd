@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6720214365710814175}
   - component: {fileID: 1681727756235420546}
+  - component: {fileID: 2736551570568015206}
   m_Layer: 0
   m_Name: Boat
   m_TagString: Untagged
@@ -78,6 +79,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4165715, y: 0.66044486, z: 4.0769353}
   m_Center: {x: -0.04165715, y: 0.26485306, z: 2.0264504}
+--- !u!54 &2736551570568015206
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6720214365710814174}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 124
+  m_CollisionDetection: 0
 --- !u!1001 &6720214364632276033
 PrefabInstance:
   m_ObjectHideFlags: 0

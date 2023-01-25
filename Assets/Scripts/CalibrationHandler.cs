@@ -214,7 +214,7 @@ public class CalibrationHandler : MonoBehaviour
     {
         Debug.Log("Well done! The game starts in 5 seconds");
         yield return new WaitForSeconds(5);
-        SceneManager.LoadScene("BoatGame");
+        SceneManager.LoadScene("BoatGame2.0");
     }
 
     #endregion
