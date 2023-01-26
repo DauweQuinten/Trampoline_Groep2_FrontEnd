@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" schemaLocation="UnityEngine.UIElements file:/C:/Users/jarne/RiderProjects/Trampoline_Groep2_FrontEnd/UIElementsSchema/UnityEngine.UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm" />
-    <ui:VisualElement name="container" class="container" />
+    <ui:VisualElement name="container" class="container" style="background-color: rgba(0, 0, 0, 0);"/>
     <ui:VisualElement name="containerTop" class="top justify-center">
         <ui:Label name="title" text="Hoe sturen?" class="outline-text" />
     </ui:VisualElement>
