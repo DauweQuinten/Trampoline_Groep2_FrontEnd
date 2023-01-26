@@ -30,6 +30,7 @@ namespace UiScripts
 
         public void Start()
         {
+            if (GameVariablesHolder.Id < 2) GameVariablesHolder.Id = 1;
             _isEnabled = true;
             _document = GetComponent<UIDocument>();
             // Each editor window contains a root VisualElement object

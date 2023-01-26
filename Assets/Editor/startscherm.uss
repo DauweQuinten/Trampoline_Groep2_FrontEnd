@@ -22,12 +22,13 @@
     font-size: 42px;
     text-shadow: 2px 3px 2px rgba(15, 40, 13, 0.25);
     -unity-text-outline-width: 3px;
+    -unity-text-align: middle-left;
 }
 
 .u-text-md {
     font-size: 70px;
     -unity-text-outline-width: 5px;
-    -unity-text-align: middle-center;
+    -unity-text-align: middle-left;
 }
 
 /*endregion*/
