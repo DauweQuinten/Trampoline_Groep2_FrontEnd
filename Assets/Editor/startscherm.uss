@@ -1,10 +1,7 @@
-/*variables are not a thing yet, ;(*/
-
-/*region text*/
 .outline-text {
     -unity-text-outline-color: rgb(19, 10, 1);
     -unity-font: url('project://database/Assets/Editor/resources/Fonts%20&%20Materials/MouseMemoirs-Regular.ttf?fileID=12800000&guid=7e75f74396c653544a29de5a17f26147&type=3#MouseMemoirs-Regular');
-    -unity-text-outline-width: 12px;
+    -unity-text-outline-width: 10px;
     font-size: 152px;
     -unity-font-definition: none;
     -unity-font-style: bold;
@@ -31,16 +28,9 @@
     -unity-text-align: middle-left;
 }
 
-/*endregion*/
-
-/*region colors*/
 .transparent-gray-background {
     background-color: rgba(0, 0, 0, 0.7);
 }
-
-/*endregion*/
-
-/* region images */
 
 .c-score-image {
     position: relative;
@@ -87,10 +77,6 @@
     border-radius: 48px;
 }
 
-/*endregion*/
-
-/*region assets*/
-
 .button-base {
     background-image: url('project://database/Assets/Editor/resources/Button/Bluebottom36000.png?fileID=2800000&guid=2de0889becbace94a937f3af86c831ca&type=3#Bluebottom36000');
 }
@@ -107,7 +93,6 @@
     background-image: url('project://database/Assets/Editor/resources/Button/ButtonTopYellowPS.png?fileID=2800000&guid=068a0f9dd8edd14479dc9dfbc2485bc8&type=3#ButtonTopYellowPS');
 }
 
-/*todo change this to real assets*/
 .placeholder-image {
     background-image: url('project://database/Assets/Editor/resources/placeholderImage.png?fileID=2800000&guid=8975d575386fa664b952b65456eee517&type=3#placeholderImage');
     height: 200px;
@@ -123,9 +108,6 @@
     position: relative;
 }
 
-/*endregion*/
-
-/*region transitions*/
 .button-animation {
     transition-property: translate;
     transition-duration: 0.1s;
@@ -136,9 +118,6 @@
     translate: 0 14px;
 }
 
-/*endregion*/
-
-/*region lists*/
 .u-list-label {
     min-width: 250px;
 }
@@ -150,13 +129,10 @@
 }
 
 .c-user-list {
-    background-color: #FA781A;
+    background-color: rgb(250, 120, 26);
     corner-radius: 10px;
 }
 
-/*endregion*/
-
-/*region containers*/
 .c-board {
     flex-direction: row;
     justify-content: space-around;
@@ -201,9 +177,6 @@
     justify-content: center;
 }
 
-/*endregion*/
-
-/*region positioning*/
 .bottom {
     position: absolute;
     bottom: 30px;
@@ -245,10 +218,6 @@
     left: 30px;
 }
 
-/*endregion*/
-
-/*region shark bar 🦈🍫*/
-
 .shark-distance-bar {
     height: 60%;
     width: 80px;
@@ -266,9 +235,6 @@
     border-color: rgb(19, 10, 1);
 }
 
-/*endregion*/
-
-/*region utilities 🛠*/
 .mg-bt-md {
     padding-bottom: 40px;
     margin-top: 0;
@@ -288,7 +254,6 @@
     padding-top: 120px;
     padding-bottom: 120px;
 }
-
 
 .row {
     flex-direction: row;
@@ -317,5 +282,3 @@
 .padding-right-sm {
     padding-right: 20px;
 }
-
-/*endregion*/
