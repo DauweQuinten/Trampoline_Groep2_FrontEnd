@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,6 +24,8 @@ namespace UiScripts
         private VisualElement _root;
         private int _previousUpdateCount = -1;
         private bool _isEnabled;
+        private bool _buttonLeftIngedrukt;
+        private bool _buttonRightIngedrukt;
 
 
         public void Start()
@@ -178,17 +181,39 @@ namespace UiScripts
                 SceneManager.LoadScene("Startscherm");
             }
 
-            if (ButtonListener.Left == BtnValue.Pressed)
+            switch (ButtonListener.Left)
             {
-                SceneManager.LoadScene("Startscherm");
+                case BtnValue.Pressed:
+                    _buttonLeftIngedrukt = true;
+                    _btnYellowTop.AddToClassList("move-down");
+                    break;
+                case BtnValue.Released:
+                    _btnYellowTop.RemoveFromClassList("move-down");
+                    if (_buttonLeftIngedrukt) StartCoroutine(LoadNextScene(0.3f));
+                    break;
             }
 
-            if (ButtonListener.Right == BtnValue.Pressed)
+            switch (ButtonListener.Right)
             {
-                SceneManager.LoadScene("Startscherm");
+                case BtnValue.Pressed:
+                    _buttonRightIngedrukt = true;
+                    _btnBlueTop.AddToClassList("move-down");
+                    break;
+                case BtnValue.Released:
+                    _btnBlueTop.RemoveFromClassList("move-down");
+                    if (_buttonRightIngedrukt) StartCoroutine(LoadNextScene(0.3f));
+                    break;
             }
 
             _previousUpdateCount = ButtonListener.BtnUpdate;
+        }
+
+        private static IEnumerator LoadNextScene(float delay)
+        {
+            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
+            ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
+            yield return new WaitForSeconds(delay);
+            SceneManager.LoadScene("Startscherm");
         }
     }
 }

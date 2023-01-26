@@ -16,7 +16,7 @@ namespace UiScripts
         private VisualElement _btnBlueTop;
         private Label _userNameLabel;
         private int _counter = -1;
-        private bool _yellowHasBeenPressed;
+        private bool _yellowHasBeenPressed = false;
         private int _id;
 
         void Start()
