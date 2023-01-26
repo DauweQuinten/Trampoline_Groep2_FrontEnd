@@ -46,16 +46,17 @@ namespace UiScripts
 
         async void FillBoard()
         {
+            GameVariablesHolder.Id = 1;
             _listItems = await ScoreRepository.GetScoresAsync();
             _userItem = await ScoreRepository.GetScoreAsync(GameVariablesHolder.Id);
-
+            _listItems.Sort();
+            
             foreach (ScoreboardItem item in _listItems)
             {
                 item.Img = await GetRemoteTexture(item.ImgUrl);
             }
 
             _userItem.Img = await GetRemoteTexture(_userItem.ImgUrl);
-            _listItems.Sort();
             ListView lvwScores = _root.Q<ListView>("lvwScores");
 
             FillList(lvwScores, _listItems.Take(9).ToList());
@@ -65,9 +66,22 @@ namespace UiScripts
             var minutes = scoreInSeconds / 60;
             var milliSeconds = _userItem.Score % 10;
 
+            
+            
             _root.Q<Image>("lblUserImage").image = _userItem.Img;
             _root.Q<Label>("thisUserScore").text = $"{minutes:D}:{seconds:D2}.{milliSeconds:D1}";
             _root.Q<Label>("lblUserScore").text = _userItem.Username;
+
+            int _userNumber = _listItems.IndexOf(_userItem) + 1;
+            string _userPosition;
+            if (_userNumber == 1)
+                _userPosition = $"{_userNumber}ste plaats";
+            else
+                _userPosition = $"{_userNumber}de plaats";
+
+
+            _root.Q<Label>("lblUserPosition").text = _userPosition;
+
 
             foreach (var item in _listviewItems)
             {

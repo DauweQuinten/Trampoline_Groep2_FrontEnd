@@ -16,6 +16,8 @@
                                   style="font-size: 70px; -unity-text-outline-width: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-right: 0; padding-left: 15px;"/>
                     </ui:VisualElement>
                     <ui:Image name="lblUserImage" class="c-score-image"/>
+                    <ui:Label name="lblUserPosition" class="outline-text outline-test-sm u-text-md"
+                              style="white-space: normal;"/>
                     <ui:Label name="lblUserScore" class="outline-text outline-test-sm u-text-md"
                               style="white-space: normal;"/>
                 </ui:VisualElement>
