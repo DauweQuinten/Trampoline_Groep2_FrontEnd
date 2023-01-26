@@ -31,6 +31,7 @@ public class CalibrationHandler : MonoBehaviour
     bool isCalibrationStarted = false;
     bool isCalibrationFinished = false;
     bool isCalibrating = false;
+    bool isListeningToSocket = false;
 
     #endregion
 
@@ -93,7 +94,7 @@ public class CalibrationHandler : MonoBehaviour
             // Deserialize message
             var message = JsonConvert.DeserializeObject<SocketOnMessage>(e.Data);
 
-            if (message.CalibrationChanged != null && isCalibrating)
+            if (message.CalibrationChanged != null && isListeningToSocket)
             {
                 calibrationChanged = true;
 
@@ -192,8 +193,9 @@ public class CalibrationHandler : MonoBehaviour
 
     IEnumerator CalibratePlayer(int playerIndex)
     {
-        // Set calibration to true -> listening to calibrationChanged messages
+        // Set calibration to true -> start listening to calibrationChanged messages
         isCalibrating = true;
+        isListeningToSocket = true;
 
         Debug.Log($"Player{playerIndex} is calibrating");
         
@@ -213,7 +215,7 @@ public class CalibrationHandler : MonoBehaviour
         Debug.Log($"Well done!");
 
         // reset the calibration states -> stop listening to calibrationChanged messages
-        isCalibrating = false;
+        isListeningToSocket = false;
         calibrationChanged = false;
 
         // send feedback to the user en wait for a few seconds
@@ -222,6 +224,7 @@ public class CalibrationHandler : MonoBehaviour
 
         // set playerCalibrated to true
         playerCalibratedArray[playerIndex] = true;
+        isCalibrating = false;
     }
 
     private void SendTextToUi(string text, int playerIndex)
