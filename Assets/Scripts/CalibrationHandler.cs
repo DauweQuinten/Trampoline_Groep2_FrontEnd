@@ -64,14 +64,18 @@ public class CalibrationHandler : MonoBehaviour
 
         onCalibratingP1.AddListener(() =>
         {
+            // show text for user instructions
+            SendTextToUi("Even wachten, speler 1 is aan de beurt", 1);
+
             // Start calibration of player 0 (async)
             StartCoroutine(CalibratePlayer(0));
+            
         });
 
         onCalibratingP2.AddListener(() =>
-        {
+        {          
             // Start calibration of player 1 (async)
-            StartCoroutine(CalibratePlayer(1));
+            StartCoroutine(CalibratePlayer(1));         
         });
 
         onCalibrationFinished.AddListener(() => { CompleteCalibration(); });
@@ -163,6 +167,7 @@ public class CalibrationHandler : MonoBehaviour
     {
         {
             Debug.Log("Calibration started");
+            
             SendCalibrationMessage(CalibrationStatus.STARTED, 0);
             onCalibratingP1.Invoke();
         }
@@ -245,22 +250,19 @@ public class CalibrationHandler : MonoBehaviour
 
     IEnumerator LoadGameScene()
     {
-        int time = 5;
         
-        Debug.Log("Well done! The game starts in 5 seconds");
+        Debug.Log("Well done! The game starts in 3 seconds");
+
+        int time = 3;
         
         while(time >= 0)
         {         
-            SendTextToUi($"Het spel begint over {time} seconden", 0);
-            SendTextToUi($"Het spel begint over {time} seconden", 1);
+            SendTextToUi(time.ToString(), 0);
+            SendTextToUi(time.ToString(), 1);
             yield return new WaitForSeconds(1);
             time--;         
         }
-        
-        //SendTextToUi("Het spel begint over 5 seconden!", 0);
-        //SendTextToUi("Het spel begint over 5 seconden!", 1);
-        //yield return new WaitForSeconds(5);
-        
+               
         SceneManager.LoadScene("BoatGame2.0");
     }
 
