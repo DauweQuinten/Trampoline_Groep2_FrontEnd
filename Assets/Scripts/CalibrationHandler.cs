@@ -134,13 +134,6 @@ public class CalibrationHandler : MonoBehaviour
             onCalibratingP2.Invoke();
         }
 
-        //if (!playerCalibratedArray[0] && playerCalibratedArray[1] && !isCalibrating)
-        //{
-        //    changeCalibrationPlayer(0);
-
-        //    onCalibratingP1.Invoke();
-        //}
-
         if (playerCalibratedArray[0] && playerCalibratedArray[1] && !isCalibrationFinished)
         {
             onCalibrationFinished.Invoke();
