@@ -18,7 +18,7 @@ public class PlayerControls : MonoBehaviour
     // movement variables
     public float xBounds = 3.5f;
     private int speed;
-    private float maxForce = 7.0f;
+    private float maxForce = 5.0f;
 
     // player states
     public bool hasCollided = false;
