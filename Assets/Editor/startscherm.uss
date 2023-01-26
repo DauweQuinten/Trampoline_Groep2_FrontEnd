@@ -282,3 +282,9 @@
 .padding-right-sm {
     padding-right: 20px;
 }
+
+.outline-text-smaller-md {
+    font-size: 95px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 7px;
+}

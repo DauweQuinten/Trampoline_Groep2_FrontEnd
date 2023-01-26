@@ -4,27 +4,30 @@
     <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm"/>
     <ui:VisualElement class="container transparent"
                       style="justify-content: space-around; flex-direction: column; align-items: center;">
-        <ui:VisualElement name="row" class="full-width padding-lg transparent-gray-background">
-            <ui:Label text="Game over" display-tooltip-when-elided="true" name="gameOver"
-                      class="outline-text outline-text-md"/>
+        <ui:VisualElement name="row" class="full-width padding-lg transparent-gray-background"
+                          style="padding-bottom: 60px; padding-top: 60px; background-color: rgba(0, 0, 0, 0.52);">
+            <ui:Label text="Game over" display-tooltip-when-elided="true" name="gameOver" class="outline-text"/>
             <ui:VisualElement name="scoreContainer" class="row"
                               style="align-items: center; justify-content: center; margin-top: 0;">
-                <ui:Label text="Score " name="scorePrefix" class="outline-text outline-text-md padding-right-sm"
-                          style="-unity-text-align: upper-right;"/>
+                <ui:Label text="Tijd" name="scorePrefix"
+                          class="outline-text outline-text-md padding-right-sm outline-text-smaller-md"
+                          style="-unity-text-align: upper-right; -unity-text-outline-width: 7px;"/>
                 <ui:Label text="1:59" display-tooltip-when-elided="true" name="score"
-                          class="outline-text outline-text-md"/>
+                          class="outline-text outline-text-md outline-text-smaller-md"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="bottom" class="bottom row-reverse">
-        <ui:VisualElement name="bottomrightcorner" class="row center row-reverse" style="height: 100%;">
+        <ui:VisualElement name="bottomrightcorner" class="row center row-reverse"
+                          style="height: 100%; align-items: flex-end; justify-content: flex-start;">
             <ui:VisualElement name="yellowButton" class="button">
                 <ui:VisualElement name="buttonTop" class="button-top-yellow img button-animation"/>
                 <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img"
                                   style="bottom: -20px; right: -54px;"/>
             </ui:VisualElement>
-            <ui:Label text="Ga verder" display-tooltip-when-elided="true" name="GaverderLabel"
-                      class="outline-text outline-text-md"/>
+            <ui:Label text="Naam Kiezen" display-tooltip-when-elided="true" name="GaverderLabel"
+                      class="outline-text outline-text-md outline-text-smaller-md"
+                      style="-unity-text-outline-width: 7px;"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
