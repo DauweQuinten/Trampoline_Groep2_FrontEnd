@@ -23,14 +23,13 @@ namespace UiScripts
         {
             // for first time we need to insert in the database
             GenerateNewNameAndInsertInDatabase();
-
-
             _document = GetComponent<UIDocument>();
             _userNameLabel = _document.rootVisualElement.Q<Label>("generatedname");
-            var score = _document.rootVisualElement.Q<Label>("score");
-            var minuuten = GameVariablesHolder.Score / 60;
-            var seconden = GameVariablesHolder.Score % 60;
-            score.text = $"{minuuten}:{seconden}";
+            // var score = _document.rootVisualElement.Q<Label>("score");
+            // var scoreInSeconden = GameVariablesHolder.Score / 10;
+            // var minuuten = scoreInSeconden / 60;
+            // var seconden = scoreInSeconden % 60;
+            // score.text = $"{minuuten:D}:{seconden:D2}";
             var btnYellow = _document.rootVisualElement.Q("yellowButton");
             _btnYellowTop = btnYellow.Q("buttonTop");
             var btnBlue = _document.rootVisualElement.Q("blueButton");
