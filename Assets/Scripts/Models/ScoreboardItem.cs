@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Models
 {
-    public class ScoreboardItem : IComparable
+    public class ScoreboardItem : IComparable, IEquatable<ScoreboardItem>
     {
         [JsonProperty("username")]
         public string Username { get; set; }
@@ -39,6 +39,25 @@ namespace Models
                 return otherItem.Score.CompareTo(this.Score);
             
             throw new ArgumentException("Object is not an Item");
+        }
+
+        public bool Equals(ScoreboardItem other)
+        {
+            if (other == null) return false;
+            if (this.Id == other.Id)
+                return true;
+            else
+                return false;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            ScoreboardItem other = obj as ScoreboardItem;
+            if (other == null) 
+                return false;
+            else
+                return Equals(other);
         }
     }
 }
