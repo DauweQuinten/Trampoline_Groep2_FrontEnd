@@ -186,10 +186,10 @@ namespace UiScripts
             {
                 case BtnValue.Pressed:
                     _buttonLeftIngedrukt = true;
-                    _btnYellowTop.AddToClassList("move-down");
+                    _btnBlueTop.AddToClassList("move-down");
                     break;
                 case BtnValue.Released:
-                    _btnYellowTop.RemoveFromClassList("move-down");
+                    _btnBlueTop.RemoveFromClassList("move-down");
                     if (_buttonLeftIngedrukt) StartCoroutine(LoadNextScene(0.3f));
                     break;
             }
@@ -198,10 +198,10 @@ namespace UiScripts
             {
                 case BtnValue.Pressed:
                     _buttonRightIngedrukt = true;
-                    _btnBlueTop.AddToClassList("move-down");
+                    _btnYellowTop.AddToClassList("move-down");
                     break;
                 case BtnValue.Released:
-                    _btnBlueTop.RemoveFromClassList("move-down");
+                    _btnYellowTop.RemoveFromClassList("move-down");
                     if (_buttonRightIngedrukt) StartCoroutine(LoadNextScene(0.3f));
                     break;
             }
