@@ -30,7 +30,7 @@ namespace UiScripts
 
         public void Start()
         {
-            if (GameVariablesHolder.Id < 2) GameVariablesHolder.Id = 1;
+            if (GameVariablesHolder.Id < 2) GameVariablesHolder.Id = 21;
             _isEnabled = true;
             _document = GetComponent<UIDocument>();
             // Each editor window contains a root VisualElement object
@@ -49,13 +49,21 @@ namespace UiScripts
             _listItems = await ScoreRepository.GetScoresAsync();
             _userItem = await ScoreRepository.GetScoreAsync(GameVariablesHolder.Id);
             _listItems.Sort();
-            
-            foreach (ScoreboardItem item in _listItems)
+
+            foreach (ScoreboardItem item in _listItems.Take(9).ToList())
             {
-                item.Img = await GetRemoteTexture(item.ImgUrl);
+                var imgByteArrayScoreList = await ScoreRepository.GetAvatar(item.Id);
+                var textureList = new Texture2D(1, 1);
+                textureList.LoadImage(imgByteArrayScoreList);
+                item.Img = textureList;
             }
 
-            _userItem.Img = await GetRemoteTexture(_userItem.ImgUrl);
+            var imgByteArray = await ScoreRepository.GetAvatar(GameVariablesHolder.Id);
+            var texture = new Texture2D(1, 1);
+            texture.LoadImage(imgByteArray);
+            _userItem.Img = texture;
+
+            // _userItem.Img = await GetRemoteTexture(_userItem.ImgUrl);
             ListView lvwScores = _root.Q<ListView>("lvwScores");
 
             FillList(lvwScores, _listItems.Take(9).ToList());
@@ -65,22 +73,14 @@ namespace UiScripts
             var minutes = scoreInSeconds / 60;
             var milliSeconds = _userItem.Score % 10;
 
-            
-            
-            _root.Q<Image>("lblUserImage").image = _userItem.Img;
+            _root.Q<Image>("lblUserImage").style.backgroundImage = texture;
             _root.Q<Label>("thisUserScore").text = $"{minutes:D}:{seconds:D2}.{milliSeconds:D1}";
             _root.Q<Label>("lblUserScore").text = _userItem.Username;
 
-            int _userNumber = _listItems.IndexOf(_userItem) + 1;
-            string _userPosition;
-            if (_userNumber == 1)
-                _userPosition = $"{_userNumber}ste plaats";
-            else
-                _userPosition = $"{_userNumber}de plaats";
+            var userNumber = _listItems.IndexOf(_userItem) + 1;
+            var userPosition = $"{userNumber}e plaats";
 
-
-            _root.Q<Label>("lblUserPosition").text = _userPosition;
-
+            _root.Q<Label>("lblUserPosition").text = userPosition;
 
             foreach (var item in _listviewItems)
             {
@@ -155,34 +155,6 @@ namespace UiScripts
             e.Q<Label>("score-number-label").text = $"{minutes:D}:{seconds:D2}.{milliSeconds:D1}";
 
             e.Q<Image>("score-image").image = _listItems[i].Img;
-        }
-
-        public static async Task<Texture2D> GetRemoteTexture(string url)
-        {
-            using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))
-            {
-                // begin request:
-                var asyncOp = www.SendWebRequest();
-
-                // await until it's done: 
-                while (asyncOp.isDone == false)
-                    await Task.Delay(1000 / 30); //30 hertz
-
-                // read results:
-                if (www.result != UnityWebRequest.Result.Success) // for Unity >= 2020.1
-                {
-                    // log error:
-                    Debug.Log($"{www.error}, URL:{www.url}");
-
-                    // nothing to return on error:
-                    return null;
-                }
-                else
-                {
-                    // return valid results:
-                    return DownloadHandlerTexture.GetContent(www);
-                }
-            }
         }
 
 

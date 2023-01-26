@@ -43,9 +43,9 @@ namespace Repository
             }
         }
 
-        public static async Task<ScoreboardItem> GetScoreAsync(int Id)
+        public static async Task<ScoreboardItem> GetScoreAsync(int id)
         {
-            string url = $"{_BASEURI}/scoreboard/{Id}";
+            string url = $"{_BASEURI}/scoreboard/{id}";
             using (HttpClient client = GetHttpClient())
             {
                 try
@@ -54,12 +54,13 @@ namespace Repository
 
                     if (json == null) return null;
 
-                    List<ScoreboardItem> Scorelists = JsonConvert.DeserializeObject<List<ScoreboardItem>>(json);
-                    return Scorelists[0];
+                    var scorelists = JsonConvert.DeserializeObject<List<ScoreboardItem>>(json);
+                    return scorelists[0];
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    Debug.LogWarning("error gettings core");
+                    throw;
                 }
             }
         }
@@ -162,6 +163,22 @@ namespace Repository
                 {
                     throw ex;
                 }
+            }
+        }
+
+        public static async Task<byte[]> GetAvatar(int id)
+        {
+            try
+            {
+                var url = $"{_BASEURI}/username/avatar/{id}";
+                using var client = GetHttpClient();
+                var response = await client.GetAsync(url);
+                return await response.Content.ReadAsByteArrayAsync();
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning(e);
+                throw;
             }
         }
     }
