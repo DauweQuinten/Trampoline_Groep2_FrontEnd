@@ -147,12 +147,12 @@ public class PlayerControls : MonoBehaviour
     // Paddle on jump from kinect
     public void Paddle(float force, int player)
     {
-        if (player == leftPlayerIndex)
+        if (player == rightPlayerIndex)
         {
             Debug.Log("Left player jumped with force: " + force);
             speed += Mathf.FloorToInt(maxForce * force);
         }
-        else if (player == rightPlayerIndex)
+        else if (player == leftPlayerIndex)
         {
             Debug.Log("Right player jumped with force: " + force);
             speed -= Mathf.FloorToInt(maxForce * force);
