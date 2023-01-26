@@ -2,6 +2,7 @@ using Models;
 using Newtonsoft.Json;
 using System.Collections;
 using UiScripts;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -92,7 +93,7 @@ public class CalibrationHandler : MonoBehaviour
             // Deserialize message
             var message = JsonConvert.DeserializeObject<SocketOnMessage>(e.Data);
 
-            if (message.CalibrationChanged != null)
+            if (message.CalibrationChanged != null && isCalibrating)
             {
                 calibrationChanged = true;
 
@@ -113,32 +114,25 @@ public class CalibrationHandler : MonoBehaviour
 
         #endregion
 
-        #region intro in debug
-
-        Debug.Log("Press 'A' to start the calibration");
-
-        #endregion
+        // start the sequence
+        onCalibrationStarted.Invoke();
     }
 
     // Update is called each frame
     private void Update()
     {
         // On start calibration (execute only once because of isCalibrationStarted)
-        if (Input.GetKeyDown(KeyCode.A) && !isCalibrationStarted)
-        {
-            // Start calibration p1
-            onCalibrationStarted.Invoke();
-        }
 
         if ((playerCalibratedArray[0] && !playerCalibratedArray[1]) && !isCalibrating)
         {
-            changeCalibrationPlayer(1);
+            changeCalibrationPlayer(1);           
             onCalibratingP2.Invoke();
         }
 
         if (!playerCalibratedArray[0] && playerCalibratedArray[1] && !isCalibrating)
         {
             changeCalibrationPlayer(0);
+
             onCalibratingP1.Invoke();
         }
 
@@ -173,15 +167,14 @@ public class CalibrationHandler : MonoBehaviour
         }
     }
 
-    IEnumerator changeCalibrationPlayer(int playerIndex)
+    void changeCalibrationPlayer(int playerIndex)
     {
         Debug.Log($"Well done, left player is ready to go!");
-        SendTextToUi("Goed gedaan, je bent klaar om te gaan!", 0);
+        SendTextToUi("Je bent klaar om te gaan!", 0);
         Debug.Log($"Right player, are you ready?");
         SendTextToUi("Ben je klaar?", 1);
-        yield return new WaitForSeconds(3);
         Debug.Log($"Switch to player{playerIndex}");
-        SendTextToUi("Start!", 1);
+        SendTextToUi("Start met springen!", 1);
         SendCalibrationMessage(CalibrationStatus.SWITCH_PLAYER, playerIndex);
     }
 
@@ -199,23 +192,36 @@ public class CalibrationHandler : MonoBehaviour
 
     IEnumerator CalibratePlayer(int playerIndex)
     {
+        // Set calibration to true -> listening to calibrationChanged messages
         isCalibrating = true;
 
         Debug.Log($"Player{playerIndex} is calibrating");
+        
+        // send messages to the user
         SendTextToUi("start met springen!", playerIndex);
         Debug.Log($"Player{playerIndex} start jumping!");
-        // Debug.Log($"DEBUG: PRESS SPACE TO CONTINUE");
-        // yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
+        // Wait for calibrationChanged message -> calibration of player index is finished
         yield return new WaitUntil(() => calibrationChanged);
-        calibrationChanged = false;
+
+        // Keep jumping for a few seconds -> calibration of min & max jump 
         Debug.Log($"Almost there, Keep jumping!");
         SendTextToUi("Je bent er bijna!", playerIndex);
         yield return new WaitForSeconds(5);
+
+        // calibration is finished
         Debug.Log($"Well done!");
-        SendTextToUi("Goed gedaan!", playerIndex);
-        playerCalibratedArray[playerIndex] = true;
+
+        // reset the calibration states -> stop listening to calibrationChanged messages
         isCalibrating = false;
+        calibrationChanged = false;
+
+        // send feedback to the user en wait for a few seconds
+        SendTextToUi("Goed gedaan! Stop met springen", playerIndex);
+        yield return new WaitForSeconds(3);
+
+        // set playerCalibrated to true
+        playerCalibratedArray[playerIndex] = true;
     }
 
     private void SendTextToUi(string text, int playerIndex)
@@ -236,10 +242,22 @@ public class CalibrationHandler : MonoBehaviour
 
     IEnumerator LoadGameScene()
     {
+        int time = 5;
+        
         Debug.Log("Well done! The game starts in 5 seconds");
-        SendTextToUi("Het spel begint over 5 seconden!", 0);
-        SendTextToUi("Het spel begint over 5 seconden!", 1);
-        yield return new WaitForSeconds(5);
+        
+        while(time >= 0)
+        {         
+            SendTextToUi($"Het spel begint over {time} seconden", 0);
+            SendTextToUi($"Het spel begint over {time} seconden", 1);
+            yield return new WaitForSeconds(1);
+            time--;         
+        }
+        
+        //SendTextToUi("Het spel begint over 5 seconden!", 0);
+        //SendTextToUi("Het spel begint over 5 seconden!", 1);
+        //yield return new WaitForSeconds(5);
+        
         SceneManager.LoadScene("BoatGame2.0");
     }
 

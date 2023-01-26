@@ -432,8 +432,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af5d154913f9a74793b6eebe081177f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftPlayerText: yeayeet
-  rightPlayerText: aslkdjfsajdfh
+  leftPlayerText: Wacht eventjes
+  rightPlayerText: Andere speler is aan de beurt!
 --- !u!1001 &2730513072380226913
 PrefabInstance:
   m_ObjectHideFlags: 0
