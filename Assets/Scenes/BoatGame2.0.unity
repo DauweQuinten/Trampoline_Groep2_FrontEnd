@@ -473,7 +473,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xBounds: 6.75
-  maxForce: 8
   hasCollided: 0
   hittedWall: 0
   keyboardEnabled: 1
@@ -717,6 +716,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9096896616622742931, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096896616741338959, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096896616861020838, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 9096896617446294370, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -764,6 +775,26 @@ PrefabInstance:
     - target: {fileID: 9096896617446294372, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
       propertyPath: m_Name
       value: River
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096896617968524844, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096896618074096663, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096896618247785331, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096896618342889317, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096896618737526823, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
