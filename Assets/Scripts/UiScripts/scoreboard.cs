@@ -46,7 +46,6 @@ namespace UiScripts
 
         async void FillBoard()
         {
-            GameVariablesHolder.Id = 1;
             _listItems = await ScoreRepository.GetScoresAsync();
             _userItem = await ScoreRepository.GetScoreAsync(GameVariablesHolder.Id);
             _listItems.Sort();
