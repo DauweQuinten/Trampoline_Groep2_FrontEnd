@@ -36,8 +36,7 @@ namespace UiScripts
             var scoreSeconden = _levelController.score / 10;
             var minuuten = scoreSeconden / 60;
             var seconden = scoreSeconden % 60;
-            ;
-            _scoreLabel.text = $"{minuuten:D2}:{seconden:D2}";
+            _scoreLabel.text = $"{minuuten:D}:{seconden:D2}";
         }
 
         private void UpdateDistanceToSharkGui(float distance)
