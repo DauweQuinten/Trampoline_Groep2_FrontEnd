@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Models;
 using UnityEngine;
@@ -42,7 +41,8 @@ namespace UiScripts
                     _btnsHaveBeenPressed = true;
                     break;
                 case BtnValue.Released:
-                    if (_btnsHaveBeenPressed) StartCoroutine(GoToNextScene(0.3f));
+                    // if (_btnsHaveBeenPressed) StartCoroutine(GoToNextScene(0.3f));
+                    if (_btnsHaveBeenPressed) FlowHandler.LoadNextSceneInstantly("BoatGame2.0");
                     break;
             }
 
@@ -67,14 +67,6 @@ namespace UiScripts
             }
 
             _previousUpdateCount = ButtonListener.BtnUpdate;
-        }
-
-        private static IEnumerator GoToNextScene(float delay)
-        {
-            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
-            ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
-            yield return new WaitForSeconds(delay);
-            SceneManager.LoadScene("InstructionScene");
         }
     }
 }

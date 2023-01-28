@@ -178,7 +178,7 @@ namespace UiScripts
                 case BtnValue.Released:
                     _btnBlueTop.RemoveFromClassList("move-down");
                     // if (_buttonLeftIngedrukt) StartCoroutine(GoToStartScene(0.3f));
-                    if (_buttonLeftIngedrukt) PlayAgain();
+                    if (_buttonLeftIngedrukt) FlowHandler.LoadNextSceneInstantly("BoatGame2.0");
                     break;
             }
 
@@ -191,33 +191,11 @@ namespace UiScripts
                 case BtnValue.Released:
                     _btnYellowTop.RemoveFromClassList("move-down");
                     // if (_buttonRightIngedrukt) StartCoroutine(PlayAgain());
-                    if (_buttonRightIngedrukt) GoToStartSceneInstantly();
+                    if (_buttonRightIngedrukt) FlowHandler.LoadNextSceneInstantly("Startscherm");
                     break;
             }
 
             _previousUpdateCount = ButtonListener.BtnUpdate;
-        }
-
-        private static IEnumerator GoToStartScene(float delay)
-        {
-            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
-            ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
-            yield return new WaitForSeconds(delay);
-            SceneManager.LoadScene("Startscherm");
-        }
-
-        private static void GoToStartSceneInstantly()
-        {
-            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
-            ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
-            SceneManager.LoadScene("Startscherm");
-        }
-
-        private static void PlayAgain()
-        {
-            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
-            ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
-            SceneManager.LoadScene("BoatGame2.0");
         }
     }
 }

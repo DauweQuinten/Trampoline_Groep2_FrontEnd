@@ -36,17 +36,10 @@ namespace UiScripts
                     break;
                 case BtnValue.Released:
                     _yellowButtonTop.RemoveFromClassList("move-down");
-                    if (_rightButtonWasPressed) StartCoroutine(GoToNextScene(0.3f));
+                    // if (_rightButtonWasPressed) StartCoroutine(GoToNextScene(0.3f));
+                    FlowHandler.LoadNextSceneInstantly("CalibrationScene");
                     break;
             }
-        }
-
-        private IEnumerator GoToNextScene(float delay)
-        {
-            ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
-            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
-            yield return new WaitForSeconds(delay);
-            SceneManager.LoadScene("CalibrationScene");
         }
     }
 }
