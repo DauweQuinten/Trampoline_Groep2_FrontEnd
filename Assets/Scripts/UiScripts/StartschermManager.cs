@@ -42,7 +42,7 @@ namespace UiScripts
                     break;
                 case BtnValue.Released:
                     // if (_btnsHaveBeenPressed) StartCoroutine(GoToNextScene(0.3f));
-                    if (_btnsHaveBeenPressed) FlowHandler.LoadNextSceneInstantly("BoatGame2.0");
+                    if (_btnsHaveBeenPressed) FlowHandler.LoadNextSceneInstantly("InstructionScene");
                     break;
             }
 
