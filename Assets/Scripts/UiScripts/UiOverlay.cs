@@ -9,7 +9,8 @@ namespace UiScripts
         private UIDocument _document;
 
         private VisualElement _shark;
-
+        private VisualElement _shark2d;
+        private VisualElement _boat2d;
         private Label _scoreLabel;
 
         // Start is called before the first frame update
@@ -21,6 +22,8 @@ namespace UiScripts
             // get the shark class
             _shark = _document.rootVisualElement.Q<VisualElement>("shark");
             _scoreLabel = _document.rootVisualElement.Q<Label>("score");
+            _boat2d = _document.rootVisualElement.Q<VisualElement>("boat2d");
+            _shark2d = _document.rootVisualElement.Q<VisualElement>("shark2d");
         }
 
         // Update is called once per frame
@@ -44,6 +47,7 @@ namespace UiScripts
             var height = 760 - distance * 700;
             if (height > 700) height = 700;
             _shark.style.height = height;
+            _shark2d.style.top = (732 - (1 - distance) * 650);
         }
     }
 }
