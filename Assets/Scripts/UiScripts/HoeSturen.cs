@@ -37,7 +37,7 @@ namespace UiScripts
                 case BtnValue.Released:
                     _yellowButtonTop.RemoveFromClassList("move-down");
                     // if (_rightButtonWasPressed) StartCoroutine(GoToNextScene(0.3f));
-                    FlowHandler.LoadNextSceneInstantly("CalibrationScene");
+                    if (_rightButtonWasPressed) FlowHandler.LoadNextSceneInstantly("CalibrationScene");
                     break;
             }
         }
