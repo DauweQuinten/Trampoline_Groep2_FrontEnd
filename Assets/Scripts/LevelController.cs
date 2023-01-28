@@ -15,10 +15,12 @@ public class LevelController : MonoBehaviour
     public UnityEvent onIncreaseDifficulty;
 
     // Game variables
-    public float scrollSpeed = 10f;
-    public bool ScrollState = true;
-    public bool gameOver = false;
-    public int score = 0;
+    [Tooltip("The relative speed of the player")]
+    [Range(0, 10)] public float scrollSpeed = 10f;
+    
+    [HideInInspector] public bool ScrollState = true;
+    [HideInInspector] public bool gameOver = false;
+    [HideInInspector] public int score = 0;
     private float timeToScore = .1f;
 
     // Difficulty levels
@@ -29,7 +31,7 @@ public class LevelController : MonoBehaviour
     // Distance variables
     private float distanceAtStart;
     private float distanceToShark;
-    public float distancePercentage;
+    [HideInInspector] public float distancePercentage;
 
     // GameObjects
     private GameObject player;
@@ -37,7 +39,6 @@ public class LevelController : MonoBehaviour
     
 
     #endregion
-
 
     private void Start()
     {

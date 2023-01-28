@@ -16,15 +16,22 @@ public class PlayerControls : MonoBehaviour
     private SocketEvents socketEventsScript;
 
     // movement variables
-    public float xBounds = 3.5f;
+    private float xBounds = 6.75f;
     private int speed;
-    private float maxForce = 5.0f;
+
+    [SerializeField][Tooltip("This value determines how fast the player slows down (0 = instant stop, 1 = very slow stop)")]
+    [Range(0, 1)] float slowDownValue = 0.5f;
+    
+    [SerializeField] [Tooltip("The maximum paddle force")]
+    [Range(0, 10f)] private float maxForce = 5.0f;
 
     // player states
-    public bool hasCollided = false;
-    public bool hittedWall = false;
+    [HideInInspector] public bool hasCollided = false;
+    [HideInInspector] public bool hittedWall = false;
+    [HideInInspector] public bool isBackwards;
+
+    [Tooltip("Enable player control from keyboard")]
     public bool keyboardEnabled;
-    public bool isBackwards;
 
     // player indexen
     int leftPlayerIndex;
@@ -101,7 +108,7 @@ public class PlayerControls : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(slowDownValue);
             if (speed != 0)
             {
                 if (speed > 0)
