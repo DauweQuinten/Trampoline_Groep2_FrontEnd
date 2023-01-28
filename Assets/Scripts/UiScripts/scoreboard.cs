@@ -156,7 +156,7 @@ namespace UiScripts
 
             e.Q<Label>("score-number-label").text = $"{minutes:D}:{seconds:D2}.{milliSeconds:D1}";
 
-            e.Q<Image>("score-image").image = _listItems[i].Img;
+            e.Q<Image>("score-image").style.backgroundImage = _listItems[i].Img;
         }
 
 
