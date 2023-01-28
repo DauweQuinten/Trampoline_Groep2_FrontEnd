@@ -27,16 +27,15 @@ public class CalibrationHandler : MonoBehaviour
 
     #region calibration variables
 
+    // Calibration states
     bool[] playerCalibratedArray = { false, false };
-
     bool calibrationChanged = false;
-
     bool isCalibrationStarted = false;
     bool isCalibrationFinished = false;
     bool isCalibrating = false;
     bool isListeningToSocket = false;
 
-
+    // Timing
     [Header("Timing variables")]
     [Space(10)]
 
