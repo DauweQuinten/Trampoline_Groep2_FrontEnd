@@ -10,7 +10,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] obstaclePrefabs;
 
     // range of spawn positions
-    public float spawnRangeX = 4;
+    private float spawnRangeX = 4;
   
     // holder for random spawn position
     private Vector3 spawnPos;

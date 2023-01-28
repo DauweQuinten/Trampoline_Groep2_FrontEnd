@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePrefabs:
-  - {fileID: 8961750381729823352, guid: f4220c411b5ea8c48a1df9135a12922f, type: 3}
-  - {fileID: 8919832367411202508, guid: f7c36565f9c28d541828474aaf4d2cac, type: 3}
-  - {fileID: 2377499744418498489, guid: 36a481e69d4fe4d4b85454275d7a98f0, type: 3}
-  spawnRangeX: 4
+  - {fileID: 3887447040899504324, guid: fee467eb4aef7f5488eb359bfdda2863, type: 3}
+  - {fileID: 3887447040899504324, guid: 3073caf009a3c87468baf4365a3939c5, type: 3}
+  - {fileID: 3887447040899504324, guid: 79ecc3c53d22cca46940222f7db078da, type: 3}
+  - {fileID: 3887447040899504324, guid: c2cce4bfb4b8769419b88efbf12e96ae, type: 3}
+  - {fileID: 3887447040899504324, guid: 5927d9674fbd20f4d84314577c867752, type: 3}
+  - {fileID: 3887447040899504324, guid: d7c1f8837c72de646a91e664ce97bbe5, type: 3}

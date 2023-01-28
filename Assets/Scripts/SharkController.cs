@@ -17,8 +17,8 @@ public class SharkController : MonoBehaviour
     private float sharkSpeed = 1.0f;
 
     // shark states
-    public bool gameOver = false;  
-    public bool isMoving = false;
+    [HideInInspector] public bool gameOver = false;  
+    [HideInInspector] public bool isMoving = false;
 
     #endregion
 
