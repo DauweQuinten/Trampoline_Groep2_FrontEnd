@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5866124572780788822}
   - component: {fileID: 5042960299016807363}
+  - component: {fileID: 4587678480899273905}
   m_Layer: 0
   m_Name: ui
   m_TagString: Untagged
@@ -48,6 +49,18 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 10be576fb9acb1e448d8dbf8c0b23715, type: 3}
   m_SortingOrder: 0
+--- !u!114 &4587678480899273905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097002148433528623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effb620c633a45c9a61d2414a3a9d47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8275570396138180979
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +70,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8751087726676143228}
-  - component: {fileID: 8857903192141521282}
   m_Layer: 0
   m_Name: kiezenGebruikersnaam
   m_TagString: Untagged
@@ -81,15 +93,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8857903192141521282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8275570396138180979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: effb620c633a45c9a61d2414a3a9d47d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
