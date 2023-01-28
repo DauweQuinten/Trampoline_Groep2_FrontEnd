@@ -23,7 +23,7 @@ namespace UiScripts
             var scoreInSeconden = GameVariablesHolder.Score / 10;
             var minuuten = scoreInSeconden / 60;
             var seconden = scoreInSeconden % 60;
-            labelScore.text = $"{minuuten}:{seconden}";
+            labelScore.text = $"{minuuten:D}:{seconden:D2}";
 
             // handle button
             var btnYellow = _document.rootVisualElement.Q("yellowButton");
