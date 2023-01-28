@@ -106,19 +106,11 @@ namespace UiScripts
                         break;
                     case BtnValue.Released:
                         _btnYellowTop.RemoveFromClassList("move-down");
-                        if (_yellowHasBeenPressed) NextScene();
+                        GameVariablesHolder.Username = _gebruikersNaam;
+                        if (_yellowHasBeenPressed) FlowHandler.LoadNextSceneInstantly("Scoreboard");
                         break;
                 }
             }
-        }
-
-        private void NextScene()
-        {
-            Debug.Log("going to next scene and turning LED's off");
-            GameVariablesHolder.Username = _gebruikersNaam;
-            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
-            ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
-            SceneManager.LoadScene("Scoreboard");
         }
     }
 }
