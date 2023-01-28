@@ -23,7 +23,7 @@ namespace UiScripts
             var scoreInSeconden = GameVariablesHolder.Score / 10;
             var minuuten = scoreInSeconden / 60;
             var seconden = scoreInSeconden % 60;
-            labelScore.text = $"{minuuten}:{seconden}";
+            labelScore.text = $"{minuuten:D}:{seconden:D2}";
 
             // handle button
             var btnYellow = _document.rootVisualElement.Q("yellowButton");
@@ -45,17 +45,9 @@ namespace UiScripts
                     break;
                 case BtnValue.Released:
                     _btnYellowTop.RemoveFromClassList("move-down");
-                    if (_rightHasBeenPressed) StartCoroutine(LoadSceneAfterDelay(0.3f));
+                    if (_rightHasBeenPressed) FlowHandler.LoadNextSceneInstantly("username-kiezen");
                     break;
             }
-        }
-
-        private static IEnumerator LoadSceneAfterDelay(float delay)
-        {
-            ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
-            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
-            yield return new WaitForSeconds(delay);
-            SceneManager.LoadScene("username-kiezen");
         }
     }
 }

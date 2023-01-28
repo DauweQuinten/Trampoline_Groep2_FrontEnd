@@ -36,19 +36,12 @@ namespace UiScripts
                     break;
                 case BtnValue.Released:
                     _yellowButtonTop.RemoveFromClassList("move-down");
-                    if (_rightHasBeenPressed) StartCoroutine(GoToNextScene(0.3f));
+                    // if (_rightHasBeenPressed) StartCoroutine(GoToNextScene(0.3f));
+                    if (_rightHasBeenPressed) FlowHandler.LoadNextSceneInstantly("Instructies2");
                     break;
             }
 
             _buttonCounter = ButtonListener.BtnUpdate;
-        }
-
-        private IEnumerator GoToNextScene(float delay)
-        {
-            ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
-            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
-            yield return new WaitForSeconds(delay);
-            SceneManager.LoadScene("Instructies2");
         }
     }
 }

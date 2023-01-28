@@ -9,52 +9,45 @@ using UnityEngine;
 
 namespace Models
 {
-    public class ScoreboardItem : IComparable, IEquatable<ScoreboardItem>
+    public class ScoreboardItem : IComparable
+        // IEquatable<ScoreboardItem>
     {
-        [JsonProperty("username")]
-        public string Username { get; set; }
-        
-        [JsonProperty("id")]
-        public int Id { get; set; }
+        [JsonProperty("username")] public string Username { get; set; }
 
-        [JsonProperty("score")]
-        public int Score { get; set; }
+        [JsonProperty("id")] public int Id { get; set; }
 
-        [JsonProperty("date")]
-        public DateTime Date { get; set; }
+        [JsonProperty("score")] public int Score { get; set; }
 
-        public string ImgUrl
-        {
-            get { return $"http://127.0.0.1:3000/username/avatar/{this.Id}"; }
-        }
-        
+        [JsonProperty("date")] public DateTime Date { get; set; }
+
+        // public string ImgUrl
+        // {
+        //     get { return $"http://127.0.0.1:3000/username/avatar/{this.Id}"; }
+        // }
+        //
         public Texture2D Img { get; set; }
 
         public int CompareTo(object obj)
         {
             if (obj == null) return 1;
 
-            ScoreboardItem otherItem = obj as ScoreboardItem;
-            if (otherItem != null)
-                return otherItem.Score.CompareTo(this.Score);
-            
+            if (obj is ScoreboardItem otherItem)
+                return otherItem.Score.CompareTo(Score);
+
             throw new ArgumentException("Object is not an Item");
         }
 
         public bool Equals(ScoreboardItem other)
         {
             if (other == null) return false;
-            if (this.Id == other.Id)
-                return true;
-            else
-                return false;
+            return Id == other.Id;
         }
 
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
             ScoreboardItem other = obj as ScoreboardItem;
-            if (other == null) 
+            if (other == null)
                 return false;
             else
                 return Equals(other);

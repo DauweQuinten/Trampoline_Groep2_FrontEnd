@@ -36,7 +36,6 @@ public class LevelController : MonoBehaviour
     // GameObjects
     private GameObject player;
     private GameObject shark;
-    
 
     #endregion
 
@@ -70,7 +69,7 @@ public class LevelController : MonoBehaviour
         distanceAtStart = Vector3.Distance(player.transform.position, shark.transform.position);
 
         // Start the score counter
-        StartCoroutine(addScore(timeToScore));
+        StartCoroutine(AddScore());
     }
 
     private void Update()
@@ -103,18 +102,18 @@ public class LevelController : MonoBehaviour
             GameVariablesHolder.Score = score;
             onGameOver.Invoke();
             SceneManager.LoadScene("Game-over");
-        }     
+        }
     }
 
 
     // Add score per time survived
-    IEnumerator addScore(float timeToScore)
+    private IEnumerator AddScore()
     {
         while (true && !gameOver)
         {
             score += 1;
             yield return new WaitForSeconds(timeToScore);
-            Debug.Log($"Score: {score}");
+            // Debug.Log($"Score: {score}");
         }
     }
 }

@@ -116,42 +116,35 @@ public class SocketEvents : MonoBehaviour
             else if (message.Button != null)
             {
                 var btnMessage = message.Button.BtnStates;
-                Debug.Log($"{btnMessage.BtnRight}, {btnMessage.BtnLeft}, {btnMessage.Both} ");
-                if (btnMessage.Both == BtnValue.Pressed)
+                switch (btnMessage.Both)
                 {
-                    Debug.Log("Both");
-                    btnPressedBoth.Invoke();
+                    // Debug.Log($"{btnMessage.BtnRight}, {btnMessage.BtnLeft}, {btnMessage.Both} ");
+                    case BtnValue.Pressed:
+                        btnPressedBoth.Invoke();
+                        break;
+                    case BtnValue.Released:
+                        btnReleasedBoth.Invoke();
+                        break;
                 }
 
-                if (btnMessage.Both == BtnValue.Released)
+                switch (btnMessage.BtnLeft)
                 {
-                    Debug.Log("both released");
-                    btnReleasedBoth.Invoke();
+                    case BtnValue.Pressed:
+                        btnPressedLeft2.Invoke();
+                        break;
+                    case BtnValue.Released:
+                        btnReleasedLeft.Invoke();
+                        break;
                 }
 
-                if (btnMessage.BtnLeft == BtnValue.Pressed)
+                switch (btnMessage.BtnRight)
                 {
-                    Debug.Log("Left");
-                    // btnPressedLeft.Invoke(Color.red);
-                    btnPressedLeft2.Invoke();
-                }
-
-                if (btnMessage.BtnLeft == BtnValue.Released)
-                {
-                    Debug.Log("left released");
-                    btnReleasedLeft.Invoke();
-                }
-
-                if (btnMessage.BtnRight == BtnValue.Pressed)
-                {
-                    Debug.Log("Right");
-                    btnPressedRight.Invoke();
-                }
-
-                if (btnMessage.BtnRight == BtnValue.Released)
-                {
-                    Debug.Log("right released");
-                    btnReleasedRight.Invoke();
+                    case BtnValue.Pressed:
+                        btnPressedRight.Invoke();
+                        break;
+                    case BtnValue.Released:
+                        btnReleasedRight.Invoke();
+                        break;
                 }
             }
         };
@@ -181,7 +174,7 @@ public class SocketEvents : MonoBehaviour
             LedMessage = ledMessage
         };
         var json = JsonConvert.SerializeObject(socketMessage);
-        Debug.Log(json);
+        Debug.Log($"turn {ledMessage.Id.ToString()} {ledMessage.Led.ToString()}");
         ws.Send(json);
     }
 
