@@ -39,6 +39,8 @@ namespace UiScripts
             var btnBlue = _document.rootVisualElement.Q("blueButton");
             _btnBlueTop = btnBlue.Q("buttonTop");
             ButtonListener.ListenToButtons();
+            ButtonListener.UpdateLed(LedType.Left, LedValue.On);
+            ButtonListener.UpdateLed(LedType.Right, LedValue.On);
             _root = _document.rootVisualElement;
             FillBoard();
         }
@@ -176,7 +178,7 @@ namespace UiScripts
                 case BtnValue.Released:
                     _btnBlueTop.RemoveFromClassList("move-down");
                     // if (_buttonLeftIngedrukt) StartCoroutine(GoToStartScene(0.3f));
-                    if (_buttonLeftIngedrukt) GoToStartSceneInstantly();
+                    if (_buttonLeftIngedrukt) PlayAgain();
                     break;
             }
 
@@ -189,7 +191,7 @@ namespace UiScripts
                 case BtnValue.Released:
                     _btnYellowTop.RemoveFromClassList("move-down");
                     // if (_buttonRightIngedrukt) StartCoroutine(PlayAgain());
-                    if (_buttonRightIngedrukt) PlayAgain();
+                    if (_buttonRightIngedrukt) GoToStartSceneInstantly();
                     break;
             }
 
