@@ -44,7 +44,7 @@ namespace UiScripts
         }
 
 
-        async void FillBoard()
+        private async void FillBoard()
         {
             _listItems = await ScoreRepository.GetScoresAsync();
             _userItem = await ScoreRepository.GetScoreAsync(GameVariablesHolder.Id);
@@ -91,7 +91,7 @@ namespace UiScripts
             }
         }
 
-        void FillList(ListView list, List<ScoreboardItem> items)
+        private void FillList(ListView list, List<ScoreboardItem> items)
         {
             list.Q<ScrollView>().verticalScrollerVisibility = ScrollerVisibility.Hidden;
             list.fixedItemHeight = 62;
@@ -175,7 +175,8 @@ namespace UiScripts
                     break;
                 case BtnValue.Released:
                     _btnBlueTop.RemoveFromClassList("move-down");
-                    if (_buttonLeftIngedrukt) StartCoroutine(LoadNextScene(0.3f));
+                    // if (_buttonLeftIngedrukt) StartCoroutine(GoToStartScene(0.3f));
+                    if (_buttonLeftIngedrukt) GoToStartSceneInstantly();
                     break;
             }
 
@@ -187,19 +188,34 @@ namespace UiScripts
                     break;
                 case BtnValue.Released:
                     _btnYellowTop.RemoveFromClassList("move-down");
-                    if (_buttonRightIngedrukt) StartCoroutine(LoadNextScene(0.3f));
+                    // if (_buttonRightIngedrukt) StartCoroutine(PlayAgain());
+                    if (_buttonRightIngedrukt) PlayAgain();
                     break;
             }
 
             _previousUpdateCount = ButtonListener.BtnUpdate;
         }
 
-        private static IEnumerator LoadNextScene(float delay)
+        private static IEnumerator GoToStartScene(float delay)
         {
             ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
             ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
             yield return new WaitForSeconds(delay);
             SceneManager.LoadScene("Startscherm");
+        }
+
+        private static void GoToStartSceneInstantly()
+        {
+            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
+            ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
+            SceneManager.LoadScene("Startscherm");
+        }
+
+        private static void PlayAgain()
+        {
+            ButtonListener.UpdateLed(LedType.Left, LedValue.Off);
+            ButtonListener.UpdateLed(LedType.Right, LedValue.Off);
+            SceneManager.LoadScene("BoatGame2.0");
         }
     }
 }
