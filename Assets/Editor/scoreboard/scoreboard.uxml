@@ -2,9 +2,9 @@
          xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
          noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm"/>
-    <ui:VisualElement class="container">
+    <ui:VisualElement class="container" style="justify-content: space-between;">
         <ui:VisualElement class="c-board"
-                          style="-unity-font: url(&apos;project://database/Assets/Editor/resources/Fonts%20&amp;%20Materials/MouseMemoirs-Regular.ttf?fileID=12800000&amp;guid=7e75f74396c653544a29de5a17f26147&amp;type=3#MouseMemoirs-Regular&apos;); height: 916px; -unity-font-definition: none; background-image: url(&apos;project://database/Assets/Editor/resources/wood_depth.png?fileID=2800000&amp;guid=8894b252ca8ac584785563a71e65a838&amp;type=3#wood_depth&apos;); width: 1618px; margin-left: auto; margin-right: auto; margin-top: 0; flex-direction: column; align-items: center; justify-content: flex-start;">
+                          style="-unity-font: url(&apos;project://database/Assets/Editor/resources/Fonts%20&amp;%20Materials/MouseMemoirs-Regular.ttf?fileID=12800000&amp;guid=7e75f74396c653544a29de5a17f26147&amp;type=3#MouseMemoirs-Regular&apos;); height: 916px; -unity-font-definition: none; background-image: url(&apos;project://database/Assets/Editor/resources/wood_depth.png?fileID=2800000&amp;guid=8894b252ca8ac584785563a71e65a838&amp;type=3#wood_depth&apos;); width: 1618px; margin-left: auto; margin-right: auto; margin-top: 30px; flex-direction: column; align-items: center; justify-content: flex-start;">
             <ui:Label text="Scorebord" class="outline-text"
                       style="margin-top: 80px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;"/>
             <ui:VisualElement name="items" style="flex-direction: row; height: 509px; width: 1378px; margin-top: 15px;">
@@ -35,20 +35,26 @@
                 <ui:ListView name="lvwScores" class="c-score-list" style="width: 639px; height: 569px;"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="both-buttons" class="horizontal" style="align-items: flex-end;">
-            <ui:Label text="Druk op" class="outline-text outline-text-md"/>
+    </ui:VisualElement>
+    <ui:VisualElement class="bottom">
+        <ui:VisualElement name="bottomleftcorner" class="row center" style="justify-content: center;">
             <ui:VisualElement name="blueButton" class="button">
                 <ui:VisualElement name="buttonTop" class="button-top button-animation img"
                                   style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/BlueTop36000.png?fileID=2800000&amp;guid=fddd164aacd74224d978b606e5becc1f&amp;type=3#BlueTop36000&apos;); -unity-background-scale-mode: scale-to-fit;"/>
                 <ui:VisualElement name="buttonBottom" class="button-bottom button-base img"
                                   style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/Bluebottom36000.png?fileID=2800000&amp;guid=2de0889becbace94a937f3af86c831ca&amp;type=3#Bluebottom36000&apos;); -unity-background-scale-mode: scale-to-fit;"/>
             </ui:VisualElement>
-            <ui:Label text="of" name="Label" class="outline-text outline-text-md"/>
+            <ui:Label text="Opnieuw spelen" class="outline-text outline-text-md outline-text-smaller-md"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="bottomrightcorner" class="row center row-reverse"
+                          style="height: 100%; align-items: flex-end;">
             <ui:VisualElement name="yellowButton" class="button">
-                <ui:VisualElement name="buttonTop" class="button-top-yellow img button-animation"/>
-                <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img"/>
+                <ui:VisualElement name="buttonTop" class="button-top-yellow button-animation img"/>
+                <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img"
+                                  style="bottom: -20px; right: -54px;"/>
             </ui:VisualElement>
-            <ui:Label text="om te herstarten" class="outline-text outline-text-md"/>
+            <ui:Label text="Naar startscherm" display-tooltip-when-elided="true"
+                      class="outline-text outline-text-md outline-text-smaller-md"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
