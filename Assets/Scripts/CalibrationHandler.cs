@@ -13,6 +13,10 @@ public class CalibrationHandler : MonoBehaviour
 {
     #region event variables
 
+
+    [Header("Events")]
+    [Space(10)]
+
     public UnityEvent onCalibrationStarted;
     public UnityEvent onCalibrationFinished;
     public UnityEvent onCalibratingP1;
@@ -24,7 +28,6 @@ public class CalibrationHandler : MonoBehaviour
     #region calibration variables
 
     bool[] playerCalibratedArray = { false, false };
-    // int[] playerMapping;
 
     bool calibrationChanged = false;
 
@@ -32,6 +35,25 @@ public class CalibrationHandler : MonoBehaviour
     bool isCalibrationFinished = false;
     bool isCalibrating = false;
     bool isListeningToSocket = false;
+
+
+    [Header("Timing variables")]
+    [Space(10)]
+
+    [SerializeField]
+    [Tooltip("Delay between player detected and calibration finished")]
+    [Range(0, 3)]
+    float calibrationDelay = 1.5f;
+
+    [SerializeField]
+    [Tooltip("Delay between calibration finished and the next step")]
+    [Range(1, 3)]
+    float delayAfterCalibration = 2f;
+
+    [SerializeField]
+    [Tooltip("Inversed countdown speed before the game starts")]
+    [Range(0.4f, 1f)]
+    float countdownSpeed = 0.6f;
 
     #endregion
 
@@ -207,7 +229,7 @@ public class CalibrationHandler : MonoBehaviour
         // Keep jumping for a few seconds -> calibration of min & max jump 
         Debug.Log($"Almost there, Keep jumping!");
         SendTextToUi("Je bent er bijna!", playerIndex);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(calibrationDelay);
 
         // calibration is finished
         Debug.Log($"Well done!");
@@ -218,12 +240,16 @@ public class CalibrationHandler : MonoBehaviour
 
         // send feedback to the user en wait for a few seconds
         SendTextToUi("Goed gedaan! Stop met springen", playerIndex);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(delayAfterCalibration);
 
         // set playerCalibrated to true
         playerCalibratedArray[playerIndex] = true;
         isCalibrating = false;
     }
+
+    #endregion
+
+    #region UI handler
 
     private void SendTextToUi(string text, int playerIndex)
     {
