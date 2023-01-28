@@ -19,4 +19,6 @@
                       style="background-image: url(&apos;project://database/Assets/Editor/resources/boatOutlines.png?fileID=2800000&amp;guid=23e3a86d1ce8f2b4994c7ddd890efcab&amp;type=3#boatOutlines&apos;); height: 129px; width: 186px; -unity-background-scale-mode: scale-to-fit; position: absolute; top: 123px; left: 4px;"/>
     <ui:VisualElement name="shark2d"
                       style="background-image: url(&apos;project://database/Assets/Editor/resources/sharkdun.png?fileID=2800000&amp;guid=eb88113c6263ef24d88e01d5b2bcbb75&amp;type=3#sharkdun&apos;); height: 175px; -unity-background-scale-mode: scale-to-fit; position: absolute; top: 732px; left: -44px; right: 1738px;"/>
+    <ui:VisualElement name="wijzer"
+                      style="position: absolute; height: 168px; width: 8px; top: 889px; left: 1798px; background-color: rgb(255, 0, 192); transform-origin: bottom; rotate: 10deg; transition-property: rotate; transition-duration: 20ms;"/>
 </ui:UXML>
