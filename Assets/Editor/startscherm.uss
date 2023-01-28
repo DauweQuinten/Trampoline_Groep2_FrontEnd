@@ -34,9 +34,14 @@
 
 .c-score-image {
     position: relative;
-    margin-top: 5;
-    margin-bottom: 5;
     max-height: 270px;
+    width: 50px;
+    height: 50px;
+    border-color: rgb(63, 39, 2);
+    border-width: 4px;
+    padding: 4px;
+    margin: 5px 8px 5px 0;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .u-list-img {
@@ -82,7 +87,7 @@
 }
 
 .button-top {
-    background-image: url('project://database/Assets/Editor/resources/Button/TopBoxPS.png?fileID=2800000&guid=d8185efced5606d428d67b42587ec49a&type=3#TopBoxPS');
+    background-image: url('project://database/Assets/Editor/resources/Button/BlueTop36000.png?fileID=2800000&guid=fddd164aacd74224d978b606e5becc1f&type=3#BlueTop36000&');
 }
 
 .button-base-yellow {
@@ -104,7 +109,7 @@
 }
 
 .arrow-right {
-    background-image: url('project://database/Assets/Editor/resources/arrow.png?fileID=2800000&guid=7ca675d5750bf654586da3afd8970df9&type=3#arrow');
+    background-image: url('project://database/Assets/Editor/resources/Fonts%20&%20Materials/MouseMemoirs-Regular%20SDF_normal.asset?fileID=11400000&guid=5d652380edfcc85419e65c46b20f8c96&type=2#MouseMemoirs-Regular SDF_normal');
     position: relative;
 }
 
@@ -130,7 +135,7 @@
 
 .c-user-list {
     background-color: rgb(250, 120, 26);
-    corner-radius: 10px;
+    border-radius: 10px;
 }
 
 .c-board {
@@ -287,4 +292,27 @@
     font-size: 95px;
     -unity-font-style: bold;
     -unity-text-outline-width: 7px;
+}
+
+.c-avatar-img {
+    border-left-color: rgb(63, 39, 2);
+    border-right-color: rgb(63, 39, 2);
+    border-top-color: rgb(63, 39, 2);
+    border-bottom-color: rgb(63, 39, 2);
+    border-left-width: 8px;
+    border-right-width: 8px;
+    border-top-width: 8px;
+    border-bottom-width: 8px;
+    margin-left: 20px;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-image: url('project://database/Assets/Editor/resources/30.png?fileID=2800000&guid=8087356d24ebdf54a84488684c8fdc1f&type=3#30');
+    height: 280px;
+    width: 280px;
+    -unity-background-scale-mode: scale-to-fit;
 }
