@@ -94,7 +94,7 @@ public class LevelController : MonoBehaviour
             onIncreaseDifficulty.Invoke();
             level3 = true;
         }
-
+        
 
         // handle game over
         if (gameOver == true)
