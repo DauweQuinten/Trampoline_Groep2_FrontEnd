@@ -135,7 +135,7 @@ public class PlayerControls : MonoBehaviour
 
 
     // On collision
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
@@ -144,6 +144,7 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
+    
     // Change color (Temperary)
     public void ChangeColor(Color newColor)
     {
