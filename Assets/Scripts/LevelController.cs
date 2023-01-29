@@ -81,15 +81,15 @@ public class LevelController : MonoBehaviour
             distancePercentage = distanceToShark / distanceAtStart;
         }
 
-        // start level 2 after 40 seconds survived
-        if (score > 400 && !level2)
+        // start level 2 after 60 seconds survived
+        if (score > 600 && !level2)
         {
             onIncreaseDifficulty.Invoke();
             level2 = true;
         }
 
-        // start level 3 after 100 seconds survived
-        if (score > 1000 && !level3)
+        // start level 3 after 120 seconds survived
+        if (score > 1200 && !level3)
         {
             onIncreaseDifficulty.Invoke();
             level3 = true;
