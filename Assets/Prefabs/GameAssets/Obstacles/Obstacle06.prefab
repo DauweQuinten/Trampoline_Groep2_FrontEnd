@@ -79,6 +79,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6fd820175aacf44b8eba7e791589efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 6720214365710814174, guid: da343dad1cfc3444db8ca523f4828405, type: 3}
+  shark: {fileID: 8226398612924823704, guid: f5f4b13965a8e4e42b5a3eac2098cf2f, type: 3}
+  levelController: {fileID: 5766016200208206406, guid: 07d05f06089c7b54cb1176344b7d6e07, type: 3}
 --- !u!54 &5274778437736252942
 Rigidbody:
   m_ObjectHideFlags: 0

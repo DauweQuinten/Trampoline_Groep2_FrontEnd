@@ -15,15 +15,14 @@ public class MoveForward : MonoBehaviour
     private PlayerControls playerControlsScript;
 
     #endregion
-    
-    
+
+
     // On start
     void Start()
     {
-        // Get reference to script
-        levelControllerScript = GameObject.Find("LevelController").GetComponent<LevelController>();
-        sharkControllerScript = GameObject.Find("Shark").GetComponent<SharkController>();
-        playerControlsScript = GameObject.Find("Boat").GetComponent<PlayerControls>();
+        levelControllerScript = GameObject.FindGameObjectWithTag("LevelControls").GetComponent<LevelController>();
+        sharkControllerScript = GameObject.FindGameObjectWithTag("Shark").GetComponent<SharkController>();
+        playerControlsScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
     }
 
     

@@ -34,12 +34,12 @@ public class LevelController : MonoBehaviour
     [HideInInspector] public float distancePercentage;
 
     // GameObjects
-    private GameObject player;
+    public GameObject player;
     private GameObject shark;
 
     #endregion
 
-    private void Start()
+    private void Awake()
     {
         #region initialize events
 
@@ -50,7 +50,7 @@ public class LevelController : MonoBehaviour
 
         #region get game objects
 
-        player = GameObject.Find("Boat");
+        //player = GameObject.Find("Boat");
         shark = GameObject.Find("Shark");
 
         #endregion
