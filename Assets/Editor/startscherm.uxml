@@ -15,11 +15,11 @@
             <ui:Label class="outline-text outline-text-md" style="-unity-text-align: middle-center;" />
             <ui:VisualElement name="blueButton" class="button">
                 <ui:VisualElement name="buttonTop" class="button-top img button-animation" style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/BlueTop36000.png?fileID=2800000&amp;guid=fddd164aacd74224d978b606e5becc1f&amp;type=3#BlueTop36000&apos;); -unity-background-scale-mode: scale-to-fit;" />
-                <ui:VisualElement name="buttonBottom" class="button-bottom button-base img" style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/Bluebottom36000.png?fileID=2800000&amp;guid=2de0889becbace94a937f3af86c831ca&amp;type=3#Bluebottom36000&apos;); -unity-background-scale-mode: scale-to-fit;" />
+                <ui:VisualElement name="buttonBottom" class="button-bottom button-base img" style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/buttonBottomBorderFinal(1).png?fileID=2800000&amp;guid=85eac0fb1a47ece4ab64a8fdbfe039ec&amp;type=3#buttonBottomBorderFinal(1)&apos;); -unity-background-scale-mode: scale-to-fit;" />
             </ui:VisualElement>
             <ui:Label name="Label" class="outline-text outline-text-md" />
             <ui:VisualElement name="yellowButton" class="button">
-                <ui:VisualElement name="buttonTop" class="button-top-yellow img button-animation" />
+                <ui:VisualElement name="buttonTop" class="button-top-yellow img button-animation" style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/YellowButtonGilbertFinal.png?fileID=2800000&amp;guid=8ca070d2ca96b754a87b1b7c69243a54&amp;type=3#YellowButtonGilbertFinal&apos;);" />
                 <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img" />
             </ui:VisualElement>
             <ui:Label class="outline-text outline-text-md" />
