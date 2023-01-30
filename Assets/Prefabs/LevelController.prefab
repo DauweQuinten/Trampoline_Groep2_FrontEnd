@@ -50,7 +50,7 @@ MonoBehaviour:
   onIncreaseDifficulty:
     m_PersistentCalls:
       m_Calls: []
-  scrollSpeed: 6
+  scrollSpeed: 10
   ScrollState: 1
   gameOver: 0
   score: 0

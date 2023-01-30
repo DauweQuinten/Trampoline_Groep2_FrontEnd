@@ -49,10 +49,10 @@ namespace UiScripts
 
         private void UpdateDistanceToSharkGui(float distance)
         {
-            var height = 760 - distance * 700;
+            var height = 680 - distance * 600;
             if (height > 700) height = 700;
             _shark.style.height = height;
-            _shark2d.style.top = (750 - (1 - distance) * 650);
+            _shark2d.style.top = (750 - (1 - distance) * 600);
         }
 
         private void RotateDial(float speed)
