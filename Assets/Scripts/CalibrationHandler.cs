@@ -13,11 +13,7 @@ public class CalibrationHandler : MonoBehaviour
 {
     #region event variables
 
-
-    [Header("Events")]
-    [Space(10)]
-
-    public UnityEvent onCalibrationStarted;
+    [Header("Events")] [Space(10)] public UnityEvent onCalibrationStarted;
     public UnityEvent onCalibrationFinished;
     public UnityEvent onCalibratingP1;
     public UnityEvent onCalibratingP2;
@@ -38,20 +34,15 @@ public class CalibrationHandler : MonoBehaviour
     // Timing
     [Header("Timing variables")]
     [Space(10)]
-
     [SerializeField]
     [Tooltip("Delay between player detected and calibration finished")]
     [Range(0, 3)]
     float calibrationDelay = 1.5f;
 
-    [SerializeField]
-    [Tooltip("Delay between calibration finished and the next step")]
-    [Range(1, 3)]
+    [SerializeField] [Tooltip("Delay between calibration finished and the next step")] [Range(1, 3)]
     float delayAfterCalibration = 2f;
 
-    [SerializeField]
-    [Tooltip("Inversed countdown speed before the game starts")]
-    [Range(0.4f, 1f)]
+    [SerializeField] [Tooltip("Inversed countdown speed before the game starts")] [Range(0.4f, 1f)]
     float countdownSpeed = 0.6f;
 
     #endregion
@@ -90,13 +81,12 @@ public class CalibrationHandler : MonoBehaviour
 
             // Start calibration of player 0 (async)
             StartCoroutine(CalibratePlayer(0));
-            
         });
 
         onCalibratingP2.AddListener(() =>
-        {          
+        {
             // Start calibration of player 1 (async)
-            StartCoroutine(CalibratePlayer(1));         
+            StartCoroutine(CalibratePlayer(1));
         });
 
         onCalibrationFinished.AddListener(() => { CompleteCalibration(); });
@@ -151,7 +141,7 @@ public class CalibrationHandler : MonoBehaviour
 
         if ((playerCalibratedArray[0] && !playerCalibratedArray[1]) && !isCalibrating)
         {
-            changeCalibrationPlayer(1);           
+            changeCalibrationPlayer(1);
             onCalibratingP2.Invoke();
         }
 
@@ -181,7 +171,7 @@ public class CalibrationHandler : MonoBehaviour
     {
         {
             Debug.Log("Calibration started");
-            
+
             SendCalibrationMessage(CalibrationStatus.STARTED, 0);
             onCalibratingP1.Invoke();
         }
@@ -217,7 +207,7 @@ public class CalibrationHandler : MonoBehaviour
         isListeningToSocket = true;
 
         Debug.Log($"Player{playerIndex} is calibrating");
-        
+
         // send messages to the user
         SendTextToUi("start met springen!", playerIndex);
         Debug.Log($"Player{playerIndex} start jumping!");
@@ -268,19 +258,18 @@ public class CalibrationHandler : MonoBehaviour
 
     IEnumerator LoadGameScene()
     {
-        
         Debug.Log("Well done! The game starts in 3 seconds");
 
         int time = 3;
-        
-        while(time >= 0)
-        {         
+
+        while (time >= 0)
+        {
             SendTextToUi(time.ToString(), 0);
             SendTextToUi(time.ToString(), 1);
-            yield return new WaitForSeconds(1);
-            time--;         
+            yield return new WaitForSeconds(countdownSpeed);
+            time--;
         }
-               
+
         SceneManager.LoadScene("BoatGame2.0");
     }
 

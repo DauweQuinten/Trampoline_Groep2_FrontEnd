@@ -44,3 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc26c571ffb0624d8908e153b1b64a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onCalibrationStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onCalibrationFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  onCalibratingP1:
+    m_PersistentCalls:
+      m_Calls: []
+  onCalibratingP2:
+    m_PersistentCalls:
+      m_Calls: []
+  calibrationDelay: 1.5
+  delayAfterCalibration: 2
+  countdownSpeed: 0.4

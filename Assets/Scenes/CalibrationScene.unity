@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -177,18 +177,6 @@ PrefabInstance:
     - target: {fileID: 5376001742407338635, guid: 2a3b5d440c7c3664b9b76b73702551d7, type: 3}
       propertyPath: m_Name
       value: CalibrationHandler
-      objectReference: {fileID: 0}
-    - target: {fileID: 8372142064922688306, guid: 2a3b5d440c7c3664b9b76b73702551d7, type: 3}
-      propertyPath: countdownSpeed
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8372142064922688306, guid: 2a3b5d440c7c3664b9b76b73702551d7, type: 3}
-      propertyPath: calibrationDelay
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8372142064922688306, guid: 2a3b5d440c7c3664b9b76b73702551d7, type: 3}
-      propertyPath: delayAfterCalibration
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3b5d440c7c3664b9b76b73702551d7, type: 3}
