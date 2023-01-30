@@ -1,0 +1,316 @@
+.outline-text {
+    -unity-text-outline-color: rgb(19, 10, 1);
+    -unity-font: url('project://database/Assets/Editor/resources/Fonts%20&%20Materials/MouseMemoirs-Regular.ttf?fileID=12800000&guid=7e75f74396c653544a29de5a17f26147&type=3#MouseMemoirs-Regular');
+    -unity-text-outline-width: 10px;
+    font-size: 152px;
+    -unity-font-definition: none;
+    -unity-font-style: bold;
+    color: rgb(240, 223, 202);
+    text-shadow: 4px 6px 4px rgba(15, 40, 13, 0.25);
+    -unity-text-align: lower-center;
+}
+
+.outline-text-md {
+    font-size: 112px;
+    -unity-text-outline-width: 8px;
+}
+
+.outline-text-sm {
+    font-size: 42px;
+    text-shadow: 2px 3px 2px rgba(15, 40, 13, 0.25);
+    -unity-text-outline-width: 3px;
+    -unity-text-align: middle-left;
+}
+
+
+.u-text-md {
+    font-size: 70px;
+    -unity-text-outline-width: 5px;
+    -unity-text-align: middle-left;
+}
+
+.transparent-gray-background {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.c-score-image {
+    position: relative;
+    max-height: 270px;
+    width: 50px;
+    height: 50px;
+    border-color: rgb(63, 39, 2);
+    border-width: 4px;
+    padding: 4px;
+    margin: 5px 8px 5px 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.u-list-img {
+    max-width: 80px;
+    max-height: 60px;
+    margin-left: 15px;
+}
+
+.img {
+    height: 100%;
+    width: 100%;
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.img-relative {
+    height: 100%;
+    width: 100%;
+    -unity-background-scale-mode: scale-to-fit;
+    position: relative;
+}
+
+.button {
+    position: relative;
+    height: 96px;
+    width: 165px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.avatar {
+    height: 480px;
+    width: 480px;
+    border-radius: 48px;
+}
+
+.button-base {
+    background-image: url('project://database/Assets/Editor/resources/Button/Bluebottom36000.png?fileID=2800000&guid=2de0889becbace94a937f3af86c831ca&type=3#Bluebottom36000');
+}
+
+.button-top {
+    background-image: url('project://database/Assets/Editor/resources/Button/BlueTop36000.png?fileID=2800000&guid=fddd164aacd74224d978b606e5becc1f&type=3#BlueTop36000');
+}
+
+.button-base-yellow {
+    background-image: url('project://database/Assets/Editor/resources/Button/ButtonYellowBottomPS.png?fileID=2800000&guid=0a4d4a18a7973594e97f2d2f6a7fb64e&type=3#ButtonYellowBottomPS');
+}
+
+.button-top-yellow {
+    background-image: url('project://database/Assets/Editor/resources/Button/YellowButtonFinal2.png?fileID=2800000&guid=7cb4f9325e144954aa594b770029290f&type=3#YellowButtonFinal2');
+}
+
+.placeholder-image {
+    background-image: url('project://database/Assets/Editor/resources/placeholderImage.png?fileID=2800000&guid=8975d575386fa664b952b65456eee517&type=3#placeholderImage');
+    height: 200px;
+    width: 250px;
+}
+
+.wood-sign-img {
+    background-image: url('project://database/Assets/Editor/resources/woodTextureNew.png?fileID=2800000&guid=b46f2831e3ccf2749a51b8535cbc0032&type=3#woodTextureNew');
+}
+
+.arrow-right {
+    background-image: url('project://database/Assets/Editor/resources/Fonts%20&%20Materials/MouseMemoirs-Regular%20SDF_normal.asset?fileID=11400000&guid=5d652380edfcc85419e65c46b20f8c96&type=2#MouseMemoirs-Regular SDF_normal');
+    position: relative;
+}
+
+.button-animation {
+    transition-property: translate;
+    transition-duration: 0.1s;
+    transition-timing-function: ease;
+}
+
+.move-down {
+    translate: 0 14px;
+}
+
+.u-list-label {
+    min-width: 250px;
+}
+
+.c-score-list-item {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.c-user-list {
+    background-color: rgb(250, 120, 26);
+    border-radius: 10px;
+}
+
+.c-board {
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    margin-top: 0;
+    padding-top: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+}
+
+.container.transparent {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.full-width {
+    width: 100%;
+}
+
+.justify-between {
+    justify-content: space-around;
+}
+
+.horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.horizontal * {
+    padding-right: 20px;
+}
+
+.c-UserScore {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left {
+    position: absolute;
+    left: 45px;
+    top: 30px;
+    bottom: 30px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+.bottom-left {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+}
+
+.shark-distance-bar {
+    height: 60%;
+    width: 80px;
+    border-radius: 20px;
+    border-color: rgb(19, 10, 1);
+    background-color: rgb(211, 200, 160);
+    flex-direction: column-reverse;
+    border-width: 15px;
+}
+
+.shark-distance-bar-position {
+    flex-direction: column-reverse;
+    background-color: rgb(79, 153, 173);
+    height: 40%;
+    border-color: rgb(19, 10, 1);
+}
+
+.mg-bt-md {
+    padding-bottom: 40px;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.margin-lg {
+    margin-top: 120px;
+    margin-bottom: 120px;
+}
+
+.margin-bottom-lg {
+    margin-bottom: 90px;
+}
+
+.padding-lg {
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.row-reverse {
+    flex-direction: row-reverse;
+}
+
+.padding-left-xxl {
+    padding-left: 360px;
+}
+
+.padding-left-lg {
+    padding-left: 90px;
+}
+
+.padding-right-sm {
+    padding-right: 20px;
+}
+
+.outline-text-smaller-md {
+    font-size: 95px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 7px;
+}
+
+.c-avatar-img {
+    border-left-color: rgb(63, 39, 2);
+    border-right-color: rgb(63, 39, 2);
+    border-top-color: rgb(63, 39, 2);
+    border-bottom-color: rgb(63, 39, 2);
+    border-left-width: 8px;
+    border-right-width: 8px;
+    border-top-width: 8px;
+    border-bottom-width: 8px;
+    margin: 0 0 0 20px;
+    padding: 0;
+    background-image: url('project://database/Assets/Editor/resources/30.png?fileID=2800000&guid=8087356d24ebdf54a84488684c8fdc1f&type=3#30');
+    height: 280px;
+    width: 280px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.button-bottom {
+}

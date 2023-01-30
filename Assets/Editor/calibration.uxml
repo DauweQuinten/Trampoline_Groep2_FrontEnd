@@ -1,0 +1,27 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements"
+         xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm"/>
+    <ui:VisualElement name="woodBoard"
+                      style="height: 100%; background-image: url(&apos;project://database/Assets/Editor/resources/wood_depth.png?fileID=2800000&amp;guid=8894b252ca8ac584785563a71e65a838&amp;type=3#wood_depth&apos;); width: 100.5%;">
+        <ui:Label text="Zoeken naar spelers..." display-tooltip-when-elided="true" name="kalibratieLabel"
+                  class="outline-text outline-text-md"
+                  style="margin-top: 120px; border-bottom-width: 10px; border-left-color: rgb(63, 39, 2); border-right-color: rgb(63, 39, 2); border-top-color: rgb(63, 39, 2); border-bottom-color: rgb(63, 39, 2); margin-bottom: 0; padding-bottom: 30px; margin-right: 110px; margin-left: 110px;"/>
+        <ui:VisualElement name="Container" class="container"
+                          style="background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between; height: 686px; width: 1708px; margin-left: 110px;">
+            <ui:VisualElement name="Left"
+                              style="width: 100%; height: 100%; align-items: flex-end; justify-content: space-around;">
+                <ui:Label text="Lorem Ipsum Placeholder with wrap" display-tooltip-when-elided="true"
+                          name="leftPlayerLabel" class="outline-text outline-text-md"
+                          style="white-space: normal; width: 836px;"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="devider"
+                              style="background-color: rgba(115, 49, 30, 0.59); height: 684px; width: 30px; align-items: center; justify-content: flex-end; flex-direction: row;"/>
+            <ui:VisualElement name="Right"
+                              style="width: 100%; height: 100%; justify-content: center; align-items: center;">
+                <ui:Label text="Lorem Ipsum Placeholder" display-tooltip-when-elided="true" name="rightPlayerLabel"
+                          class="outline-text outline-text-md" style="white-space: normal;"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

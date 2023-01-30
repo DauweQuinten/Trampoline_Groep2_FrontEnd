@@ -1,0 +1,48 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements"
+         xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
+         schemaLocation="UnityEngine.UIElements file:/C:/Users/jarne/RiderProjects/Trampoline_Groep2_FrontEnd/UIElementsSchema/UnityEngine.UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm"/>
+    <ui:VisualElement class="container">
+        <ui:VisualElement name="row" class="row full-width padding-left-xxl margin-bottom-lg"
+                          style="align-items: center; justify-content: flex-start;">
+            <ui:Image name="blijfHaaiVoorIllustratie" class="img-relative placeholder-image"
+                      style="background-image: url(&apos;project://database/Assets/Editor/resources/wood_borderSquare%201.png?fileID=2800000&amp;guid=00246b6a2ed1c2c438c8ef2990e0fd15&amp;type=3#wood_borderSquare 1&apos;); -unity-background-scale-mode: stretch-to-fill; width: 234px;">
+                <ui:VisualElement
+                        style="height: 157px; background-color: rgb(176, 177, 177); position: absolute; width: 201px; top: 22px; left: 16px;">
+                    <ui:VisualElement
+                            style="height: 138px; background-image: url(&apos;project://database/Assets/Editor/resources/obstakelsWhite.png?fileID=2800000&amp;guid=5be2c1db31a7446409e471c64adf41cc&amp;type=3#obstakelsWhite&apos;); margin-top: 20px; margin-left: 0; margin-right: 5px; margin-bottom: 0; -unity-background-scale-mode: stretch-to-fill; width: 196px;"/>
+                </ui:VisualElement>
+            </ui:Image>
+            <ui:Label name="ontwijkDeObstakels" text="Ontwijk de obstakels"
+                      class="outline-text outline-text-md padding-left-lg"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="row" class="row full-width padding-left-xxl"
+                          style="align-items: center; justify-content: flex-start;">
+            <ui:Image name="blijfHaaiVoorIllustratie" class="img-relative placeholder-image"
+                      style="background-image: url(&apos;project://database/Assets/Editor/resources/wood_borderSquare%201.png?fileID=2800000&amp;guid=00246b6a2ed1c2c438c8ef2990e0fd15&amp;type=3#wood_borderSquare 1&apos;); -unity-background-scale-mode: stretch-to-fill; width: 227px;">
+                <ui:VisualElement
+                        style="height: 157px; background-color: rgb(176, 177, 177); position: absolute; width: 201px; top: 22px; left: 13px;">
+                    <ui:VisualElement
+                            style="height: 138px; background-image: url(&apos;project://database/Assets/Editor/resources/sharkBold.png?fileID=2800000&amp;guid=666c8d2a573b5744180b380af081013d&amp;type=3#sharkBold&apos;); margin-top: 20px; margin-left: 0; margin-right: 5px; margin-bottom: 10px; -unity-background-scale-mode: scale-to-fit; width: 196px;"/>
+                </ui:VisualElement>
+            </ui:Image>
+            <ui:Label name="blijfHaaiVoor" text="Blijf de haai voor!"
+                      class="outline-text outline-text-md padding-left-lg"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="containerTop" class="top justify-center">
+        <ui:Label name="title" text="Hoe Spelen?" class="outline-text"/>
+    </ui:VisualElement>
+    <ui:VisualElement class="bottom row-reverse">
+        <ui:VisualElement name="bottomrightcorner" class="row center row-reverse" style="height: 100%;">
+            <ui:VisualElement name="yellowButton" class="button">
+                <ui:VisualElement name="buttonTop" class="button-top-yellow img button-animation"/>
+                <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img"
+                                  style="bottom: -20px; right: -54px;"/>
+            </ui:VisualElement>
+            <ui:Label text="Volgende" display-tooltip-when-elided="true" class="outline-text outline-text-md"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

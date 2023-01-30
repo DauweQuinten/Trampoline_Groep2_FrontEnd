@@ -1,0 +1,34 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm" />
+    <ui:VisualElement class="container"
+                      style="background-color: rgba(0, 0, 0, 0.2); justify-content: flex-start; color: rgb(255, 255, 255);">
+        <ui:Label text="Jumping Jaws" class="outline-text mg-bt-md"
+                  style="margin-bottom: 80px; margin-top: 80px; position: relative;"/>
+        <ui:VisualElement style="position: absolute; height: 150px; width: 176px; top: 890px; left: 886px;">
+            <ui:Label text="Druk om te starten" display-tooltip-when-elided="true"
+                      class="outline-text outline-text-md"/>
+        </ui:VisualElement>
+        <ui:VisualElement style="position: absolute; height: 65px; width: 176px; top: 956px; left: 18px;">
+            <ui:Label text="MUZIEK DOOR KEVIN MACLEOD" display-tooltip-when-elided="true"
+                      class="outline-text outline-text-sm"
+                      style="white-space: normal; width: 278px; -unity-text-outline-width: 0; -unity-font-style: normal; font-size: 50px;"/>
+        </ui:VisualElement>
+        <ui:VisualElement
+                style="background-image: url(&apos;project://database/Assets/Editor/resources/Sportinnovatiecampus%20WIT(1).png?fileID=2800000&amp;guid=ffac9e84485d6864d9029e64d5f2ce46&amp;type=3#Sportinnovatiecampus WIT(1)&apos;); width: 256px; height: 128px; position: absolute; top: 921px; left: 1638px;"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="bottom" class="bottom" style="justify-content: space-around; right: 26px; left: 34px; bottom: 188px;">
+        <ui:VisualElement name="both-buttons" class="horizontal">
+            <ui:Label class="outline-text outline-text-md" style="-unity-text-align: middle-center;" />
+            <ui:VisualElement name="blueButton" class="button">
+                <ui:VisualElement name="buttonTop" class="button-top img button-animation" style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/BlueTop36000.png?fileID=2800000&amp;guid=fddd164aacd74224d978b606e5becc1f&amp;type=3#BlueTop36000&apos;); -unity-background-scale-mode: scale-to-fit;" />
+                <ui:VisualElement name="buttonBottom" class="button-bottom button-base img" style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/buttonBottomBorderFinal(1).png?fileID=2800000&amp;guid=85eac0fb1a47ece4ab64a8fdbfe039ec&amp;type=3#buttonBottomBorderFinal(1)&apos;); -unity-background-scale-mode: scale-to-fit;" />
+            </ui:VisualElement>
+            <ui:Label name="Label" class="outline-text outline-text-md" />
+            <ui:VisualElement name="yellowButton" class="button">
+                <ui:VisualElement name="buttonTop" class="button-top-yellow img button-animation" style="background-image: url(&apos;project://database/Assets/Editor/resources/Button/YellowButtonGilbertFinal.png?fileID=2800000&amp;guid=8ca070d2ca96b754a87b1b7c69243a54&amp;type=3#YellowButtonGilbertFinal&apos;);" />
+                <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img" />
+            </ui:VisualElement>
+            <ui:Label class="outline-text outline-text-md" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
