@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Obstacle
   - GameMusic
+  - Shark
+  - LevelControls
   layers:
   - Default
   - TransparentFX

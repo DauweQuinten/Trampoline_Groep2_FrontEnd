@@ -570,11 +570,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07d05f06089c7b54cb1176344b7d6e07, type: 3}
---- !u!1 &2075309696 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5766016200208206406, guid: 07d05f06089c7b54cb1176344b7d6e07, type: 3}
-  m_PrefabInstance: {fileID: 2075309695}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2118640280
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,11 +688,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5f4b13965a8e4e42b5a3eac2098cf2f, type: 3}
---- !u!1 &3887092931213045492 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8226398612924823704, guid: f5f4b13965a8e4e42b5a3eac2098cf2f, type: 3}
-  m_PrefabInstance: {fileID: 3887092931213045491}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9096896618045365270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -753,17 +743,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: River
       objectReference: {fileID: 0}
-    - target: {fileID: 9096896617446294373, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
-      propertyPath: shark
-      value: 
-      objectReference: {fileID: 3887092931213045492}
-    - target: {fileID: 9096896617446294373, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1207281464}
-    - target: {fileID: 9096896617446294373, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}
-      propertyPath: levelController
-      value: 
-      objectReference: {fileID: 2075309696}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92c15457e6ba10746b7e6336e09dc0fc, type: 3}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5253205895813803045}
   m_Layer: 0
   m_Name: LevelController
-  m_TagString: Untagged
+  m_TagString: LevelControls
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,3 +55,4 @@ MonoBehaviour:
   gameOver: 0
   score: 0
   distancePercentage: 0
+  player: {fileID: 0}

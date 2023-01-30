@@ -14,33 +14,15 @@ public class MoveForward : MonoBehaviour
     private SharkController sharkControllerScript;
     private PlayerControls playerControlsScript;
 
-    // public gameobjects
-    public GameObject player;
-    public GameObject shark;
-    public GameObject levelController;
-
     #endregion
 
 
     // On start
-    void Awake()
+    void Start()
     {
-        //if (levelController == null)
-        //{
-        //    levelController = GameObject.Find("LevelController");
-        //}
-        //if (player == null)
-        //{
-        //    player = GameObject.Find("Boat");
-        //}
-        //if (shark == null)
-        //{
-        //    shark = GameObject.Find("Shark");
-        //}
-           
-        levelControllerScript = levelController.GetComponent<LevelController>();
-        sharkControllerScript = shark.GetComponent<SharkController>();
-        playerControlsScript = player.GetComponent<PlayerControls>();
+        levelControllerScript = GameObject.FindGameObjectWithTag("LevelControls").GetComponent<LevelController>();
+        sharkControllerScript = GameObject.FindGameObjectWithTag("Shark").GetComponent<SharkController>();
+        playerControlsScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>();
     }
 
     
