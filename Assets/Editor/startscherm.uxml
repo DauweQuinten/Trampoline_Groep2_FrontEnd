@@ -6,7 +6,7 @@
             <ui:Label text="Druk om te starten" display-tooltip-when-elided="true" class="outline-text outline-text-md" />
         </ui:VisualElement>
         <ui:VisualElement style="position: absolute; height: 65px; width: 176px; top: 975px; left: 169px;">
-            <ui:Label text="Muziek door Kevin MacLeod" display-tooltip-when-elided="true" class="outline-text credit-text-sm" />
+            <ui:Label text="Muziek door Kevin MacLeod" display-tooltip-when-elided="true" class="outline-text outline-text-sm" />
         </ui:VisualElement>
         <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Editor/resources/Sportinnovatiecampus%20WIT(1).png?fileID=2800000&amp;guid=ffac9e84485d6864d9029e64d5f2ce46&amp;type=3#Sportinnovatiecampus WIT(1)&apos;); width: 256px; height: 128px; position: absolute; top: 921px; left: 1638px;" />
     </ui:VisualElement>

@@ -22,13 +22,6 @@
     -unity-text-align: middle-left;
 }
 
-.credit-text-sm{
-    color: #FFFFFF;
-    font-size: 46px;
-    text-shadow: none;
-    -unity-text-outline-width: none;
-    -unity-text-align: middle-left;
-}
 
 .u-text-md {
     font-size: 70px;
