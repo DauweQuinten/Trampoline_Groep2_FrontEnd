@@ -27,7 +27,7 @@ namespace UiScripts
             _scoreLabel = _document.rootVisualElement.Q<Label>("score");
             _boat2d = _document.rootVisualElement.Q<VisualElement>("boat2d");
             _shark2d = _document.rootVisualElement.Q<VisualElement>("shark2d");
-            _dial = _document.rootVisualElement.Q<VisualElement>("wijzer");
+            // _dial = _document.rootVisualElement.Q<VisualElement>("wijzer");
         }
 
         // Update is called once per frame
@@ -35,7 +35,7 @@ namespace UiScripts
         {
             // update the distance height
             UpdateDistanceToSharkGui(_levelController.distancePercentage);
-            RotateDial(_playerControls.speed);
+            // RotateDial(_playerControls.speed);
             UpdateScore();
         }
 
@@ -55,11 +55,11 @@ namespace UiScripts
             _shark2d.style.top = (750 - (1 - distance) * 600);
         }
 
-        private void RotateDial(float speed)
-        {
-            var angle = (speed * -2);
-            Debug.Log(angle + "angle");
-            _dial.style.rotate = new StyleRotate(new Rotate(angle));
-        }
+        // private void RotateDial(float speed)
+        // {
+        //     var angle = (speed * -2);
+        //     Debug.Log(angle + "angle");
+        //     _dial.style.rotate = new StyleRotate(new Rotate(angle));
+        // }
     }
 }
