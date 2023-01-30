@@ -87,7 +87,7 @@
 }
 
 .button-top {
-    background-image: url('project://database/Assets/Editor/resources/Button/BlueTop36000.png?fileID=2800000&guid=fddd164aacd74224d978b606e5becc1f&type=3#BlueTop36000&');
+    background-image: url('project://database/Assets/Editor/resources/Button/BlueTop36000.png?fileID=2800000&guid=fddd164aacd74224d978b606e5becc1f&type=3#BlueTop36000');
 }
 
 .button-base-yellow {
@@ -95,7 +95,7 @@
 }
 
 .button-top-yellow {
-    background-image: url('project://database/Assets/Editor/resources/Button/ButtonTopYellowPS.png?fileID=2800000&guid=068a0f9dd8edd14479dc9dfbc2485bc8&type=3#ButtonTopYellowPS');
+    background-image: url('project://database/Assets/Editor/resources/Button/YellowButtonFinal2.png?fileID=2800000&guid=7cb4f9325e144954aa594b770029290f&type=3#YellowButtonFinal2');
 }
 
 .placeholder-image {
@@ -315,4 +315,7 @@
     height: 280px;
     width: 280px;
     -unity-background-scale-mode: scale-to-fit;
+}
+
+.button-bottom {
 }

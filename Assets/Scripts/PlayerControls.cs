@@ -17,13 +17,15 @@ public class PlayerControls : MonoBehaviour
 
     // movement variables
     private float xBounds = 6.75f;
-    private int speed;
+    public int speed;
 
-    [SerializeField][Tooltip("This value determines how fast the player slows down (0 = instant stop, 1 = very slow stop)")]
-    [Range(0, 1)] float slowDownValue = 0.5f;
-    
-    [SerializeField] [Tooltip("The maximum paddle force")]
-    [Range(0, 10f)] private float maxForce = 5.0f;
+    [SerializeField]
+    [Tooltip("This value determines how fast the player slows down (0 = instant stop, 1 = very slow stop)")]
+    [Range(0, 1)]
+    float slowDownValue = 0.5f;
+
+    [SerializeField] [Tooltip("The maximum paddle force")] [Range(0, 10f)]
+    private float maxForce = 5.0f;
 
     // player states
     [HideInInspector] public bool hasCollided = false;
