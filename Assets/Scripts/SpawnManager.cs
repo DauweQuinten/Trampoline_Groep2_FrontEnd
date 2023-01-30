@@ -20,7 +20,8 @@ public class SpawnManager : MonoBehaviour
     private PlayerControls playerControlsScript;
 
     // spawn rate
-    private float spawnRate = 2;
+    [SerializeField][Tooltip("The time between each spawn")][Range(0, 10)]
+    private float spawnRate = 4;
 
     // reference to coroutine
     Coroutine spawnRoutine;
@@ -62,7 +63,7 @@ public class SpawnManager : MonoBehaviour
     {
         // increase spawn rate
         StopCoroutine(spawnRoutine);
-        spawnRate -= 0.5f;
+        spawnRate -= 1f;
         spawnRoutine = StartCoroutine(SpawnRandonObstacle(spawnRate));
     }
 
