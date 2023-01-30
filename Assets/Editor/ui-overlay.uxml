@@ -2,10 +2,10 @@
          xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
          noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Editor/startscherm.uss?fileID=7433441132597879392&amp;guid=3a114b73ede3fa8478d8512658f3b1f0&amp;type=3#startscherm"/>
-    <ui:VisualElement name="top" class="top row-reverse">
-        <ui:VisualElement class="row" style="flex-direction: row;">
+    <ui:VisualElement name="top" class="top row-reverse" style="top: 30px; right: 30px; left: 31px;">
+        <ui:VisualElement class="row" style="flex-direction: row; justify-content: flex-start; align-items: center;">
             <ui:VisualElement
-                    style="background-image: url(&apos;project://database/Assets/Editor/resources/clockWood.png?fileID=2800000&amp;guid=8c55c6476c930484a8dd9c244eb10e02&amp;type=3#clockWood&apos;); width: 141px; height: 130px; -unity-background-scale-mode: scale-to-fit;"/>
+                    style="background-image: url(&apos;project://database/Assets/Editor/resources/clockWood.png?fileID=2800000&amp;guid=8c55c6476c930484a8dd9c244eb10e02&amp;type=3#clockWood&apos;); width: 113px; height: 98px; -unity-background-scale-mode: scale-to-fit;"/>
             <ui:Label text="1:59" display-tooltip-when-elided="true" name="score" class="outline-text outline-text-md"
                       style="margin-left: 20px;"/>
         </ui:VisualElement>
@@ -18,9 +18,9 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="boat2d"
-                      style="background-image: url(&apos;project://database/Assets/Editor/resources/boatOutlines.png?fileID=2800000&amp;guid=23e3a86d1ce8f2b4994c7ddd890efcab&amp;type=3#boatOutlines&apos;); height: 89px; width: 119px; -unity-background-scale-mode: scale-to-fit; position: absolute; top: 162px; left: 23px;"/>
+                      style="background-image: url(&apos;project://database/Assets/Editor/resources/bootdik4.png?fileID=2800000&amp;guid=d0004a8f1931568449e792ed54c96764&amp;type=3#bootdik4&apos;); height: 89px; width: 119px; -unity-background-scale-mode: scale-to-fit; position: absolute; top: 162px; left: 23px;"/>
     <ui:VisualElement name="wijzer"
                       style="position: absolute; height: 168px; width: 8px; top: 889px; left: 1798px; background-color: rgb(255, 0, 192); transform-origin: bottom; rotate: 10deg; transition-property: rotate; transition-duration: 20ms;"/>
     <ui:VisualElement name="shark2d"
-                      style="background-image: url(&apos;project://database/Assets/Editor/resources/sharkdun.png?fileID=2800000&amp;guid=eb88113c6263ef24d88e01d5b2bcbb75&amp;type=3#sharkdun&apos;); height: 139px; -unity-background-scale-mode: scale-to-fit; position: absolute; top: 765px; left: 8px; right: 1780px;"/>
+                      style="background-image: url(&apos;project://database/Assets/Editor/resources/sharkBold.png?fileID=2800000&amp;guid=666c8d2a573b5744180b380af081013d&amp;type=3#sharkBold&apos;); height: 109px; -unity-background-scale-mode: scale-to-fit; position: absolute; top: 805px; left: 8px; right: 1780px;"/>
 </ui:UXML>
