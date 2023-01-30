@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Unity.VisualScripting.Member;
 
 public class MusicScript : MonoBehaviour
 {
@@ -29,23 +30,26 @@ public class MusicScript : MonoBehaviour
         switch (scene.name)
         {
             case "Startscherm":
-                source.clip = MusicClips[0];
+                checkPrevAudio(MusicClips[0]);
                 break;
             case "GameOver":
-                source.clip = MusicClips[1];
+                checkPrevAudio(MusicClips[1]);
                 break;
             case "BoatGame2.0":
-                source.clip = MusicClips[2];
+                checkPrevAudio(MusicClips[2]);
                 break;
             default:
-                source.clip = MusicClips[0];
+                checkPrevAudio(MusicClips[0]);
                 break;
         }
+    }
 
-        if (source.clip != Audio.clip)
+    private void checkPrevAudio(AudioClip clip)
+    {
+        if (clip != Audio.clip)
         {
             Audio.enabled = false;
-            Audio.clip = source.clip;
+            Audio.clip = clip;
             Audio.enabled = true;
         }
     }
