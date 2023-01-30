@@ -30,13 +30,19 @@ public class MusicScript : MonoBehaviour
         switch (scene.name)
         {
             case "Startscherm":
-                checkPrevAudio(MusicClips[0]);
+                Audio.enabled = false;
                 break;
             case "GameOver":
                 checkPrevAudio(MusicClips[1]);
                 break;
             case "BoatGame2.0":
                 checkPrevAudio(MusicClips[2]);
+                break;
+            case "username-kiezen":
+                checkPrevAudio(MusicClips[1]);
+                break;
+            case "Scoreboard":
+                checkPrevAudio(MusicClips[1]);
                 break;
             default:
                 checkPrevAudio(MusicClips[0]);
