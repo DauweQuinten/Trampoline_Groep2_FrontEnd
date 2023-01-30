@@ -218,6 +218,34 @@ PrefabInstance:
       propertyPath: spawnRate
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1663379202, guid: e3232341b33dc864e96b89d18048c8eb, type: 3}
+      propertyPath: obstaclePrefabs.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663379202, guid: e3232341b33dc864e96b89d18048c8eb, type: 3}
+      propertyPath: obstaclePrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 3887447040899504324, guid: fee467eb4aef7f5488eb359bfdda2863, type: 3}
+    - target: {fileID: 1663379202, guid: e3232341b33dc864e96b89d18048c8eb, type: 3}
+      propertyPath: obstaclePrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 3887447040899504324, guid: 3073caf009a3c87468baf4365a3939c5, type: 3}
+    - target: {fileID: 1663379202, guid: e3232341b33dc864e96b89d18048c8eb, type: 3}
+      propertyPath: obstaclePrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 3887447040899504324, guid: 79ecc3c53d22cca46940222f7db078da, type: 3}
+    - target: {fileID: 1663379202, guid: e3232341b33dc864e96b89d18048c8eb, type: 3}
+      propertyPath: obstaclePrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 3887447040899504324, guid: c2cce4bfb4b8769419b88efbf12e96ae, type: 3}
+    - target: {fileID: 1663379202, guid: e3232341b33dc864e96b89d18048c8eb, type: 3}
+      propertyPath: obstaclePrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 3887447040899504324, guid: 5927d9674fbd20f4d84314577c867752, type: 3}
+    - target: {fileID: 1663379202, guid: e3232341b33dc864e96b89d18048c8eb, type: 3}
+      propertyPath: obstaclePrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 3887447040899504324, guid: d7c1f8837c72de646a91e664ce97bbe5, type: 3}
     - target: {fileID: 6087657660295451387, guid: e3232341b33dc864e96b89d18048c8eb, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -419,6 +447,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da343dad1cfc3444db8ca523f4828405, type: 3}
+--- !u!1 &1207281464 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6720214365710814174, guid: da343dad1cfc3444db8ca523f4828405, type: 3}
+  m_PrefabInstance: {fileID: 1207281463}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1727545418
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -527,6 +560,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5253205895813803045, guid: 07d05f06089c7b54cb1176344b7d6e07, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1207281464}
     - target: {fileID: 5766016200208206406, guid: 07d05f06089c7b54cb1176344b7d6e07, type: 3}
       propertyPath: m_Name
       value: LevelController
