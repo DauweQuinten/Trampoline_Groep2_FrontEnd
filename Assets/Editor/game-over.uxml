@@ -9,9 +9,8 @@
             <ui:Label text="Game over" display-tooltip-when-elided="true" name="gameOver" class="outline-text"/>
             <ui:VisualElement name="scoreContainer" class="row"
                               style="align-items: center; justify-content: center; margin-top: 0;">
-                <ui:Label text="Tijd" name="scorePrefix"
-                          class="outline-text outline-text-md padding-right-sm outline-text-smaller-md"
-                          style="-unity-text-align: upper-right; -unity-text-outline-width: 7px;"/>
+                <ui:VisualElement
+                        style="background-image: url(&apos;project://database/Assets/Editor/resources/clockWood.png?fileID=2800000&amp;guid=8c55c6476c930484a8dd9c244eb10e02&amp;type=3#clockWood&apos;); width: 138px; height: 96px; -unity-background-scale-mode: scale-to-fit;"/>
                 <ui:Label text="1:59" display-tooltip-when-elided="true" name="score"
                           class="outline-text outline-text-md outline-text-smaller-md"/>
             </ui:VisualElement>
