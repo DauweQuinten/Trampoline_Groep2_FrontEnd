@@ -8,9 +8,9 @@
         <ui:VisualElement name="row" class="row full-width padding-left-xxl margin-bottom-lg"
                           style="align-items: center; justify-content: flex-start;">
             <ui:Image name="blijfHaaiVoorIllustratie" class="img-relative placeholder-image"
-                      style="background-image: url(&apos;project://database/Assets/Editor/resources/wood_borderSquare.png?fileID=2800000&amp;guid=65c7a1b5d557e9948a9e57b0a769460c&amp;type=3#wood_borderSquare&apos;); -unity-background-scale-mode: scale-to-fit; width: 278px;">
+                      style="background-image: url(&apos;project://database/Assets/Editor/resources/wood_borderSquare%201.png?fileID=2800000&amp;guid=00246b6a2ed1c2c438c8ef2990e0fd15&amp;type=3#wood_borderSquare 1&apos;); -unity-background-scale-mode: stretch-to-fill; width: 234px;">
                 <ui:VisualElement
-                        style="height: 157px; background-color: rgb(176, 177, 177); position: absolute; width: 201px; top: 18px; left: 41px;">
+                        style="height: 157px; background-color: rgb(176, 177, 177); position: absolute; width: 201px; top: 22px; left: 16px;">
                     <ui:VisualElement
                             style="height: 138px; background-image: url(&apos;project://database/Assets/Editor/resources/obstakelsWhite.png?fileID=2800000&amp;guid=5be2c1db31a7446409e471c64adf41cc&amp;type=3#obstakelsWhite&apos;); margin-top: 20px; margin-left: 0; margin-right: 5px; margin-bottom: 0; -unity-background-scale-mode: stretch-to-fill; width: 196px;"/>
                 </ui:VisualElement>
@@ -21,11 +21,11 @@
         <ui:VisualElement name="row" class="row full-width padding-left-xxl"
                           style="align-items: center; justify-content: flex-start;">
             <ui:Image name="blijfHaaiVoorIllustratie" class="img-relative placeholder-image"
-                      style="background-image: url(&apos;project://database/Assets/Editor/resources/wood_borderSquare.png?fileID=2800000&amp;guid=65c7a1b5d557e9948a9e57b0a769460c&amp;type=3#wood_borderSquare&apos;); -unity-background-scale-mode: scale-to-fit; width: 278px;">
+                      style="background-image: url(&apos;project://database/Assets/Editor/resources/wood_borderSquare%201.png?fileID=2800000&amp;guid=00246b6a2ed1c2c438c8ef2990e0fd15&amp;type=3#wood_borderSquare 1&apos;); -unity-background-scale-mode: stretch-to-fill; width: 227px;">
                 <ui:VisualElement
-                        style="height: 157px; background-color: rgb(176, 177, 177); position: absolute; width: 201px; top: 18px; left: 41px;">
+                        style="height: 157px; background-color: rgb(176, 177, 177); position: absolute; width: 201px; top: 22px; left: 13px;">
                     <ui:VisualElement
-                            style="height: 138px; background-image: url(&apos;project://database/Assets/Editor/resources/shark.png?fileID=2800000&amp;guid=690396dcfa036874cb0c94ccc02af92a&amp;type=3#shark&apos;); margin-top: 20px; margin-left: 0; margin-right: 5px; margin-bottom: 0; -unity-background-scale-mode: stretch-to-fill; width: 196px;"/>
+                            style="height: 138px; background-image: url(&apos;project://database/Assets/Editor/resources/sharkBold.png?fileID=2800000&amp;guid=666c8d2a573b5744180b380af081013d&amp;type=3#sharkBold&apos;); margin-top: 20px; margin-left: 0; margin-right: 5px; margin-bottom: 10px; -unity-background-scale-mode: scale-to-fit; width: 196px;"/>
                 </ui:VisualElement>
             </ui:Image>
             <ui:Label name="blijfHaaiVoor" text="Blijf de haai voor!"

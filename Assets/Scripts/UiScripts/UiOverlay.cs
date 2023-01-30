@@ -52,7 +52,7 @@ namespace UiScripts
             var height = 760 - distance * 700;
             if (height > 700) height = 700;
             _shark.style.height = height;
-            _shark2d.style.top = (732 - (1 - distance) * 650);
+            _shark2d.style.top = (750 - (1 - distance) * 650);
         }
 
         private void RotateDial(float speed)
