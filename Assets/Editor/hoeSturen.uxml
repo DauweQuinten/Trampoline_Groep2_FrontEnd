@@ -18,7 +18,7 @@
                 <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img"
                                   style="bottom: -20px; right: -54px;"/>
             </ui:VisualElement>
-            <ui:Label text="Oefenen" display-tooltip-when-elided="true" class="outline-text outline-text-md"/>
+            <ui:Label text="Spelers zoeken" display-tooltip-when-elided="true" class="outline-text outline-text-md"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

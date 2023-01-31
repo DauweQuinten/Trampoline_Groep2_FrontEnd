@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CalibrationHandler
       objectReference: {fileID: 0}
+    - target: {fileID: 8372142064922688306, guid: 2a3b5d440c7c3664b9b76b73702551d7, type: 3}
+      propertyPath: countdownSpeed
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3b5d440c7c3664b9b76b73702551d7, type: 3}
 --- !u!1 &1091525236
