@@ -1,11 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Models;
 using Repository;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -182,7 +179,7 @@ namespace UiScripts
                 case BtnValue.Released:
                     _btnBlueTop.RemoveFromClassList("move-down");
                     // if (_buttonLeftIngedrukt) StartCoroutine(GoToStartScene(0.3f));
-                    if (_buttonLeftIngedrukt) FlowHandler.LoadNextSceneInstantly("BoatGame2.0");
+                    if (_buttonLeftIngedrukt) FlowHandler.LoadNextSceneInstantly("CalibrationScene");
                     break;
             }
 
