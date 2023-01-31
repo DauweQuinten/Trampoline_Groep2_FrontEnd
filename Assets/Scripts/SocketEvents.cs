@@ -178,6 +178,17 @@ public class SocketEvents : MonoBehaviour
         ws.Send(json);
     }
 
+    public void ResetKinect()
+    {
+        var socketMessage = new SocketResetMessage()
+        {
+            ResetKinect = true
+        };
+        var json = JsonConvert.SerializeObject(socketMessage);
+        Debug.Log("Reset kinect");
+        ws.Send(json);
+    }
+
 
     private void Update()
     {
@@ -188,8 +199,9 @@ public class SocketEvents : MonoBehaviour
             playerJumped = false;
         }
 
-        if (leftPressed)
+        if (leftPressed)            
         {
+            btnPressedLeft.Invoke(Color.red);
             Debug.Log("Invoke event");
             btnPressedLeft.Invoke(Color.red);
             btnPressedLeft2.Invoke();
@@ -205,6 +217,38 @@ public class SocketEvents : MonoBehaviour
         if (bothPressed)
         {
             btnPressedBoth.Invoke();
+            bothPressed = false;
+        }
+
+        // Keyboard control       
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            btnPressedLeft2.Invoke();
+            leftPressed = true;
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            btnPressedRight.Invoke();
+            rightPressed = true;
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            btnPressedBoth.Invoke();
+            bothPressed = true;
+        }
+        if (Input.GetKeyUp(KeyCode.J))
+        {
+            btnReleasedLeft.Invoke();
+            leftPressed = false;
+        }
+        if (Input.GetKeyUp(KeyCode.L))
+        {
+            btnReleasedRight.Invoke();
+            rightPressed = false;
+        }
+        if (Input.GetKeyUp(KeyCode.K))
+        {
+            btnReleasedBoth.Invoke();
             bothPressed = false;
         }
     }

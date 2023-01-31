@@ -108,8 +108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80793f28d53124a1bb780a6c3235dc23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
   slowDownValue: 0.1
-  maxForce: 5
+  maxForce: 7
   hasCollided: 0
   hittedWall: 0
   isBackwards: 0

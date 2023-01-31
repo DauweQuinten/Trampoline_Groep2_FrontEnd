@@ -1,11 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Models;
 using Repository;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -43,6 +40,10 @@ namespace UiScripts
             ButtonListener.UpdateLed(LedType.Right, LedValue.On);
             _root = _document.rootVisualElement;
             FillBoard();
+            // reset kinect
+            var socketObject = GameObject.Find("SocketController");
+            var socket = socketObject.GetComponent<SocketEvents>();
+            socket.ResetKinect();
         }
 
 
@@ -52,7 +53,7 @@ namespace UiScripts
             _userItem = await ScoreRepository.GetScoreAsync(GameVariablesHolder.Id);
             _listItems.Sort();
 
-            foreach (ScoreboardItem item in _listItems.Take(9).ToList())
+            foreach (ScoreboardItem item in _listItems.Take(8).ToList())
             {
                 var imgByteArrayScoreList = await ScoreRepository.GetAvatar(item.Id);
                 var textureList = new Texture2D(1, 1);
@@ -68,7 +69,7 @@ namespace UiScripts
             // _userItem.Img = await GetRemoteTexture(_userItem.ImgUrl);
             ListView lvwScores = _root.Q<ListView>("lvwScores");
 
-            FillList(lvwScores, _listItems.Take(9).ToList());
+            FillList(lvwScores, _listItems.Take(8).ToList());
 
             var scoreInSeconds = _userItem.Score / 10;
             var seconds = scoreInSeconds % 60;
@@ -96,7 +97,7 @@ namespace UiScripts
         private void FillList(ListView list, List<ScoreboardItem> items)
         {
             list.Q<ScrollView>().verticalScrollerVisibility = ScrollerVisibility.Hidden;
-            list.fixedItemHeight = 62;
+            list.fixedItemHeight = 68;
             list.makeItem = MakeItem;
             list.bindItem = BindItem;
             list.itemsSource = items;
@@ -178,7 +179,7 @@ namespace UiScripts
                 case BtnValue.Released:
                     _btnBlueTop.RemoveFromClassList("move-down");
                     // if (_buttonLeftIngedrukt) StartCoroutine(GoToStartScene(0.3f));
-                    if (_buttonLeftIngedrukt) FlowHandler.LoadNextSceneInstantly("BoatGame2.0");
+                    if (_buttonLeftIngedrukt) FlowHandler.LoadNextSceneInstantly("Startscherm");
                     break;
             }
 
@@ -191,7 +192,7 @@ namespace UiScripts
                 case BtnValue.Released:
                     _btnYellowTop.RemoveFromClassList("move-down");
                     // if (_buttonRightIngedrukt) StartCoroutine(PlayAgain());
-                    if (_buttonRightIngedrukt) FlowHandler.LoadNextSceneInstantly("Startscherm");
+                    if (_buttonRightIngedrukt) FlowHandler.LoadNextSceneInstantly("CalibrationScene");
                     break;
             }
 

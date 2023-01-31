@@ -32,7 +32,7 @@ public class MusicScript : MonoBehaviour
             case "Startscherm":
                 Audio.enabled = false;
                 break;
-            case "GameOver":
+            case "Game-over":
                 checkPrevAudio(MusicClips[1]);
                 break;
             case "BoatGame2.0":

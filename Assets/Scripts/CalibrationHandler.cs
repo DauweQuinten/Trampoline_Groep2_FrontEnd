@@ -209,7 +209,7 @@ public class CalibrationHandler : MonoBehaviour
         Debug.Log($"Player{playerIndex} is calibrating");
 
         // send messages to the user
-        SendTextToUi("start met springen!", playerIndex);
+        SendTextToUi("Start met springen!", playerIndex);
         Debug.Log($"Player{playerIndex} start jumping!");
 
         // Wait for calibrationChanged message -> calibration of player index is finished
@@ -228,7 +228,7 @@ public class CalibrationHandler : MonoBehaviour
         calibrationChanged = false;
 
         // send feedback to the user en wait for a few seconds
-        SendTextToUi("Goed gedaan! Stop met springen", playerIndex);
+        SendTextToUi("Goed gedaan! Even wachten", playerIndex);
         yield return new WaitForSeconds(delayAfterCalibration);
 
         // set playerCalibrated to true
