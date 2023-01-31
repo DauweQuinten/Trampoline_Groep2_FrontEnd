@@ -63,7 +63,7 @@ public class SpawnManager : MonoBehaviour
     {
         // increase spawn rate
         StopCoroutine(spawnRoutine);
-        spawnRate -= 1f;
+        spawnRate -= .5f;
         spawnRoutine = StartCoroutine(SpawnRandonObstacle(spawnRate));
     }
 
