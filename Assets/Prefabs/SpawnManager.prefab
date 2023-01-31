@@ -51,4 +51,4 @@ MonoBehaviour:
   - {fileID: 3887447040899504324, guid: c2cce4bfb4b8769419b88efbf12e96ae, type: 3}
   - {fileID: 3887447040899504324, guid: 5927d9674fbd20f4d84314577c867752, type: 3}
   - {fileID: 3887447040899504324, guid: d7c1f8837c72de646a91e664ce97bbe5, type: 3}
-  spawnRate: 4
+  spawnRate: 2
