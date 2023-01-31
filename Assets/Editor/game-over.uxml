@@ -24,7 +24,7 @@
                 <ui:VisualElement name="buttonBottom" class="button-bottom button-base button-base-yellow img"
                                   style="bottom: -20px; right: -54px;"/>
             </ui:VisualElement>
-            <ui:Label text="Naam Kiezen" display-tooltip-when-elided="true" name="GaverderLabel"
+            <ui:Label text="Naam kiezen" display-tooltip-when-elided="true" name="GaverderLabel"
                       class="outline-text outline-text-md outline-text-smaller-md"
                       style="-unity-text-outline-width: 7px;"/>
         </ui:VisualElement>
