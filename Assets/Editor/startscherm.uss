@@ -135,7 +135,7 @@
 }
 
 .c-user-list {
-    background-color: rgb(250, 120, 26);
+    background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
 }
 
