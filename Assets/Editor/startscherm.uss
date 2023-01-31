@@ -22,7 +22,6 @@
     -unity-text-align: middle-left;
 }
 
-
 .u-text-md {
     font-size: 70px;
     -unity-text-outline-width: 5px;
@@ -84,7 +83,7 @@
 }
 
 .button-base {
-    background-image: url('project://database/Assets/Editor/resources/Button/Bluebottom36000.png?fileID=2800000&guid=2de0889becbace94a937f3af86c831ca&type=3#Bluebottom36000');
+    background-image: url('project://database/Assets/Editor/resources/Button/buttonBottomBorderFinal(1).png?fileID=2800000&guid=85eac0fb1a47ece4ab64a8fdbfe039ec&type=3#buttonBottomBorderFinal(1)');
 }
 
 .button-top {
@@ -135,7 +134,7 @@
 }
 
 .c-user-list {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
     border-radius: 10px;
 }
 
