@@ -43,6 +43,10 @@ namespace UiScripts
             ButtonListener.UpdateLed(LedType.Right, LedValue.On);
             _root = _document.rootVisualElement;
             FillBoard();
+            // reset kinect
+            var socketObject = GameObject.Find("SocketController");
+            var socket = socketObject.GetComponent<SocketEvents>();
+            socket.ResetKinect();
         }
 
 

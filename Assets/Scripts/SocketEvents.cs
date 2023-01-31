@@ -178,6 +178,17 @@ public class SocketEvents : MonoBehaviour
         ws.Send(json);
     }
 
+    public void ResetKinect()
+    {
+        var socketMessage = new SocketResetMessage()
+        {
+            ResetKinect = true
+        };
+        var json = JsonConvert.SerializeObject(socketMessage);
+        Debug.Log("Reset kinect");
+        ws.Send(json);
+    }
+
 
     private void Update()
     {
