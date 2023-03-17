@@ -1,5 +1,6 @@
 using Models;
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using UiScripts;
 using Unity.Collections.LowLevel.Unsafe;
@@ -201,8 +202,20 @@ public class CalibrationHandler : MonoBehaviour
         }
         else
         {
-            onCalibrationStarted.Invoke();
+            RestartCalibration();
         }
+    }
+
+    IEnumerator RestartCalibration()
+    {
+        // Show some UI
+        SendTextToUi("Kalibratie mislukt. Probeer opnieuw binnen 5 seconden.", 0);
+        SendTextToUi("Kalibratie mislukt. Probeer opnieuw binnen 5 seconden.", 1);
+        Debug.Log("Calibration failed. Trying again in 5 seconds...");
+        // Wait for certain seconds
+        yield return new WaitForSeconds(5);
+
+        onCalibrationStarted.Invoke();
     }
 
     #endregion
