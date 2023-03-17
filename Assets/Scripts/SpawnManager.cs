@@ -51,7 +51,7 @@ public class SpawnManager : MonoBehaviour
             if (!playerControlsScript.isBackwards)
             {
                 int obstacleIndex = Random.Range(0, obstaclePrefabs.Length);
-                spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), 0, -50);
+                spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), 0, -100);
                 Instantiate(obstaclePrefabs[obstacleIndex], spawnPos, obstaclePrefabs[obstacleIndex].transform.rotation);
                 
             }
