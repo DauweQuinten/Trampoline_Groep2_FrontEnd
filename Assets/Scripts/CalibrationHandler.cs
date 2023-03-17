@@ -192,8 +192,17 @@ public class CalibrationHandler : MonoBehaviour
     {
         isCalibrationFinished = true;
         Debug.Log("Calibration finished");
+
         SendCalibrationMessage(CalibrationStatus.FINISHED, 0);
-        StartCoroutine(LoadGameScene());
+
+        if (GameVariablesHolder.playerMapping[0] != GameVariablesHolder.playerMapping[1])
+        {
+            StartCoroutine(LoadGameScene());
+        }
+        else
+        {
+            onCalibrationStarted.Invoke();
+        }
     }
 
     #endregion
