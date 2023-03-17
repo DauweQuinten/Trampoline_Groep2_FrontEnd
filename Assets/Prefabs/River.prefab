@@ -15634,8 +15634,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9096896617446294370}
-  - component: {fileID: 9096896617446294373}
-  - component: {fileID: 9096896617446294371}
   - component: {fileID: 9096896617446294368}
   m_Layer: 0
   m_Name: River
@@ -15683,30 +15681,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9096896617446294373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9096896617446294372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6fd820175aacf44b8eba7e791589efa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9096896617446294371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9096896617446294372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f580f15a1ccbe3d4abd78fbe95ce4c91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &9096896617446294368
 BoxCollider:
   m_ObjectHideFlags: 0

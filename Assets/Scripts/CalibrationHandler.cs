@@ -202,7 +202,8 @@ public class CalibrationHandler : MonoBehaviour
         }
         else
         {
-            RestartCalibration();
+            isCalibrationFinished = false;
+            StartCoroutine(RestartCalibration());
         }
     }
 
@@ -214,8 +215,8 @@ public class CalibrationHandler : MonoBehaviour
         Debug.Log("Calibration failed. Trying again in 5 seconds...");
         // Wait for certain seconds
         yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("CalibrationScene");
 
-        onCalibrationStarted.Invoke();
     }
 
     #endregion
