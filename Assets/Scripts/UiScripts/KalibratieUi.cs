@@ -7,23 +7,35 @@ namespace UiScripts
     {
         // Start is called before the first frame update
         private UIDocument _document;
-        private Label _leftPlayerLabel;
-        private Label _rightPlayerLabel;
-        public string leftPlayerText;
-        public string rightPlayerText;
+        private Label _messageLabel;
+        private Label _searchingLabel;
+        private VisualElement _okIcon;
+        private VisualElement _errorIcon;
+        public DisplayStyle okIconDisplayStyle = DisplayStyle.None;
+        public DisplayStyle errorIconDisplayStyle = DisplayStyle.None;
+        public string messageText;
+        public string searchingText = "Zoeken naar spelers...";
 
-        void Start()
+        private void Start()
         {
             _document = GetComponent<UIDocument>();
-            _leftPlayerLabel = _document.rootVisualElement.Q<Label>("leftPlayerLabel");
-            _rightPlayerLabel = _document.rootVisualElement.Q<Label>("rightPlayerLabel");
+            _messageLabel = _document.rootVisualElement.Q<Label>("messageLabel");
+            _okIcon = _document.rootVisualElement.Q<VisualElement>("okayIcon");
+            _errorIcon = _document.rootVisualElement.Q<VisualElement>("errorIcon");
+            _searchingLabel = _document.rootVisualElement.Q<Label>("searchingLabel");
+            _okIcon.style.display = DisplayStyle.None;
+            _errorIcon.style.display = DisplayStyle.None;
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-            _leftPlayerLabel.text = leftPlayerText;
-            _rightPlayerLabel.text = rightPlayerText;
+            if (_messageLabel.text == messageText && _okIcon.style.display == okIconDisplayStyle &&
+                _errorIcon.style.display == errorIconDisplayStyle && _searchingLabel.text == searchingText) return;
+            _messageLabel.text = messageText;
+            _okIcon.style.display = okIconDisplayStyle;
+            _errorIcon.style.display = errorIconDisplayStyle;
+            _searchingLabel.text = searchingText;
         }
     }
 }

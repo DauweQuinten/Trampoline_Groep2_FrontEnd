@@ -16,15 +16,11 @@ public enum CalibrationStatus
 
 public class CalibrationMessage
 {
-    public CalibrationMessage(CalibrationStatus status, int player)
+    public CalibrationMessage(CalibrationStatus status)
     {
-        this.Status = status.ToString();
-        this.Player = player;
+        Status = status.ToString();
     }
 
-    [JsonProperty("status")]
-    public string Status { get; set; }
+    [JsonProperty("status")] public string Status { get; set; }
 
-    [JsonProperty("player")]
-    public int Player { get; set; }
 }

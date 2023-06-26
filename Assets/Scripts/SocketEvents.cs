@@ -97,10 +97,11 @@ public class SocketEvents : MonoBehaviour
         // On message received
         ws.OnMessage += (sender, e) =>
         {
-            Debug.Log("Message received: " + e.Data);
+            // Debug.Log("Message received: " + e.Data);
 
             // parse message to json
             var message = JsonConvert.DeserializeObject<SocketOnMessage>(e.Data);
+            Debug.Log(message.Jump);
 
             // Check message type
             if (message.Jump != null)

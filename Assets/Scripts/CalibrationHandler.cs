@@ -16,8 +16,7 @@ public class CalibrationHandler : MonoBehaviour
 
     [Header("Events")] [Space(10)] public UnityEvent onCalibrationStarted;
     public UnityEvent onCalibrationFinished;
-    public UnityEvent onCalibratingP1;
-    public UnityEvent onCalibratingP2;
+    private UnityEvent calibrationMessageListener;
     private KalibratieUi _ui;
 
     #endregion
@@ -31,6 +30,7 @@ public class CalibrationHandler : MonoBehaviour
     bool isCalibrationFinished = false;
     bool isCalibrating = false;
     bool isListeningToSocket = false;
+    private bool _shouldLoadScene = false;
 
     // Timing
     [Header("Timing variables")]
@@ -66,31 +66,16 @@ public class CalibrationHandler : MonoBehaviour
 
         onCalibrationStarted ??= new UnityEvent();
         onCalibrationFinished ??= new UnityEvent();
-        onCalibratingP1 ??= new UnityEvent();
-        onCalibratingP2 ??= new UnityEvent();
+        calibrationMessageListener ??= new UnityEvent();
 
         #endregion
 
         #region event listeners
 
-        onCalibrationStarted.AddListener(() => { StartCalibration(); });
+        onCalibrationStarted.AddListener(StartCalibration);
+        calibrationMessageListener.AddListener(ListenToCalibrationMessage);
 
-        onCalibratingP1.AddListener(() =>
-        {
-            // show text for user instructions
-            SendTextToUi("Even wachten, speler 1 is aan de beurt", 1);
-
-            // Start calibration of player 0 (async)
-            StartCoroutine(CalibratePlayer(0));
-        });
-
-        onCalibratingP2.AddListener(() =>
-        {
-            // Start calibration of player 1 (async)
-            StartCoroutine(CalibratePlayer(1));
-        });
-
-        onCalibrationFinished.AddListener(() => { CompleteCalibration(); });
+        onCalibrationFinished.AddListener(CompleteCalibration);
 
         #endregion
 
@@ -103,29 +88,51 @@ public class CalibrationHandler : MonoBehaviour
         {
             ws.Connect();
         }
+        SendCalibrationMessage(CalibrationStatus.STARTED);
+
 
         // Subscribe to events
         ws.OnMessage += (sender, e) =>
         {
             // Deserialize message
             var message = JsonConvert.DeserializeObject<SocketOnMessage>(e.Data);
-
-            if (message.CalibrationChanged != null && isListeningToSocket)
+            // Debug.Log(message);
+            if (!isListeningToSocket) return;
+            calibrationChanged = true;
+            if (message.Type != "kinect" || message.MessageData.Type != "calibration") return;
+            if (message.MessageData.MessageData == null) return;
+            if (message.MessageData.MessageData.Value == -1 && message.MessageData.MessageData.Type == "distance")
             {
-                calibrationChanged = true;
-
-                if (!playerCalibratedArray[0])
-                {
-                    Debug.Log("Left player index changed to " + message.CalibrationChanged.KinectIndex);
-                    GameVariablesHolder.playerMapping[0] = message.CalibrationChanged.KinectIndex;
-                    Debug.Log($"mapping is now: {GameVariablesHolder.playerMapping[0]}");
-                }
-                else if (!playerCalibratedArray[1])
-                {
-                    Debug.Log("Right player index changed to " + message.CalibrationChanged.KinectIndex);
-                    GameVariablesHolder.playerMapping[1] = message.CalibrationChanged.KinectIndex;
-                    Debug.Log($"mapping is now: {GameVariablesHolder.playerMapping[1]}");
-                }
+                _ui.messageText = "Geen spelers gevonden";
+                _ui.errorIconDisplayStyle = DisplayStyle.Flex;
+                _ui.okIconDisplayStyle = DisplayStyle.None;
+                // to close together
+            }
+            else if (message.MessageData.MessageData.MiddleIndex >= 0)
+            {
+                _ui.messageText = "1 Speler gevonden, even wachten op de tweede speler";
+                _ui.errorIconDisplayStyle = DisplayStyle.Flex;
+                _ui.okIconDisplayStyle = DisplayStyle.None;
+                // only one player
+            }
+            else if (message.MessageData.MessageData.LeftIndex >= 0 && message.MessageData.MessageData.RightIndex >= 0)
+            {
+                Debug.Log("Both players found");
+                GameVariablesHolder.playerMapping[0] = message.MessageData.MessageData.LeftIndex;
+                GameVariablesHolder.playerMapping[1] = message.MessageData.MessageData.RightIndex;
+                _ui.okIconDisplayStyle = DisplayStyle.Flex;
+                _ui.errorIconDisplayStyle = DisplayStyle.None;
+                _ui.messageText = "2 Spelers gevonden";
+                _ui.searchingText = "Het spel gaat zo beginnen";
+                _shouldLoadScene = true;
+                // two players
+            } 
+            else if (message.MessageData.MessageData.Type == "players")
+            {
+                // to many players
+                _ui.messageText = "Te veel spelers gevonden, gelieve niet achter de trampoline te staan";
+                _ui.errorIconDisplayStyle = DisplayStyle.Flex;
+                _ui.okIconDisplayStyle = DisplayStyle.None;
             }
         };
 
@@ -135,163 +142,71 @@ public class CalibrationHandler : MonoBehaviour
         onCalibrationStarted.Invoke();
     }
 
-    // Update is called each frame
+    private void ListenToCalibrationMessage()
+    {
+        isListeningToSocket = true;
+        
+    }
+    
+    // main loop
     private void Update()
     {
-        // On start calibration (execute only once because of isCalibrationStarted)
-
-        if ((playerCalibratedArray[0] && !playerCalibratedArray[1]) && !isCalibrating)
-        {
-            changeCalibrationPlayer(1);
-            onCalibratingP2.Invoke();
-        }
-
-        if (playerCalibratedArray[0] && playerCalibratedArray[1] && !isCalibrationFinished)
-        {
-            onCalibrationFinished.Invoke();
-        }
+        if (!_shouldLoadScene) return;
+        Debug.Log("loading scene, index 0: " + GameVariablesHolder.playerMapping[0] + " index 1: " + GameVariablesHolder.playerMapping[1]);
+        CompleteCalibration();
+        _shouldLoadScene = false;
     }
-
 
     #region calibration handling
 
-    void SendCalibrationMessage(CalibrationStatus status, int player)
+    void SendCalibrationMessage(CalibrationStatus status)
     {
         // Send message: calibration started
-        CalibrationMessage calibrationMessage = new CalibrationMessage(status, player);
+        var calibrationMessage = new CalibrationMessage(status);
 
         // parse json to string with Newtonsoft.Json
-        string calibrationString = JsonConvert.SerializeObject(calibrationMessage);
-        Debug.Log(calibrationString);
-
+        var calibrationString = JsonConvert.SerializeObject(calibrationMessage);
         // send message
         ws.Send(calibrationString);
     }
 
-    void StartCalibration()
+    private void StartCalibration()
     {
         {
             Debug.Log("Calibration started");
 
-            SendCalibrationMessage(CalibrationStatus.STARTED, 0);
-            onCalibratingP1.Invoke();
+            SendCalibrationMessage(CalibrationStatus.STARTED);
+            calibrationMessageListener.Invoke();
         }
     }
+    
+    
 
-    void changeCalibrationPlayer(int playerIndex)
-    {
-        Debug.Log($"Well done, left player is ready to go!");
-        SendTextToUi("Je bent klaar om te gaan!", 0);
-        Debug.Log($"Right player, are you ready?");
-        SendTextToUi("Ben je klaar?", 1);
-        Debug.Log($"Switch to player{playerIndex}");
-        SendTextToUi("Start met springen!", 1);
-        SendCalibrationMessage(CalibrationStatus.SWITCH_PLAYER, playerIndex);
-    }
 
-    void CompleteCalibration()
+    private void CompleteCalibration()
     {
         isCalibrationFinished = true;
         Debug.Log("Calibration finished");
 
-        SendCalibrationMessage(CalibrationStatus.FINISHED, 0);
-
-        if (GameVariablesHolder.playerMapping[0] != GameVariablesHolder.playerMapping[1])
-        {
-            StartCoroutine(LoadGameScene());
-        }
-        else
-        {
-            isCalibrationFinished = false;
-            StartCoroutine(RestartCalibration());
-        }
-    }
-
-    IEnumerator RestartCalibration()
-    {
-        // Show some UI
-        SendTextToUi("Kalibratie mislukt. Probeer opnieuw binnen 5 seconden.", 0);
-        SendTextToUi("Kalibratie mislukt. Probeer opnieuw binnen 5 seconden.", 1);
-        Debug.Log("Calibration failed. Trying again in 5 seconds...");
-        // Wait for certain seconds
-        yield return new WaitForSeconds(5);
-        SceneManager.LoadScene("CalibrationScene");
+        SendCalibrationMessage(CalibrationStatus.FINISHED);
+        // wait for 3 seconds
+        StartCoroutine(LoadGameScene());
 
     }
+
 
     #endregion
 
-    #region calibration function
 
-    IEnumerator CalibratePlayer(int playerIndex)
-    {
-        // Set calibration to true -> start listening to calibrationChanged messages
-        isCalibrating = true;
-        isListeningToSocket = true;
 
-        Debug.Log($"Player{playerIndex} is calibrating");
-
-        // send messages to the user
-        SendTextToUi("Start met springen!", playerIndex);
-        Debug.Log($"Player{playerIndex} start jumping!");
-
-        // Wait for calibrationChanged message -> calibration of player index is finished
-        yield return new WaitUntil(() => calibrationChanged);
-
-        // Keep jumping for a few seconds -> calibration of min & max jump 
-        Debug.Log($"Almost there, Keep jumping!");
-        SendTextToUi("Je bent er bijna!", playerIndex);
-        yield return new WaitForSeconds(calibrationDelay);
-
-        // calibration is finished
-        Debug.Log($"Well done!");
-
-        // reset the calibration states -> stop listening to calibrationChanged messages
-        isListeningToSocket = false;
-        calibrationChanged = false;
-
-        // send feedback to the user en wait for a few seconds
-        SendTextToUi("Goed gedaan! Even wachten", playerIndex);
-        yield return new WaitForSeconds(delayAfterCalibration);
-
-        // set playerCalibrated to true
-        playerCalibratedArray[playerIndex] = true;
-        isCalibrating = false;
-    }
-
-    #endregion
-
-    #region UI handler
-
-    private void SendTextToUi(string text, int playerIndex)
-    {
-        if (playerIndex == 0)
-        {
-            _ui.leftPlayerText = text;
-        }
-        else
-        {
-            _ui.rightPlayerText = text;
-        }
-    }
-
-    #endregion
 
     #region Load game scene
 
-    IEnumerator LoadGameScene()
+    private static IEnumerator LoadGameScene()
     {
         Debug.Log("Well done! The game starts in 3 seconds");
 
-        int time = 3;
-
-        while (time >= 0)
-        {
-            SendTextToUi(time.ToString(), 0);
-            SendTextToUi(time.ToString(), 1);
-            yield return new WaitForSeconds(countdownSpeed);
-            time--;
-        }
+        yield return new WaitForSeconds(3);
 
         SceneManager.LoadScene("BoatGame2.0");
     }
