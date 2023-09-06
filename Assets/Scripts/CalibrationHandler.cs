@@ -151,6 +151,13 @@ public class CalibrationHandler : MonoBehaviour
     // main loop
     private void Update()
     {
+        // check if End key is pressed
+        if (Input.GetKeyDown(KeyCode.End))
+        {
+            CompleteCalibration();
+        }
+    
+    
         if (!_shouldLoadScene) return;
         Debug.Log("loading scene, index 0: " + GameVariablesHolder.playerMapping[0] + " index 1: " + GameVariablesHolder.playerMapping[1]);
         CompleteCalibration();

@@ -94,8 +94,11 @@ public class LevelController : MonoBehaviour
             onIncreaseDifficulty.Invoke();
             level3 = true;
         }
-        
 
+            // if end key is pressed, end the game
+        if (Input.GetKeyDown(KeyCode.End))
+            gameOver = true;
+        
         // handle game over
         if (gameOver == true)
         {

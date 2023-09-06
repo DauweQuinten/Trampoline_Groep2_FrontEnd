@@ -35,7 +35,7 @@ public class SharkController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         // Follow the player if the player is moving 
         if (playerOjbect)
         {

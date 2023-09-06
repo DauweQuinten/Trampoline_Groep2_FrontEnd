@@ -30,7 +30,7 @@ namespace Repository
                 try
                 {
                     string json = await client.GetStringAsync(url);
-
+                    Debug.Log("/scoreboard - " + json);
                     if (json == null) return null;
 
                     List<ScoreboardItem> Scorelists = JsonConvert.DeserializeObject<List<ScoreboardItem>>(json);
@@ -54,8 +54,8 @@ namespace Repository
 
                     if (json == null) return null;
 
-                    var scorelists = JsonConvert.DeserializeObject<List<ScoreboardItem>>(json);
-                    return scorelists[0];
+                    var scorelists = JsonConvert.DeserializeObject<ScoreboardItem>(json);
+                    return scorelists;
                 }
                 catch (Exception ex)
                 {
