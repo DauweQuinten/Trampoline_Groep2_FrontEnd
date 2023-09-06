@@ -97,12 +97,24 @@ public class CalibrationHandler : MonoBehaviour
             // Deserialize message
             var message = JsonConvert.DeserializeObject<SocketOnMessage>(e.Data);
             // Debug.Log(message);
+            
             if (!isListeningToSocket) return;
             calibrationChanged = true;
             if (message.Type != "kinect" || message.MessageData.Type != "calibration") return;
             if (message.MessageData.MessageData == null) return;
-            if (message.MessageData.MessageData.Value == -1 && message.MessageData.MessageData.Type == "distance")
+            
+            if (message.MessageData.MessageData.Type == "players" && message.MessageData.MessageData.Value == 0)
             {
+                Debug.Log("No players found");
+                _ui.messageText = "Geen spelers gevonden";
+                _ui.errorIconDisplayStyle = DisplayStyle.Flex;
+                _ui.okIconDisplayStyle = DisplayStyle.None;
+            }
+            
+            else if (message.MessageData.MessageData.Value == -1 && message.MessageData.MessageData.Type == "distance")
+            {
+                
+                Debug.Log("to close together");
                 _ui.messageText = "Geen spelers gevonden";
                 _ui.errorIconDisplayStyle = DisplayStyle.Flex;
                 _ui.okIconDisplayStyle = DisplayStyle.None;

@@ -101,7 +101,6 @@ public class SocketEvents : MonoBehaviour
 
             // parse message to json
             var message = JsonConvert.DeserializeObject<SocketOnMessage>(e.Data);
-            Debug.Log(message.Jump);
 
             // Check message type
             if (message.Jump != null)
